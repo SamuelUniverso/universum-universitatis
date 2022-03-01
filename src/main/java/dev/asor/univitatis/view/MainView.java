@@ -1,13 +1,13 @@
 package dev.asor.univitatis.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dev.asor.univitatis.view.tables.TabelaPessoas;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -17,10 +17,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JTabbedPane;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  * @author dev.asor
@@ -32,15 +32,25 @@ public class MainView extends JFrame
 	private JPanel painelPrincipal;
 	private JTextField inputNome;
 	private JTextField inputTelefone;
+	private JTable tabelaPessoas;
 
 	public MainView() 
+	{
+		configurarView();
+		adicionarConteudo();
+	}
+	
+	private void configurarView()
 	{
 		setBounds(100, 100, 663, 555);
 		painelPrincipal = new JPanel();
 		painelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(painelPrincipal);
-		painelPrincipal.setLayout(null);
-		
+		painelPrincipal.setLayout(null);	
+	}
+	
+	private void adicionarConteudo()
+	{
 		JPanel painelTitulo = new JPanel();
 		painelTitulo.setBounds(10, 11, 627, 57);
 		painelPrincipal.add(painelTitulo);
@@ -75,6 +85,21 @@ public class MainView extends JFrame
 		JPanel painelLista = new JPanel();
 		painelLista.setLayout(null);
 		painelTabulado.addTab("Listagem", null, painelLista, null);
+		
+		JScrollPane painelRolagem = new JScrollPane();
+		painelRolagem.setBounds(0, 0, 622, 353);
+		painelLista.add(painelRolagem);
+		
+		tabelaPessoas = new TabelaPessoas();
+		painelRolagem.setViewportView(tabelaPessoas);
+		
+		JButton buttonExcluir = new JButton("Excluir");
+		buttonExcluir.setBounds(533, 364, 89, 23);
+		painelLista.add(buttonExcluir);
+		
+		JButton buttonEditar = new JButton("Editar");
+		buttonEditar.setBounds(434, 364, 89, 23);
+		painelLista.add(buttonEditar);
 		
 		JPanel painelCadastro = new JPanel();
 		painelCadastro.setLayout(null);
