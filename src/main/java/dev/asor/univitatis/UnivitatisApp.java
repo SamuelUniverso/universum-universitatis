@@ -2,7 +2,6 @@ package dev.asor.univitatis;
 
 import java.awt.Image;
 import java.io.File;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -14,9 +13,14 @@ import dev.asor.univitatis.view.MainView;
  * @author dev.asor
  * @since 23.feb.2022
  */
-public class App 
+public class UnivitatisApp 
 {
 	public static void main(String[] args) 
+	{
+		criarJanela();
+	}
+	
+	public static void criarJanela()
 	{
 		SwingUtilities.invokeLater(new Runnable() 
 		{
@@ -25,7 +29,9 @@ public class App
 				try 
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			        Image icone = ImageIO.read(new File(App.class.getResource("/images/favicon/favicon_128x128.png").getFile()));
+					
+					File arquivo = new File(UnivitatisApp.class.getResource("/images/favicon/favicon_128x128.png").getFile());
+			        Image icone = ImageIO.read(arquivo);
 			            
 					MainView frame = new MainView();
 		            frame.setIconImage(icone);
