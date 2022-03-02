@@ -20,6 +20,11 @@ public class UnivitatisApp
 		criarJanela();
 	}
 	
+	/**
+	 * Monta janela principal e exibe na tela
+	 * @method criarJanela
+	 * @return void
+	 */
 	public static void criarJanela()
 	{
 		SwingUtilities.invokeLater(new Runnable() 

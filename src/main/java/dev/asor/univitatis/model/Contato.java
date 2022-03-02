@@ -7,6 +7,15 @@ package dev.asor.univitatis.model;
 public class Contato extends Pessoa
 {
     private String telefone;
+    
+    public Contato(){}
+    
+    public Contato(String nome, String cpf, String telefone)
+    {
+    	setNomeCompleto(nome);
+    	setCpf(cpf);
+    	setTelefone(telefone);
+    }
 
     public String getTelefone()
     {
@@ -18,4 +27,3 @@ public class Contato extends Pessoa
         this.telefone = telefone;
     }
 }
-
