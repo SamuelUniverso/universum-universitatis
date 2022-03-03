@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -16,12 +18,21 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.StringConcatException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import dev.asor.univitatis.dao.ContatoDao;
+import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.view.tables.TabelaPessoas;
 import java.awt.event.ActionListener;
@@ -100,9 +111,9 @@ public class MainView extends JFrame
 		labelLogo.setHorizontalAlignment(SwingConstants.RIGHT);
 		try
 		{
-	        BufferedImage img = null;
-	        img = ImageIO.read(new File(getClass().getResource(LOGO_PATH).getFile()));
-	        Image dimg = img.getScaledInstance(72, 72, Image.SCALE_SMOOTH);
+	        BufferedImage image = null;
+	        image = ImageIO.read(new File(getClass().getResource(LOGO_PATH).getFile()));
+	        Image dimg = image.getScaledInstance(72, 72, Image.SCALE_SMOOTH);
 	        labelLogo.setIcon(new ImageIcon(dimg));
 	        labelLogo.setBounds(559, 11, 72, 72);
 	        labelLogo.setText(null);
@@ -212,9 +223,40 @@ public class MainView extends JFrame
 				contato.setTelefone(inputTelefone.getText());
 				
 				tabelaPessoas.adicionarContato(contato);
+				
+				/* gravar em CSV */
+				gravarEmCSV(tabelaPessoas.getModel());
 			}
 		});
 		buttonSalvar.setBounds(523, 364, 89, 23);
 		painelCadastro.add(buttonSalvar);
 	}
+	
+	/**
+	 * Grava os dados vindos da JTable num CSV
+	 * @method gravarEmCSV
+	 * @param modelo : TableModel
+	 */
+	private void gravarEmCSV(TableModel modelo)
+	{
+		Map<Integer, List<String>> mapaTabela = new HashMap<>();
+		for(int i = 0; i < modelo.getRowCount(); i++)
+		{
+			ArrayList<String> linha = new ArrayList<String>();
+			linha.add(modelo.getValueAt(i, 0).toString());
+			linha.add(modelo.getValueAt(i, 1).toString());
+			linha.add(modelo.getValueAt(i, 2).toString());
+			linha.add(modelo.getValueAt(i, 3).toString());
+			
+			mapaTabela.put(i, linha);
+		}
+		
+		List<String> conteudoCSV = CSVFileParser.generateCSVListFromMap(mapaTabela);
+		CSVFileParser.writeCSVStringToFile(conteudoCSV);
+		
+		JOptionPane.showMessageDialog(null, "Arquivo gravado com sucesso!");
+		 
+		limparInputs();
+	}
+
 }

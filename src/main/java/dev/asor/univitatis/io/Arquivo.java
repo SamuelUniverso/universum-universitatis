@@ -1,4 +1,4 @@
-package dev.asor.univitatis.utils;
+package dev.asor.univitatis.io;
 
 /**
  * Classe importada de outro projeto! 

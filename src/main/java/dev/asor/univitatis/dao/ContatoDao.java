@@ -31,4 +31,5 @@ public class ContatoDao
 	private void setContatos(List<Contato> contatos) {
 		this.contatos = contatos;
 	}
+
 }
