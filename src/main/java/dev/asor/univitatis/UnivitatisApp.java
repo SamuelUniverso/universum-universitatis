@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.view.MainView;
 
 /**

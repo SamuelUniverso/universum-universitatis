@@ -20,7 +20,7 @@ public class CSVFileParser
 	 * @param dados : Map<Integer, ArrayList<String>>
 	 * @throws ParseException 
 	 */
-	public static List<String> generateCSVListFromMap(Map< Integer, List<String> > map) 
+	public static List<String> generateCSVListFromMap(Map<Integer, List<String>> map) 
 	{
 		List<String> csvOutput = new ArrayList<>();
 		try
@@ -39,7 +39,7 @@ public class CSVFileParser
 		
 		return csvOutput;
 	}
-	
+		
 	/**
 	 * Grava o conteudo de uma String em arquivo CSV
 	 * @method writeCSVToFile
@@ -63,5 +63,31 @@ public class CSVFileParser
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro ao gravar arquivo de dados CSV");
 		}
+	}
+	
+	public static List<String> loadCSVStringFromFile()
+	{
+		List<String> csvList = new ArrayList<String>();
+
+		try
+		{
+			Arquivo arquivo = new Arquivo("contatos.csv");
+			arquivo.abrirLeitura();
+
+			String linha = arquivo.lerLinha();
+			while(linha != null)
+			{
+				csvList.add(linha);
+				linha = arquivo.lerLinha();
+			}
+			arquivo.fecharArquivo();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao carregar dados do arquivo CSV");
+		}
+		
+		return csvList;
 	}
 }

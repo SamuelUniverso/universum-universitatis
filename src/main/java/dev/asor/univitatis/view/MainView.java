@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,20 +17,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.StringConcatException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
-import dev.asor.univitatis.dao.ContatoDao;
 import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.view.tables.TabelaPessoas;
@@ -97,6 +92,9 @@ public class MainView extends JFrame
 	 */
 	private void adicionarConteudo()
 	{
+		/* Conteudo carregado na tabela pelo construtor de na TabelaPessoas */
+		tabelaPessoas = new TabelaPessoas(carregarDadosCSV());
+		
 		JPanel painelTitulo = new JPanel();
 		painelTitulo.setBounds(10, 11, 627, 57);
 		painelPrincipal.add(painelTitulo);
@@ -136,7 +134,6 @@ public class MainView extends JFrame
 		painelRolagem.setBounds(0, 0, 622, 353);
 		painelLista.add(painelRolagem);
 		
-		tabelaPessoas = new TabelaPessoas();
 		painelRolagem.setViewportView(tabelaPessoas);
 		
 		JButton buttonExcluir = new JButton("Excluir");
@@ -225,7 +222,7 @@ public class MainView extends JFrame
 				tabelaPessoas.adicionarContato(contato);
 				
 				/* gravar em CSV */
-				gravarEmCSV(tabelaPessoas.getModel());
+				gravarCSV(tabelaPessoas.getModel());
 			}
 		});
 		buttonSalvar.setBounds(523, 364, 89, 23);
@@ -237,7 +234,7 @@ public class MainView extends JFrame
 	 * @method gravarEmCSV
 	 * @param modelo : TableModel
 	 */
-	private void gravarEmCSV(TableModel modelo)
+	private void gravarCSV(TableModel modelo)
 	{
 		Map<Integer, List<String>> mapaTabela = new HashMap<>();
 		for(int i = 0; i < modelo.getRowCount(); i++)
@@ -258,5 +255,24 @@ public class MainView extends JFrame
 		 
 		limparInputs();
 	}
+	
+	private List<Contato> carregarDadosCSV()
+	{
+		List<String> contatosArquivo = CSVFileParser.loadCSVStringFromFile();
 
+		List<Contato> contatosTabela = new ArrayList<>();
+		contatosArquivo.forEach(contato -> { 
+			
+			Contato novoContato = new Contato();
+			String[] novo = contato.split(",");
+			
+			novoContato.setNomeCompleto(novo[1].trim());
+			novoContato.setCpf(novo[2].trim());
+			novoContato.setTelefone(novo[3].trim());
+			
+			contatosTabela.add(novoContato);
+		});
+		
+		return contatosTabela;
+	}
 }

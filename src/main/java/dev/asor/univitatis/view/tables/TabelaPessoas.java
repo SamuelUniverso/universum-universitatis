@@ -1,6 +1,7 @@
 package dev.asor.univitatis.view.tables;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,10 +18,16 @@ public class TabelaPessoas extends JTable
 	
 	private DefaultTableModel modelo;
 	
+	public TabelaPessoas(List<Contato> contatos)
+	{
+		carregarConteudoNaTabela(contatos);
+	}
+	
 	public TabelaPessoas()
 	{
 		gerarTabela();
 		gerarDadosManequim();
+//		carregarDadosDeAquivo();
 	}
 	
 	/**
@@ -76,6 +83,24 @@ public class TabelaPessoas extends JTable
 		{
 			adicionarContato(contato);
 		}
+		
+		setModel(modelo);
+		getColumnModel().getColumn(0).setPreferredWidth(7);
+	}
+	
+	private void carregarConteudoNaTabela(List<Contato> contatos)
+	{
+		contatos.forEach(contato -> {
+			
+//			Contato novoContato = new Contato();
+//			String[] novo = contato.split(",");
+//			
+//			novoContato.setNomeCompleto(novo[1].trim());
+//			novoContato.setCpf(novo[2].trim());
+//			novoContato.setTelefone(novo[3].trim());
+			
+			adicionarContato(contato);
+		});
 		
 		setModel(modelo);
 		getColumnModel().getColumn(0).setPreferredWidth(7);
