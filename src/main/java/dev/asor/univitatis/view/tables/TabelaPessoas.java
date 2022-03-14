@@ -8,6 +8,11 @@ import javax.swing.table.DefaultTableModel;
 
 import dev.asor.univitatis.model.Contato;
 
+/**
+ * @author dev.asor
+ * @since 25.feb.2022
+ * @class TabelaPessoas
+ */
 @SuppressWarnings("serial")
 public class TabelaPessoas extends JTable
 {
@@ -26,8 +31,7 @@ public class TabelaPessoas extends JTable
 	public TabelaPessoas()
 	{
 		gerarTabela();
-		gerarDadosManequim();
-//		carregarDadosDeAquivo();
+//		gerarDadosManequim();
 	}
 	
 	/**
@@ -56,12 +60,17 @@ public class TabelaPessoas extends JTable
 	 */
 	public void adicionarContato(Contato contato)
 	{
+		if(modelo == null)
+		{
+			gerarTabela();
+		}
+			
 		Object[] objeto = new Object[] { null
 									   , contato.getNomeCompleto()
 									   , contato.getCpf()
 									   , contato.getTelefone()
 									   };
-		objeto[0] = modelo.getRowCount() +1; /* incrementando generated_id da tabela */
+		objeto[0] = modelo.getRowCount() +1; /* incrementando 'generated_id' da tabela */
 		
 		modelo.addRow(objeto);
 	}
@@ -72,6 +81,7 @@ public class TabelaPessoas extends JTable
     * @method gerarDadosManequim
     * @return void
     */
+	@SuppressWarnings("unused")
 	private void gerarDadosManequim()
 	{
 		ArrayList<Contato> contatos = new ArrayList<Contato>();
@@ -91,14 +101,6 @@ public class TabelaPessoas extends JTable
 	private void carregarConteudoNaTabela(List<Contato> contatos)
 	{
 		contatos.forEach(contato -> {
-			
-//			Contato novoContato = new Contato();
-//			String[] novo = contato.split(",");
-//			
-//			novoContato.setNomeCompleto(novo[1].trim());
-//			novoContato.setCpf(novo[2].trim());
-//			novoContato.setTelefone(novo[3].trim());
-			
 			adicionarContato(contato);
 		});
 		
