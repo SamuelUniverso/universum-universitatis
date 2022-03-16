@@ -215,7 +215,7 @@ public class MainView extends JFrame
 				inputTelefone.setBackground(Color.WHITE);
 				
 				Contato contato = new Contato();
-				contato.setNomeCompleto(inputNomeCompleto.getText());
+				contato.setNome(inputNomeCompleto.getText());
 				contato.setCpf(inputCpf.getText());
 				contato.setTelefone(inputTelefone.getText());
 				
@@ -266,7 +266,7 @@ public class MainView extends JFrame
 			Contato novoContato = new Contato();
 			String[] novo = contato.split(",");
 			
-			novoContato.setNomeCompleto(novo[1].trim());
+			novoContato.setNome(novo[1].trim());
 			novoContato.setCpf(novo[2].trim());
 			novoContato.setTelefone(novo[3].trim());
 			

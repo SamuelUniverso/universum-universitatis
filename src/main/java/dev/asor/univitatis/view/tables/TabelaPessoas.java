@@ -66,7 +66,7 @@ public class TabelaPessoas extends JTable
 		}
 			
 		Object[] objeto = new Object[] { null
-									   , contato.getNomeCompleto()
+									   , contato.getNome()
 									   , contato.getCpf()
 									   , contato.getTelefone()
 									   };
