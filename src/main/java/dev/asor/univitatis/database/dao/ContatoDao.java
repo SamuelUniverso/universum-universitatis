@@ -1,4 +1,4 @@
-package dev.asor.univitatis.dao;
+package dev.asor.univitatis.database.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import dev.asor.univitatis.model.Contato;
  * @author dev.asor
  * @since 23.feb.2022
  */
+@Deprecated
 public class ContatoDao 
 {
 	private List<Contato> contatos;
