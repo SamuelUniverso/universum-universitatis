@@ -27,7 +27,7 @@ public class ConectorBanco
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(url);
             
-            System.out.println("Conexão com o DB bem sucedida!");
+            System.out.println("Conexão com o Banco de Dados bem sucedida!");
         } 
         catch (SQLException e)
         {

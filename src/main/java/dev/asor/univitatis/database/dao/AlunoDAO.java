@@ -4,22 +4,20 @@ import java.sql.PreparedStatement;
 
 import dev.asor.univitatis.database.connector.ConectorBanco;
 import dev.asor.univitatis.database.dao.helper.AlunoDAOHelper;
-import dev.asor.univitatis.database.dao.helper.PessoaDAOHelper;
-import dev.asor.univitatis.database.dao.interfaces.AlunoDAOInterface;
+import dev.asor.univitatis.database.dao.interfaces.DaoObjectInterface;
 import dev.asor.univitatis.model.Aluno;
 
-public class AlunoDAO implements AlunoDAOInterface
+/**
+ * @author dev.asor
+ * @since 17.march.2022
+ */
+public class AlunoDao implements DaoObjectInterface<Aluno>
 {
     private ConectorBanco conector;
     
-    public AlunoDAO()
+    public AlunoDao()
     {
         setConector(ConectorBanco.getInstance());
-    }
-    
-    public void gravaPessoa()
-    {
-        
     }
     
     private ConectorBanco getConector()
@@ -31,23 +29,11 @@ public class AlunoDAO implements AlunoDAOInterface
         this.conector = conector;
     }
 
-    @Override
-    public void gravaAluno(Aluno aluno) 
-    {
-        try
-        {
-            PreparedStatement stmtPessoa 
-                                = getConector().getConexao()
-                                               .prepareStatement(PessoaDAOHelper.createPreparedStatementPessoa());
-            
-            stmtPessoa.setString(1, aluno.getPessoa().getPrenome());
-            stmtPessoa.setString(2, aluno.getPessoa().getNome());
-            stmtPessoa.setString(3, aluno.getPessoa().getSobrenome());
-            stmtPessoa.setString(4, aluno.getPessoa().getTelefone());
-            stmtPessoa.setString(5, aluno.getPessoa().getCpf());
-            
-            stmtPessoa.executeQuery();
-            
+	@Override
+	public void insert(Aluno aluno) 
+	{
+	     try
+	     {
             PreparedStatement stmtAluno 
                                 = getConector().getConexao()
                                                .prepareStatement(AlunoDAOHelper.createPreparedStatementAluno());
@@ -61,12 +47,11 @@ public class AlunoDAO implements AlunoDAOInterface
         {
             e.printStackTrace();
         }
-    }
+	}
 
-    @Override
-    public Aluno buscaAluno()
-    {
-        return null;
-    }
-    
+	@Override
+	public Aluno fetchById(Integer id) 
+	{
+		return null;
+	}
 }
