@@ -2,9 +2,9 @@ package dev.asor.univitatis.database.dao.helper;
 
 /**
  * @author dev.asor
- * @since 16.mar.2022
+ * @since 16.march.2022
  */
-public class AlunoDAOHelper
+public class AlunoDaoHelper
 {
     public static String createPreparedStatementAluno()
     {

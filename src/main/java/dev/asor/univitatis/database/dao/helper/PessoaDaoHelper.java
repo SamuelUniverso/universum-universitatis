@@ -1,5 +1,9 @@
 package dev.asor.univitatis.database.dao.helper;
 
+/**
+ * @author dev.asor
+ * @since 17.march.2022
+ */
 public class PessoaDaoHelper
 {
     public static String createInsertPessoaPreparedStatement()
@@ -17,8 +21,8 @@ public class PessoaDaoHelper
     {
     	StringBuilder sql = new StringBuilder();
     	sql.append("SELECT pessoa.*");
-    	sql.append("  FROM pessoas AS pessoa");
-    	sql.append(" WHERE pessoa.id = ?1");
+    	sql.append("  FROM pessoas pessoa");
+    	sql.append(" WHERE pessoa.id = ?1 ");
     	
     	 return sql.toString();
     }

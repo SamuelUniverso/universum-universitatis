@@ -14,7 +14,7 @@ public class ConectorBanco
     private Connection connection = null;
     
     private static final String SQLITE_JDBC = "jdbc:sqlite:";
-    private static final String DATABASE_PATH = "database/app.database.db"; 
+    private static final String DATABASE_PATH = "/database/app.database.db"; 
     
     private static String url = null;
 
@@ -36,20 +36,6 @@ public class ConectorBanco
         catch(ClassNotFoundException e)
         {
             e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (connection != null)
-                {
-                    connection.close();
-                }
-            }
-            catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
         }
     }
     

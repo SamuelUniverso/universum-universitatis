@@ -3,7 +3,7 @@ package dev.asor.univitatis.database.dao;
 import java.sql.PreparedStatement;
 
 import dev.asor.univitatis.database.connector.ConectorBanco;
-import dev.asor.univitatis.database.dao.helper.AlunoDAOHelper;
+import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.DaoObjectInterface;
 import dev.asor.univitatis.model.Aluno;
 
@@ -36,7 +36,7 @@ public class AlunoDao implements DaoObjectInterface<Aluno>
 	     {
             PreparedStatement stmtAluno 
                                 = getConector().getConexao()
-                                               .prepareStatement(AlunoDAOHelper.createPreparedStatementAluno());
+                                               .prepareStatement(AlunoDaoHelper.createPreparedStatementAluno());
             
             stmtAluno.setInt   (1, aluno.getPessoa().getId());
             stmtAluno.setString(2, aluno.getMatriculaAluno());

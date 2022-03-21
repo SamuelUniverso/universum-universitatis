@@ -4,7 +4,7 @@ package dev.asor.univitatis.model;
  * @author dev.asor
  * @since 23.feb.2022
  */
-public abstract class Pessoa
+public class Pessoa
 {
     private Integer id;
     private String prenome;
@@ -81,4 +81,19 @@ public abstract class Pessoa
     {
         this.cpf = cpf;
     }
+    
+    @Override
+        public String toString()
+        {
+            StringBuilder str = new StringBuilder();
+            str.append("[");
+            str.append("id: " + getId() + ", ");
+            str.append("prenome: " + getPrenome() + ", ");
+            str.append("nome: " + getNome() + ", ");
+            str.append("sobrenome: " + getSobrenome() + ", ");
+            str.append("cpf: " + getCpf());
+            str.append("]");
+            
+            return str.toString();
+        }
 }

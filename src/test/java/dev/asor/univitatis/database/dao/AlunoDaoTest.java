@@ -10,7 +10,7 @@ import dev.asor.univitatis.model.Aluno;
 public class AlunoDaoTest 
 {
 	
-	public void testInsertAluno()
+	public void insertAluno()
 	{
 		Aluno aluno = new Aluno();
 		aluno.setPrenome("Prenome");
@@ -19,8 +19,6 @@ public class AlunoDaoTest
 		aluno.setCpf("00000000000");
 		aluno.setTelefone("5551987654321");
 		aluno.setMatriculaAluno("000-000-000");
-		
-		AlunoDao dao = new AlunoDao();
 		
 	}
 	
