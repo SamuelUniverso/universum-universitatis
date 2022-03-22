@@ -8,19 +8,19 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
  */
 public class GenericConnector 
 {
-	protected DatabaseConnector conector;
+	protected DatabaseConnector connector;
 	
 	public GenericConnector()
 	{
-		setConector(DatabaseConnector.getInstance());
+		setConnector(DatabaseConnector.getInstance());
 	}
 	
-	protected DatabaseConnector getConector()
+	protected DatabaseConnector getConnector()
     {
-        return conector;
+        return connector;
     }
-	protected void setConector(DatabaseConnector conector)
+	protected void setConnector(DatabaseConnector connector)
     {
-        this.conector = conector;
+        this.connector = connector;
     }
 }

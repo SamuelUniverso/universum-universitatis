@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  */
 public class CSVFileParser
 {
-
 	/**
 	 * Gera uma string CSV a partir de um Map
 	 * @method generateCSVFromMap
 	 * @param dados : Map<Integer, ArrayList<String>>
 	 * @throws ParseException 
+	 * @return List<String>
 	 */
 	public static List<String> generateCSVListFromMap(Map<Integer, List<String>> map) 
 	{
@@ -44,6 +44,7 @@ public class CSVFileParser
 	 * Grava o conteudo de uma String em arquivo CSV
 	 * @method writeCSVToFile
 	 * @param csvList : List<String>
+	 * @return void
 	 */
 	public static void writeCSVStringToFile(List<String> csvList)
 	{
@@ -65,6 +66,11 @@ public class CSVFileParser
 		}
 	}
 	
+	/**
+	 * Carrega o conteudo de um arquivo CSV
+	 * @method loadCSVStringFromFile
+     * @return List<String>
+	 */
 	public static List<String> loadCSVStringFromFile()
 	{
 		List<String> csvList = new ArrayList<String>();

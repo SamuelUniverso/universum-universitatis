@@ -25,8 +25,8 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
         try
         {
             String sql = PessoaDaoHelper.createInsertPessoaPreparedStatement();
-	        PreparedStatement stmtPessoa = getConector().getConexao()
-						                       .prepareStatement(sql);
+	        PreparedStatement stmtPessoa = getConnector().getConexao()
+						                                .prepareStatement(sql);
 
 			stmtPessoa.setString(1, pessoa.getPrenome());
 			stmtPessoa.setString(2, pessoa.getNome());
@@ -50,14 +50,15 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
 		try 
 		{
 			String sql = PessoaDaoHelper.createSelectPessoaByIdPreparedStatement();
-			PreparedStatement statement = getConector().getConexao()
-												       .prepareStatement(sql);
+			PreparedStatement statement = getConnector().getConexao()
+												        .prepareStatement(sql);
 			statement.setInt(1, id);
 			
 			ResultSet resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
 			    pessoa = new Pessoa(resultSet.getInt(1));
+			    
 			    pessoa.setPrenome(resultSet.getString(2));
 			    pessoa.setNome(resultSet.getString(3));
 			    pessoa.setSobrenome(resultSet.getString(4));
@@ -73,7 +74,7 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
 		{
 			try 
 			{
-				getConector().getConexao().close();
+				getConnector().getConexao().close();
 			} 
 			catch (SQLException e) 
 			{

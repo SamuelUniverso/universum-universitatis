@@ -34,9 +34,10 @@ public class AlunoDao implements DaoObjectInterface<Aluno>
 	{
 	     try
 	     {
+	        String sql = AlunoDaoHelper.createPreparedStatementAluno();
             PreparedStatement stmtAluno 
                                 = getConector().getConexao()
-                                               .prepareStatement(AlunoDaoHelper.createPreparedStatementAluno());
+                                               .prepareStatement(sql);
             
             stmtAluno.setInt   (1, aluno.getPessoa().getId());
             stmtAluno.setString(2, aluno.getMatriculaAluno());
@@ -52,6 +53,7 @@ public class AlunoDao implements DaoObjectInterface<Aluno>
 	@Override
 	public Aluno fetchById(Integer id) 
 	{
+	    // TODO
 		return null;
 	}
 }
