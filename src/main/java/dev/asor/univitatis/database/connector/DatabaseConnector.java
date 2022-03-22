@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class ConectorBanco
+public class DatabaseConnector
 {
-    private static ConectorBanco INSTANCE = null;
+    private static DatabaseConnector INSTANCE = null;
     private Connection connection = null;
     
     private static final String SQLITE_JDBC = "jdbc:sqlite:";
@@ -19,7 +19,7 @@ public class ConectorBanco
     private static String url = null;
 
 
-    private ConectorBanco() 
+    private DatabaseConnector() 
     {
         try
         {
@@ -42,7 +42,7 @@ public class ConectorBanco
     
     private static void setUrl(String url)
     {
-        ConectorBanco.url = url;
+        DatabaseConnector.url = url;
     }
     public String getUrl()
     {
@@ -64,7 +64,7 @@ public class ConectorBanco
         try
         {
             this.connection.close();
-            ConectorBanco.INSTANCE = null;
+            DatabaseConnector.INSTANCE = null;
         }
         catch(SQLException e)
         {
@@ -78,11 +78,11 @@ public class ConectorBanco
      * @method getInstance()
      * @return Connector
      */
-    public static ConectorBanco getInstance()
+    public static DatabaseConnector getInstance()
     {
         if(INSTANCE == null)
         {
-            INSTANCE = new ConectorBanco();
+            INSTANCE = new DatabaseConnector();
         }
         
         return INSTANCE;

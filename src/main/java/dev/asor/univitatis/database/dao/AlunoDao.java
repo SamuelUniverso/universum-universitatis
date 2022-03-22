@@ -2,7 +2,7 @@ package dev.asor.univitatis.database.dao;
 
 import java.sql.PreparedStatement;
 
-import dev.asor.univitatis.database.connector.ConectorBanco;
+import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.DaoObjectInterface;
 import dev.asor.univitatis.model.Aluno;
@@ -13,18 +13,18 @@ import dev.asor.univitatis.model.Aluno;
  */
 public class AlunoDao implements DaoObjectInterface<Aluno>
 {
-    private ConectorBanco conector;
+    private DatabaseConnector conector;
     
     public AlunoDao()
     {
-        setConector(ConectorBanco.getInstance());
+        setConector(DatabaseConnector.getInstance());
     }
     
-    private ConectorBanco getConector()
+    private DatabaseConnector getConector()
     {
         return conector;
     }
-    private void setConector(ConectorBanco conector)
+    private void setConector(DatabaseConnector conector)
     {
         this.conector = conector;
     }

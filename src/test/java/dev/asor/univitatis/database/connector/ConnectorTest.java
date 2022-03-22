@@ -11,7 +11,7 @@ public class ConnectorTest
     @Test
     public void testConnection()
     {
-        ConectorBanco conexao = ConectorBanco.getInstance();
+        DatabaseConnector conexao = DatabaseConnector.getInstance();
         conexao.closeConnection();
     }
 }

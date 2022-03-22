@@ -1,6 +1,6 @@
 package dev.asor.univitatis.database.dao.util;
 
-import dev.asor.univitatis.database.connector.ConectorBanco;
+import dev.asor.univitatis.database.connector.DatabaseConnector;
 
 /**
  * @author dev.asor
@@ -8,18 +8,18 @@ import dev.asor.univitatis.database.connector.ConectorBanco;
  */
 public class GenericConnector 
 {
-	protected ConectorBanco conector;
+	protected DatabaseConnector conector;
 	
 	public GenericConnector()
 	{
-		setConector(ConectorBanco.getInstance());
+		setConector(DatabaseConnector.getInstance());
 	}
 	
-	protected ConectorBanco getConector()
+	protected DatabaseConnector getConector()
     {
         return conector;
     }
-	protected void setConector(ConectorBanco conector)
+	protected void setConector(DatabaseConnector conector)
     {
         this.conector = conector;
     }
