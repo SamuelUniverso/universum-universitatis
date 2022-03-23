@@ -22,4 +22,22 @@ public class PessoaDaoTest
 		    System.out.println(pessoa);
 		}
 	}
+	
+	@Test
+	public void getNextId()
+	{
+	    PessoaDao dao = new PessoaDao();
+	    Integer id = dao.getNextId();
+	    
+	    System.out.println("Next ID: " + id);
+	}
+	
+   @Test
+    public void getLastUsedId()
+    {
+        PessoaDao dao = new PessoaDao();
+        Integer id = dao.getLastUsedId();
+        
+        System.out.println("Last ID: " + id);
+    }
 }

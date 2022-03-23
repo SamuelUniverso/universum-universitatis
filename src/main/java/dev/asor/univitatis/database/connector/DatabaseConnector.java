@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+ * Classe que implementa o driver basico do conector JDBC
+ * 
  * @author dev.asor
  * @since 15.mar.2022
  */
@@ -39,7 +41,6 @@ public class DatabaseConnector
         }
     }
     
-    
     private static void setUrl(String url)
     {
         DatabaseConnector.url = url;
@@ -49,7 +50,7 @@ public class DatabaseConnector
         return url;
     }
     
-    public Connection getConexao()
+    public Connection getConnection()
     {
        return this.connection; 
     }

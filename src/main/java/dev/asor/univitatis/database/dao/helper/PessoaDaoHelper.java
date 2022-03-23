@@ -1,10 +1,12 @@
 package dev.asor.univitatis.database.dao.helper;
 
 /**
+ * Metodos auxiliares para a classe PessoaDao
+ * 
  * @author dev.asor
  * @since 17.march.2022
  */
-public class PessoaDaoHelper
+public class PessoaDaoHelper extends GenericDao
 {
     public static String createInsertPessoaPreparedStatement()
     {
@@ -26,5 +28,4 @@ public class PessoaDaoHelper
     	
     	 return sql.toString();
     }
-
 }

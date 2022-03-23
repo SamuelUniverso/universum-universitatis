@@ -3,20 +3,27 @@ package dev.asor.univitatis.database.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import dev.asor.univitatis.database.connector.DatabaseConnector;
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
+import dev.asor.univitatis.database.dao.helper.GenericDao;
 import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
-import dev.asor.univitatis.database.dao.interfaces.DaoObjectInterface;
-import dev.asor.univitatis.database.dao.util.GenericConnector;
+import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
+import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
 import dev.asor.univitatis.model.Pessoa;
 
 /**
  * @author dev.asor
  * @since 17.march.2022
  */
-public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pessoa>
+public class PessoaDao extends GenericDao implements GenericConnectorInterface,
+                                                     CrudObjectInterface<Pessoa>
 {
-	
+    private DatabaseConnector connector;
+    
 	public PessoaDao()
 	{
+	    setConnector(DatabaseConnector.getInstance());
 	}
 	
 	@Override
@@ -25,8 +32,8 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
         try
         {
             String sql = PessoaDaoHelper.createInsertPessoaPreparedStatement();
-	        PreparedStatement stmtPessoa = getConnector().getConexao()
-						                                .prepareStatement(sql);
+	        PreparedStatement stmtPessoa = getConnector().getConnection()
+						                                 .prepareStatement(sql);
 
 			stmtPessoa.setString(1, pessoa.getPrenome());
 			stmtPessoa.setString(2, pessoa.getNome());
@@ -50,7 +57,7 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
 		try 
 		{
 			String sql = PessoaDaoHelper.createSelectPessoaByIdPreparedStatement();
-			PreparedStatement statement = getConnector().getConexao()
+			PreparedStatement statement = getConnector().getConnection()
 												        .prepareStatement(sql);
 			statement.setInt(1, id);
 			
@@ -74,7 +81,7 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
 		{
 			try 
 			{
-				getConnector().getConexao().close();
+				getConnector().getConnection().close();
 			} 
 			catch (SQLException e) 
 			{
@@ -85,4 +92,63 @@ public class PessoaDao extends GenericConnector implements DaoObjectInterface<Pe
 		return pessoa;
 	}
 	
+   @Override
+    public Integer getLastUsedId()
+    {
+       Integer id = null;
+       String sql = PessoaDaoHelper.getLastUsedIdStatement(EntityEnum.PESSOAS);
+       try
+       {
+           PreparedStatement statement = getConnector().getConnection()
+                                                       .prepareStatement(sql);
+           
+           ResultSet result = statement.executeQuery();
+           while(result.next())
+           {
+               id = result.getInt(1);
+           }
+       }
+       catch(SQLException e)
+       {
+           e.printStackTrace();
+       }
+       
+       return id;
+    }
+
+    @Override
+    public Integer getNextId()
+    {
+        Integer id = null;
+        String sql = PessoaDaoHelper.getNextIdStatement(EntityEnum.PESSOAS);
+        try
+        {
+            PreparedStatement statement = getConnector().getConnection()
+                                                        .prepareStatement(sql);
+            
+            ResultSet result = statement.executeQuery();
+            while(result.next())
+            {
+                id = result.getInt(1);
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return id;
+    }
+
+    @Override
+    public DatabaseConnector getConnector()
+    {
+        return this.connector;
+    }
+
+    @Override
+    public void setConnector(DatabaseConnector connector)
+    {
+        this.connector = connector;
+    }
 }

@@ -4,14 +4,14 @@ import java.sql.PreparedStatement;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
-import dev.asor.univitatis.database.dao.interfaces.DaoObjectInterface;
+import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.model.Aluno;
 
 /**
  * @author dev.asor
  * @since 17.march.2022
  */
-public class AlunoDao implements DaoObjectInterface<Aluno>
+public class AlunoDao implements CrudObjectInterface<Aluno>
 {
     private DatabaseConnector conector;
     
@@ -36,7 +36,7 @@ public class AlunoDao implements DaoObjectInterface<Aluno>
 	     {
 	        String sql = AlunoDaoHelper.createPreparedStatementAluno();
             PreparedStatement stmtAluno 
-                                = getConector().getConexao()
+                                = getConector().getConnection()
                                                .prepareStatement(sql);
             
             stmtAluno.setInt   (1, aluno.getPessoa().getId());
@@ -56,4 +56,18 @@ public class AlunoDao implements DaoObjectInterface<Aluno>
 	    // TODO
 		return null;
 	}
+
+    @Override
+    public Integer getNextId()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Integer getLastUsedId()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
