@@ -1,8 +1,10 @@
 package dev.asor.univitatis.database.dao;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
@@ -11,6 +13,7 @@ import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
 import dev.asor.univitatis.database.exceptions.PessoaException;
+import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
 import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
 import dev.asor.univitatis.model.Pessoa;
 
@@ -18,24 +21,22 @@ import dev.asor.univitatis.model.Pessoa;
  * @author dev.asor
  * @since 17.march.2022
  */
-public class PessoaDao extends GenericDao implements GenericConnectorInterface,
-                                                     CrudObjectInterface<Pessoa>
+public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 {
-    private DatabaseConnector connector = null;
     
-    public PessoaDao(DatabaseConnector connector)
+	public PessoaDao(DatabaseConnector connector)
     {
         setConnector(connector);
     }
 	
 	@Override
-	public void insert(Pessoa pessoa) 
+	public Integer insert(Pessoa pessoa, Boolean debug) 
 	{
         try
         {
             String sql = PessoaDaoHelper.createInsertPessoaPreparedStatement();
 	        PreparedStatement stmtPessoa = getConnector().getConnection()
-						                                 .prepareStatement(sql);
+						                                 .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			stmtPessoa.setString(1, pessoa.getPrenome());
 			stmtPessoa.setString(2, pessoa.getNome());
@@ -43,12 +44,33 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
 			stmtPessoa.setString(4, pessoa.getTelefone());
 			stmtPessoa.setString(5, pessoa.getCpf());
 			
-			stmtPessoa.executeQuery();
+			super.setGeneratedId(stmtPessoa.executeUpdate());
         }
         catch(SQLException e)
         {
         	throw new PessoaException(PessoaExceptionMessages.ERROR_INSERT_PESSOA.getMessage());
         }
+        finally
+        {
+        	try
+        	{
+        		if(debug)
+            	{
+        			getConnector().getConnection().rollback();
+            	}
+        		else
+        		{
+        			getConnector().getConnection().close();
+        		}
+        	}
+        	catch(SQLException e)
+        	{
+        		e.printStackTrace();
+//        		throw new PessoaException(PessoaExceptionMessages.ERROR_ROLLBACK.getMessage());
+        	}
+        }
+        
+        return getGeneratedId();
 	}
 
 	@Override
@@ -77,7 +99,7 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			throw new PessoaException(PessoaExceptionMessages.ERRRO_FETCH_BY_ID.getMessage());
 		}
 		finally
 		{
@@ -87,7 +109,7 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
 			} 
 			catch (SQLException e) 
 			{
-			    throw new PessoaException(PessoaExceptionMessages.ERRRO_FETCH_BY_ID.getMessage());
+			    throw new PessoaException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
 			}
 		}
 		
@@ -140,21 +162,5 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
         }
         
         return id;
-    }
-
-    @Override
-    public DatabaseConnector getConnector()
-    {
-        return this.connector;
-    }
-    @Override
-    public void setConnector(DatabaseConnector connector)
-    {
-        this.connector = connector;
-    }
-    @Override
-    public void closeConnection()
-    {
-        this.connector.closeConnection();
     }
 }

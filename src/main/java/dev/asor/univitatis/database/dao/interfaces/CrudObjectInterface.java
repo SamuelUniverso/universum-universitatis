@@ -9,11 +9,14 @@ package dev.asor.univitatis.database.dao.interfaces;
  */
 public interface CrudObjectInterface<T>
 {
-    public void insert(T object);
+	//void insert(T object);
     
-    public T fetchById(Integer id);
+    Integer insert(T object, Boolean debug);
     
-    public Integer getNextId();
+    T fetchById(Integer id);
     
-    public Integer getLastUsedId();
+    Integer getNextId();
+    
+    Integer getLastUsedId();
+
 }

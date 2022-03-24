@@ -15,6 +15,8 @@ public class DatabaseConnector
     private static DatabaseConnector INSTANCE = null;
     private Connection connection = null;
     
+    private Boolean isAutoCommit = false;
+    
     private static final String SQLITE_JDBC = "jdbc:sqlite:";
     private static final String DATABASE_PATH = "/database/app.database.db"; 
     
@@ -27,7 +29,9 @@ public class DatabaseConnector
         {
             setUrl(SQLITE_JDBC + getClass().getResource(DATABASE_PATH));
             Class.forName("org.sqlite.JDBC");
+            
             connection = DriverManager.getConnection(url);
+            connection.setAutoCommit(isAutoCommit);
             
             System.out.println("Conexão com o Banco de Dados bem sucedida!");
         } 
@@ -77,6 +81,7 @@ public class DatabaseConnector
      * Traz instancia do conector do banco
      * @notice Singleton
      * @method getInstance()
+     * @param isAutoCommit
      * @return Connector
      */
     public static DatabaseConnector getInstance()

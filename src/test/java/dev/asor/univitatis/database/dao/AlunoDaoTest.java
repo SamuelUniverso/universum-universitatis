@@ -19,7 +19,7 @@ public class AlunoDaoTest
 	    AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
 	    
 	    Aluno aluno = new Aluno();
-	    dao.insert(aluno);
+	    dao.insert(aluno, true);
 	}
     
     @Test
@@ -35,6 +35,6 @@ public class AlunoDaoTest
         aluno.getPessoa().setTelefone("5551987654321");
         aluno.setMatriculaAluno("000-000-000");        
         
-        dao.insert(aluno);
+        dao.insert(aluno, true);
     }
 }
