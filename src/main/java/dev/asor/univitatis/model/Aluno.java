@@ -1,5 +1,6 @@
 package dev.asor.univitatis.model;
 
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 import dev.asor.univitatis.model.interfaces.PessoaInterface;
 
@@ -7,22 +8,25 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class Aluno extends Pessoa
-        implements PessoaInterface, DatabaseObjectInterface<Aluno>
+public class Aluno implements PessoaInterface,
+                              DatabaseObjectInterface<Aluno>
 {
+    private final EntityEnum entity = EntityEnum.ALUNOS;
+    
     private Integer id;
-    private String matriculaAluno;
     private Pessoa pessoa;
+    private String matriculaAluno;
 
-    public Aluno()
+    public Aluno() 
     {
+        setPessoa(new Pessoa());
     }
-
+    
     public Aluno(Integer id)
     {
         setId(id);
     }
-
+    
     public Aluno(Pessoa pessoa)
     {
         setPessoa(pessoa);
@@ -32,7 +36,6 @@ public class Aluno extends Pessoa
     {
         return id;
     }
-
     private void setId(Integer id)
     {
         this.id = id;
@@ -42,7 +45,6 @@ public class Aluno extends Pessoa
     {
         return this.pessoa;
     }
-
     private void setPessoa(Pessoa pessoa)
     {
         this.pessoa = pessoa;
@@ -52,23 +54,25 @@ public class Aluno extends Pessoa
     {
         return matriculaAluno;
     }
-
     public void setMatriculaAluno(String matriculaAluno)
     {
         this.matriculaAluno = matriculaAluno;
+    }
+    
+    public EntityEnum getEntity()
+    {
+        return entity;
     }
 
     @Override
     public Integer getNextId()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Integer getLastOccupiedId()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -84,7 +88,8 @@ public class Aluno extends Pessoa
         if (getId() != null)
         {
             return new Aluno();
-        } else
+        } 
+        else
         {
             return null;
         }

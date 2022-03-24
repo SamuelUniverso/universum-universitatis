@@ -10,6 +10,8 @@ import dev.asor.univitatis.database.dao.helper.GenericDao;
 import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
+import dev.asor.univitatis.database.exceptions.PessoaException;
+import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
 import dev.asor.univitatis.model.Pessoa;
 
 /**
@@ -19,12 +21,12 @@ import dev.asor.univitatis.model.Pessoa;
 public class PessoaDao extends GenericDao implements GenericConnectorInterface,
                                                      CrudObjectInterface<Pessoa>
 {
-    private DatabaseConnector connector;
+    private DatabaseConnector connector = null;
     
-	public PessoaDao()
-	{
-	    setConnector(DatabaseConnector.getInstance());
-	}
+    public PessoaDao(DatabaseConnector connector)
+    {
+        setConnector(connector);
+    }
 	
 	@Override
 	public void insert(Pessoa pessoa) 
@@ -45,7 +47,7 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
         }
         catch(SQLException e)
         {
-        	e.printStackTrace();
+        	throw new PessoaException(PessoaExceptionMessages.ERROR_INSERT_PESSOA.getMessage());
         }
 	}
 
@@ -85,7 +87,7 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
 			} 
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+			    throw new PessoaException(PessoaExceptionMessages.ERRRO_FETCH_BY_ID.getMessage());
 			}
 		}
 		
@@ -145,10 +147,14 @@ public class PessoaDao extends GenericDao implements GenericConnectorInterface,
     {
         return this.connector;
     }
-
     @Override
     public void setConnector(DatabaseConnector connector)
     {
         this.connector = connector;
+    }
+    @Override
+    public void closeConnection()
+    {
+        this.connector.closeConnection();
     }
 }

@@ -1,5 +1,6 @@
 package dev.asor.univitatis.model;
 
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 import dev.asor.univitatis.model.interfaces.PessoaInterface;
 
@@ -7,16 +8,16 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class Professor extends Pessoa
-        implements PessoaInterface, DatabaseObjectInterface<Professor>
+public class Professor extends Pessoa implements PessoaInterface,
+                                                 DatabaseObjectInterface<Professor>
 {
+    private final EntityEnum entity = EntityEnum.PROFESSORES;
+    
     private Integer id;
     private String matriculaFuncionario;
     private PessoaInterface pessoa;
 
-    public Professor()
-    {
-    }
+    public Professor() {}
 
     public Professor(Integer id)
     {
@@ -57,6 +58,12 @@ public class Professor extends Pessoa
     {
         this.matriculaFuncionario = matriculaFuncionario;
     }
+    
+    @Override
+    public EntityEnum getEntity()
+    {
+        return entity;
+    }
 
     @Override
     public Integer getNextId()
@@ -84,7 +91,8 @@ public class Professor extends Pessoa
         if (getId() != null)
         {
             return new Professor();
-        } else
+        } 
+        else
         {
             return null;
         }

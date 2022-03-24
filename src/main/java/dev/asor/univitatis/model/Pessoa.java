@@ -1,11 +1,16 @@
 package dev.asor.univitatis.model;
 
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
+import dev.asor.univitatis.model.interfaces.PessoaInterface;
+
 /**
  * @author dev.asor
  * @since 23.feb.2022
  */
-public class Pessoa
+public class Pessoa implements PessoaInterface
 {
+    private final EntityEnum entity = EntityEnum.PESSOAS;
+    
     private Integer id;
     private String prenome;
     private String nome;
@@ -13,9 +18,7 @@ public class Pessoa
     private String telefone;
     private String cpf;
 
-    public Pessoa()
-    {
-    }
+    public Pessoa() {}
 
     public Pessoa(Integer id)
     {
@@ -26,7 +29,6 @@ public class Pessoa
     {
         return id;
     }
-
     private void setId(Integer id)
     {
         this.id = id;
@@ -36,7 +38,6 @@ public class Pessoa
     {
         return prenome;
     }
-
     public void setPrenome(String prenome)
     {
         this.prenome = prenome;
@@ -46,7 +47,6 @@ public class Pessoa
     {
         return nome;
     }
-
     public void setNome(String nome)
     {
         this.nome = nome;
@@ -56,7 +56,6 @@ public class Pessoa
     {
         return sobrenome;
     }
-
     public void setSobrenome(String sobrenome)
     {
         this.sobrenome = sobrenome;
@@ -66,7 +65,6 @@ public class Pessoa
     {
         return telefone;
     }
-
     public void setTelefone(String telefone)
     {
         this.telefone = telefone;
@@ -76,24 +74,43 @@ public class Pessoa
     {
         return cpf;
     }
-
     public void setCpf(String cpf)
     {
         this.cpf = cpf;
     }
     
     @Override
-        public String toString()
-        {
-            StringBuilder str = new StringBuilder();
-            str.append("[");
-            str.append("id: " + getId() + ", ");
-            str.append("prenome: " + getPrenome() + ", ");
-            str.append("nome: " + getNome() + ", ");
-            str.append("sobrenome: " + getSobrenome() + ", ");
-            str.append("cpf: " + getCpf());
-            str.append("]");
-            
-            return str.toString();
-        }
+    public EntityEnum getEntity()
+    {
+        return entity;
+    }
+
+    @Override
+    public Integer getNextId()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Integer getLastOccupiedId()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder str = new StringBuilder();
+        str.append("[");
+        str.append("id: " + getId() + ", ");
+        str.append("prenome: " + getPrenome() + ", ");
+        str.append("nome: " + getNome() + ", ");
+        str.append("sobrenome: " + getSobrenome() + ", ");
+        str.append("cpf: " + getCpf());
+        str.append("]");
+        
+        return str.toString();
+    }
 }

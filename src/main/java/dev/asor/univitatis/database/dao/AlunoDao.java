@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
+import dev.asor.univitatis.database.exceptions.AlunoException;
 import dev.asor.univitatis.model.Aluno;
 
 /**
@@ -13,31 +14,39 @@ import dev.asor.univitatis.model.Aluno;
  */
 public class AlunoDao implements CrudObjectInterface<Aluno>
 {
-    private DatabaseConnector conector;
+    private DatabaseConnector connector;
     
-    public AlunoDao()
+    public AlunoDao(DatabaseConnector connector)
     {
-        setConector(DatabaseConnector.getInstance());
+        setConnector(connector);
     }
     
-    private DatabaseConnector getConector()
+    private DatabaseConnector getConnector()
     {
-        return conector;
+        return connector;
     }
-    private void setConector(DatabaseConnector conector)
+    private void setConnector(DatabaseConnector connector)
     {
-        this.conector = conector;
+        this.connector = connector;
     }
 
 	@Override
 	public void insert(Aluno aluno) 
 	{
-	     try
-	     {
+	    PessoaDao pessoaDao = new PessoaDao(getConnector());
+	    
+	    try
+	    {
+	        if(aluno.getPessoa() == null)
+	        {
+	            throw new AlunoException("Aluno não possui uma Pessoa definida!");
+	        }
+	        
+	        pessoaDao.insert(aluno.getPessoa());
+	         
 	        String sql = AlunoDaoHelper.createPreparedStatementAluno();
-            PreparedStatement stmtAluno 
-                                = getConector().getConnection()
-                                               .prepareStatement(sql);
+            PreparedStatement stmtAluno = getConnector().getConnection()
+                                                        .prepareStatement(sql);
             
             stmtAluno.setInt   (1, aluno.getPessoa().getId());
             stmtAluno.setString(2, aluno.getMatriculaAluno());
@@ -53,7 +62,7 @@ public class AlunoDao implements CrudObjectInterface<Aluno>
 	@Override
 	public Aluno fetchById(Integer id) 
 	{
-	    // TODO
+	    // TODO Auto-generated method stub
 		return null;
 	}
 

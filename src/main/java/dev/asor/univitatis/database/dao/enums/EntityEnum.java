@@ -8,7 +8,7 @@ package dev.asor.univitatis.database.dao.enums;
  */
 public enum EntityEnum
 {
-      ALUNOS        ("aluno")
+      ALUNOS        ("alunos")
     , CONTRATOS     ("contratos")
     , CURSOS        ("cursos")
     , DISCIPLINAS   ("disciplinas")

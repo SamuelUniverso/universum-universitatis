@@ -14,4 +14,6 @@ public interface GenericConnectorInterface
     public DatabaseConnector getConnector();
     
     public void setConnector(DatabaseConnector connector);
+    
+    public void closeConnection();
 }

@@ -2,6 +2,7 @@ package dev.asor.univitatis.database.dao;
 
 import org.junit.Test;
 
+import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.model.Pessoa;
 
 /**
@@ -13,7 +14,7 @@ public class PessoaDaoTest
 	@Test
 	public void fetchPessoaById()
 	{
-	    PessoaDao dao = new PessoaDao();
+	    PessoaDao dao = new PessoaDao(DatabaseConnector.getInstance());
 
 	    Pessoa pessoa = null;
 		pessoa = dao.fetchById(1);
@@ -26,7 +27,7 @@ public class PessoaDaoTest
 	@Test
 	public void getNextId()
 	{
-	    PessoaDao dao = new PessoaDao();
+	    PessoaDao dao = new PessoaDao(DatabaseConnector.getInstance());
 	    Integer id = dao.getNextId();
 	    
 	    System.out.println("Next ID: " + id);
@@ -35,7 +36,7 @@ public class PessoaDaoTest
    @Test
     public void getLastUsedId()
     {
-        PessoaDao dao = new PessoaDao();
+        PessoaDao dao = new PessoaDao(DatabaseConnector.getInstance());
         Integer id = dao.getLastUsedId();
         
         System.out.println("Last ID: " + id);
