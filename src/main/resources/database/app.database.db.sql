@@ -6,17 +6,27 @@ CREATE TABLE IF NOT EXISTS "pessoas" (
 	"sobrenome"	TEXT NOT NULL,
 	"telefone"	TEXT,
 	"cpf"	TEXT NOT NULL UNIQUE,
-	PRIMARY KEY("id" AUTOINCREMENT)
+	PRIMARY KEY("id")
+);
+CREATE TABLE IF NOT EXISTS "alunos" (
+	"fk_pessoa"	INTEGER UNIQUE,
+	"codigo_matricula"	INTEGER NOT NULL,
+	FOREIGN KEY("fk_pessoa") REFERENCES "pessoas"("id")
+);
+CREATE TABLE IF NOT EXISTS "professores" (
+	"fk_pessoa"	INTEGER NOT NULL UNIQUE,
+	"codigo_matricula"	INTEGER NOT NULL,	
+	FOREIGN KEY("fk_pessoa") REFERENCES "pessoas"("id")
 );
 CREATE TABLE IF NOT EXISTS "cursos" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"nome"	INTEGER NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT)
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "disciplinas" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"nome"	TEXT NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT)
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "contratos" (
 	"id"	INTEGER NOT NULL UNIQUE,
@@ -24,21 +34,21 @@ CREATE TABLE IF NOT EXISTS "contratos" (
 	"fk_curso"	INTEGER NOT NULL,
 	"data_ativacao"	TEXT NOT NULL,
 	"data_desativacao"	TEXT,
-	PRIMARY KEY("id" AUTOINCREMENT),
+	PRIMARY KEY("id"),
 	FOREIGN KEY("fk_curso") REFERENCES "cursos"("id"),
 	FOREIGN KEY("fk_aluno") REFERENCES "alunos"("id")
 );
 CREATE TABLE IF NOT EXISTS "periodos" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"periodo_letivo"	TEXT NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT)
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "turmas" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"fk_professor"	INTEGER NOT NULL,
 	"fk_disciplina"	INTEGER NOT NULL,
 	"fk_periodo"	INTEGER NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT),
+	PRIMARY KEY("id"),
 	FOREIGN KEY("fk_disciplina") REFERENCES "disciplinas"("id"),
 	FOREIGN KEY("fk_periodo") REFERENCES "periodos"("id"),
 	FOREIGN KEY("fk_professor") REFERENCES "professores"("id")
@@ -53,22 +63,8 @@ CREATE TABLE IF NOT EXISTS "matriculas" (
 	"nota2"	REAL,
 	"nota3"	REAL,
 	"nota_final"	REAL,
-	PRIMARY KEY("id" AUTOINCREMENT),
+	PRIMARY KEY("id"),
 	FOREIGN KEY("fk_turma") REFERENCES "turmas"("id"),
 	FOREIGN KEY("fk_contrato") REFERENCES "contratos"("id")
-);
-CREATE TABLE IF NOT EXISTS "alunos" (
-	"id"	INTEGER NOT NULL UNIQUE,
-	"fk_pessoa"	INTEGER,
-	"matricula_aluno"	INTEGER NOT NULL UNIQUE,
-	PRIMARY KEY("id" AUTOINCREMENT),
-	FOREIGN KEY("fk_pessoa") REFERENCES "pessoas"("id")
-);
-CREATE TABLE IF NOT EXISTS "professores" (
-	"id"	INTEGER NOT NULL UNIQUE,
-	"fk_pessoa"	INTEGER NOT NULL,
-	"matricula_funcionario"	INTEGER NOT NULL UNIQUE,
-	PRIMARY KEY("id" AUTOINCREMENT),
-	FOREIGN KEY("fk_pessoa") REFERENCES "pessoas"("id")
 );
 COMMIT;

@@ -1,17 +1,14 @@
 package dev.asor.univitatis.database.exceptions;
 
 /**
- * Excecoes customizadas para o DAO de Aluno
- * 
- * @class AlunoException
  * @author dev.asor
  * @since 17.march.2022
  */
-public class AlunoException extends RuntimeException
+public class GenericDaoException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 
-    public AlunoException(String message)
+    public GenericDaoException(String message)
     {
         super(message);
     }

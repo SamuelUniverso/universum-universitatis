@@ -8,8 +8,5 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
  */
 public interface PessoaInterface 
 {
-    public EntityEnum getEntity();
-    
-	public Integer getNextId();
-	public Integer getLastOccupiedId();
+    EntityEnum getEntity();
 }

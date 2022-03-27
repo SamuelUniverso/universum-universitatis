@@ -14,6 +14,7 @@ public class Professor extends Pessoa implements PessoaInterface,
     private final EntityEnum entity = EntityEnum.PROFESSORES;
     
     private Integer id;
+    
     private String matriculaFuncionario;
     private PessoaInterface pessoa;
 
@@ -34,7 +35,7 @@ public class Professor extends Pessoa implements PessoaInterface,
         return id;
     }
 
-    private void setId(Integer id)
+    public void setId(Integer id)
     {
         this.id = id;
     }
@@ -63,20 +64,6 @@ public class Professor extends Pessoa implements PessoaInterface,
     public EntityEnum getEntity()
     {
         return entity;
-    }
-
-    @Override
-    public Integer getNextId()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Integer getLastOccupiedId()
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /**

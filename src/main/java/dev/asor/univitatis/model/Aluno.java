@@ -5,28 +5,25 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 import dev.asor.univitatis.model.interfaces.PessoaInterface;
 
 /**
+ * @class Aluno
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class Aluno implements PessoaInterface,
-                              DatabaseObjectInterface<Aluno>
+public class Aluno implements PessoaInterface, DatabaseObjectInterface<Aluno>
 {
     private final EntityEnum entity = EntityEnum.ALUNOS;
     
     private Integer id;
+    
     private Pessoa pessoa;
     private String matriculaAluno;
 
-    public Aluno() 
-    {
-        setPessoa(new Pessoa());
-    }
+    public Aluno() {}
     
     public Aluno(Integer id)
     {
         setId(id);
     }
-    
     public Aluno(Pessoa pessoa)
     {
         setPessoa(pessoa);
@@ -62,18 +59,6 @@ public class Aluno implements PessoaInterface,
     public EntityEnum getEntity()
     {
         return entity;
-    }
-
-    @Override
-    public Integer getNextId()
-    {
-        return null;
-    }
-
-    @Override
-    public Integer getLastOccupiedId()
-    {
-        return null;
     }
 
     /**

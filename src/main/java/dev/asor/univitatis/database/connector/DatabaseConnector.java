@@ -4,9 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import dev.asor.univitatis.database.exceptions.GenericDaoException;
+import dev.asor.univitatis.database.exceptions.PessoaException;
+import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
+
 /**
- * Classe que implementa o driver basico do conector JDBC
+ * Implementa o driver basico do conector JDBC
  * 
+ * @class DatabaseConnector
  * @author dev.asor
  * @since 15.mar.2022
  */
@@ -61,8 +66,9 @@ public class DatabaseConnector
     
     /*
      * Encerra conexão da instancia 
-     * @method closeConnection()
+     * @method closeConnection
      * @return void
+     * @throws GenericDaoException
      */
     public void closeConnection()
     {
@@ -74,15 +80,15 @@ public class DatabaseConnector
         catch(SQLException e)
         {
             e.printStackTrace();
+            throw new GenericDaoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
         }
     }
 
     /**
      * Traz instancia do conector do banco
      * @notice Singleton
-     * @method getInstance()
-     * @param isAutoCommit
-     * @return Connector
+     * @method getInstance
+     * @return DatabaseConnector
      */
     public static DatabaseConnector getInstance()
     {

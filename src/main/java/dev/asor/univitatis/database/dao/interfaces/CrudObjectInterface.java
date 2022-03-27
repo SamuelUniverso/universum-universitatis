@@ -1,17 +1,18 @@
 package dev.asor.univitatis.database.dao.interfaces;
 
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
+
 /**
  * A finalidade dessa interface e fazer com que a classe de DAO implemente os
  *  metodos basicos de CRUD
  * 
+ * @interface CrudObjectInterface
  * @author dev.asor
  * @since 17.march.2022
  */
 public interface CrudObjectInterface<T>
 {
-	//void insert(T object);
-    
-    Integer insert(T object, Boolean debug);
+    void insert(T object, Boolean rollbackTransaction);
     
     T fetchById(Integer id);
     
@@ -19,4 +20,5 @@ public interface CrudObjectInterface<T>
     
     Integer getLastUsedId();
 
+    EntityEnum getEntity();
 }

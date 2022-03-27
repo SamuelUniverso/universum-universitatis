@@ -4,6 +4,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.model.interfaces.PessoaInterface;
 
 /**
+ * @class Pessoa
  * @author dev.asor
  * @since 23.feb.2022
  */
@@ -12,6 +13,7 @@ public class Pessoa implements PessoaInterface
     private final EntityEnum entity = EntityEnum.PESSOAS;
     
     private Integer id;
+    
     private String prenome;
     private String nome;
     private String sobrenome;
@@ -85,20 +87,6 @@ public class Pessoa implements PessoaInterface
         return entity;
     }
 
-    @Override
-    public Integer getNextId()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Integer getLastOccupiedId()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
     @Override
     public String toString()
     {

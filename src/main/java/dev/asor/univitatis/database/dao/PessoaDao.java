@@ -8,71 +8,87 @@ import java.sql.Statement;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
-import dev.asor.univitatis.database.dao.helper.GenericDao;
 import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
+import dev.asor.univitatis.database.exceptions.AlunoException;
+import dev.asor.univitatis.database.exceptions.GenericDaoException;
 import dev.asor.univitatis.database.exceptions.PessoaException;
 import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
 import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
 import dev.asor.univitatis.model.Pessoa;
 
 /**
+ * @class PessoaDao
  * @author dev.asor
  * @since 17.march.2022
  */
 public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 {
+    private final EntityEnum entity = EntityEnum.PESSOAS;
     
 	public PessoaDao(DatabaseConnector connector)
     {
         setConnector(connector);
     }
 	
+    /**
+     * Insere uma nova Pessoa na base
+     * @method insert
+     * @param Pessoa pessoa
+     * @param Boolean rollback : nao grava alteracoes
+     * @return void
+     */
 	@Override
-	public Integer insert(Pessoa pessoa, Boolean debug) 
+	public void insert(Pessoa pessoa, Boolean rollback) 
 	{
         try
         {
             String sql = PessoaDaoHelper.createInsertPessoaPreparedStatement();
-	        PreparedStatement stmtPessoa = getConnector().getConnection()
-						                                 .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-			stmtPessoa.setString(1, pessoa.getPrenome());
-			stmtPessoa.setString(2, pessoa.getNome());
-			stmtPessoa.setString(3, pessoa.getSobrenome());
-			stmtPessoa.setString(4, pessoa.getTelefone());
-			stmtPessoa.setString(5, pessoa.getCpf());
+	        PreparedStatement statement = getConnector().getConnection()
+						                                .prepareStatement(sql);
+	        
+	        statement.setInt   (1, getNextId(pessoa.getEntity()));
+			statement.setString(2, pessoa.getPrenome());
+			statement.setString(3, pessoa.getNome());
+			statement.setString(4, pessoa.getSobrenome());
+			statement.setString(5, pessoa.getTelefone());
+			statement.setString(6, pessoa.getCpf());
 			
-			super.setGeneratedId(stmtPessoa.executeUpdate());
+			statement.executeUpdate();
         }
         catch(SQLException e)
         {
+        	e.printStackTrace();
         	throw new PessoaException(PessoaExceptionMessages.ERROR_INSERT_PESSOA.getMessage());
         }
         finally
         {
-        	try
-        	{
-        		if(debug)
-            	{
-        			getConnector().getConnection().rollback();
-            	}
-        		else
-        		{
-        			getConnector().getConnection().close();
-        		}
-        	}
-        	catch(SQLException e)
-        	{
-        		e.printStackTrace();
-//        		throw new PessoaException(PessoaExceptionMessages.ERROR_ROLLBACK.getMessage());
-        	}
+            try
+            {
+                if(!rollback)
+                {
+                    getConnector().getConnection().commit();
+                }
+                else
+                {
+                    getConnector().getConnection().rollback();
+                }
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+                throw new AlunoException(GenericErrors.ERROR_END_TRANSACTION.getMessage());
+            } 
         }
-        
-        return getGeneratedId();
 	}
 
+	/**
+	 * Busca Pessoa pelo Id
+	 * @method fetchById
+	 * @param Integer id
+	 * @return Pessoa
+	 */
 	@Override
 	public Pessoa fetchById(Integer id) 
 	{
@@ -101,66 +117,25 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 		{
 			throw new PessoaException(PessoaExceptionMessages.ERRRO_FETCH_BY_ID.getMessage());
 		}
-		finally
-		{
-			try 
-			{
-				getConnector().getConnection().close();
-			} 
-			catch (SQLException e) 
-			{
-			    throw new PessoaException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
-			}
-		}
 		
 		return pessoa;
 	}
-	
-   @Override
-    public Integer getLastUsedId()
-    {
-       Integer id = null;
-       String sql = PessoaDaoHelper.getLastUsedIdStatement(EntityEnum.PESSOAS);
-       try
-       {
-           PreparedStatement statement = getConnector().getConnection()
-                                                       .prepareStatement(sql);
-           
-           ResultSet result = statement.executeQuery();
-           while(result.next())
-           {
-               id = result.getInt(1);
-           }
-       }
-       catch(SQLException e)
-       {
-           e.printStackTrace();
-       }
-       
-       return id;
-    }
 
     @Override
     public Integer getNextId()
     {
-        Integer id = null;
-        String sql = PessoaDaoHelper.getNextIdStatement(EntityEnum.PESSOAS);
-        try
-        {
-            PreparedStatement statement = getConnector().getConnection()
-                                                        .prepareStatement(sql);
-            
-            ResultSet result = statement.executeQuery();
-            while(result.next())
-            {
-                id = result.getInt(1);
-            }
-        }
-        catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
-        
-        return id;
+        return super.getNextId(this.getEntity());
+    }
+
+    @Override
+    public Integer getLastUsedId()
+    {
+        return super.getLastUsedId(this.getEntity());
+    }
+    
+    @Override
+    public EntityEnum getEntity()
+    {
+        return entity;
     }
 }

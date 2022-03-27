@@ -1,6 +1,7 @@
 package dev.asor.univitatis.database.dao.interfaces;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
 
 /**
  * A finalidade dessa interface e fazer com que a classe de DAO implemente o
@@ -11,9 +12,13 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
  */
 public interface GenericConnectorInterface
 {
-    public DatabaseConnector getConnector();
+    DatabaseConnector getConnector();
     
-    public void setConnector(DatabaseConnector connector);
+    void setConnector(DatabaseConnector connector);
     
-    public void closeConnection();
+    void closeConnection();
+
+    Integer getNextId(EntityEnum entity);
+
+    Integer getLastUsedId(EntityEnum entity);
 }

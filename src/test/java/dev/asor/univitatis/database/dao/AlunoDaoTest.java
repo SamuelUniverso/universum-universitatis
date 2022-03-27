@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.model.Aluno;
+import dev.asor.univitatis.model.Pessoa;
 
 /**
  * Teste de CRUD na entidade de Aluno
@@ -27,14 +28,14 @@ public class AlunoDaoTest
     {
         AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
         
-        Aluno aluno = new Aluno();
+        Aluno aluno = new Aluno(new Pessoa());
         aluno.getPessoa().setPrenome("Prenome");
         aluno.getPessoa().setNome("Nome");
         aluno.getPessoa().setSobrenome("Sobrenome");
-        aluno.getPessoa().setCpf("00000000000");
+        aluno.getPessoa().setCpf("00000000004");
         aluno.getPessoa().setTelefone("5551987654321");
         aluno.setMatriculaAluno("000-000-000");        
         
-        dao.insert(aluno, true);
+        dao.insert(aluno, false);
     }
 }
