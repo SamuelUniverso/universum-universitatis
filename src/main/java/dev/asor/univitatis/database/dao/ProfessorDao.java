@@ -8,55 +8,52 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
 import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
+import dev.asor.univitatis.database.dao.helper.ProfessorDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.database.exceptions.AlunoException;
 import dev.asor.univitatis.database.exceptions.GenericDaoException;
 import dev.asor.univitatis.database.exceptions.PessoaException;
+import dev.asor.univitatis.database.exceptions.ProfessorException;
 import dev.asor.univitatis.database.exceptions.errors.AlunoExceptionMessages;
 import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
 import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
+import dev.asor.univitatis.database.exceptions.errors.ProfessorExceptionMessages;
 import dev.asor.univitatis.model.Aluno;
+import dev.asor.univitatis.model.Professor;
 
 /**
- * @class AlunoDao
+ * @class ProfessorDao
  * @author dev.asor
  * @since 17.march.2022
  */
-public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
+public class ProfessorDao extends GenericDao implements CrudObjectInterface<Professor>
 {
     private final EntityEnum entity = EntityEnum.ALUNOS;
     
-    public AlunoDao(DatabaseConnector connector)
+    public ProfessorDao(DatabaseConnector connector)
     {
         setConnector(connector);
     }
 
-    /**
-     * Insere um novo Aluno na base
-     * @method insert
-     * @param Aluno aluno
-     * @param Boolean rollback : nao grava alteracoes
-     * @return void
-     */
-	@Override
-	public void insert(Aluno aluno, Boolean rollback) 
-	{
-	    PessoaDao pessoaDao = new PessoaDao(getConnector()); /* passa conector do AlunoDao para PessoaDao */
-	    
-	    try
-	    {
-	        if(aluno.getPessoa() == null) /* Aluno precisa conter Pessoa */
-	        {
-	            throw new AlunoException(AlunoExceptionMessages.ERROR_ALUNO_NOT_DEFINED.getMessage());
-	        }
-	        pessoaDao.insert(aluno.getPessoa(), rollback);
-	         
-	        String sql = AlunoDaoHelper.createPreparedStatementAluno();
+    @Override
+    public void insert(Professor professor, Boolean rollback)
+    {
+        PessoaDao pessoaDao = new PessoaDao(getConnector()); /* passa conector do ProfessorDao para PessoaDao */
+        
+        try
+        {
+            if(professor.getPessoa() == null) /* Aluno precisa conter Pessoa */
+            {
+                throw new ProfessorException(ProfessorExceptionMessages.ERROR_PROFESSOR_NOT_DEFINED.getMessage());
+            }
+            pessoaDao.insert(professor.getPessoa(), rollback);
+             
+            String sql = ProfessorDaoHelper.createPreparedStatementProfessor();
             PreparedStatement statement = getConnector().getConnection()
                                                         .prepareStatement(sql);
             
-            statement.setInt   (1, pessoaDao.getLastUsedId()); /* aluno.fk_pessoa */
-            statement.setString(2, aluno.getMatriculaAluno());
+            statement.setInt   (1, pessoaDao.getLastUsedId()); /* professor.fk_pessoa */
+            statement.setString(2, professor.getMatriculaFuncionario());
             
             statement.executeUpdate();
         }
@@ -69,14 +66,14 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
             catch(SQLException e1)
             {
                 e1.printStackTrace();
-                throw new AlunoException(GenericErrors.ERROR_ROLLBAK_CONNECTION.getMessage());
+                throw new ProfessorException(GenericErrors.ERROR_ROLLBAK_CONNECTION.getMessage());
             }
         }
-	    finally 
-	    {
-	    	try
-	    	{
-	    	    if(!rollback)
+        finally 
+        {
+            try
+            {
+                if(!rollback)
                 {
                     getConnector().getConnection().commit();
                 }
@@ -84,23 +81,23 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
                 {
                     getConnector().getConnection().rollback();
                 }
-	    	    
-	    	    getConnector().getConnection().close();
-	    	}
-	    	catch(SQLException e)
-	    	{
-	    	    e.printStackTrace();
-	    	    throw new AlunoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
-	    	}
-		}
-	}
+                
+                getConnector().getConnection().close();
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+                throw new ProfessorException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
+            }
+        }
+    }
 
-	@Override
-	public Aluno fetchById(Integer id) 
-	{
-	    // TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Professor fetchById(Integer id) 
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     @Override
     public Integer getNextId()
@@ -119,4 +116,6 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
     {
         return this.entity;
     }
+
+   
 }

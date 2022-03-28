@@ -12,7 +12,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
  */
 public interface CrudObjectInterface<T>
 {
-    void insert(T object, Boolean rollbackTransaction);
+    void insert(T object, Boolean rollback);
     
     T fetchById(Integer id);
     

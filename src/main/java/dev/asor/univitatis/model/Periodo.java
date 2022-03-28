@@ -9,11 +9,10 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 public class Periodo implements DatabaseObjectInterface<Periodo>
 {
     private Integer id;
+    
     private String periodoLetivo;
 
-    public Periodo()
-    {
-    }
+    public Periodo() {}
 
     public Periodo(Integer id)
     {

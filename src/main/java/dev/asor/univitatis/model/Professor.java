@@ -16,7 +16,7 @@ public class Professor extends Pessoa implements PessoaInterface,
     private Integer id;
     
     private String matriculaFuncionario;
-    private PessoaInterface pessoa;
+    private Pessoa pessoa;
 
     public Professor() {}
 
@@ -24,8 +24,7 @@ public class Professor extends Pessoa implements PessoaInterface,
     {
         setId(id);
     }
-
-    public Professor(PessoaInterface pessoa)
+    public Professor(Pessoa pessoa)
     {
         setPessoa(pessoa);
     }
@@ -34,18 +33,16 @@ public class Professor extends Pessoa implements PessoaInterface,
     {
         return id;
     }
-
     public void setId(Integer id)
     {
         this.id = id;
     }
 
-    public PessoaInterface getPessoa()
+    public Pessoa getPessoa()
     {
         return this.pessoa;
     }
-
-    private void setPessoa(PessoaInterface pessoa)
+    private void setPessoa(Pessoa pessoa)
     {
         this.pessoa = pessoa;
     }
@@ -54,7 +51,6 @@ public class Professor extends Pessoa implements PessoaInterface,
     {
         return matriculaFuncionario;
     }
-
     public void setMatriculaFuncionario(String matriculaFuncionario)
     {
         this.matriculaFuncionario = matriculaFuncionario;

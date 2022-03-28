@@ -37,8 +37,6 @@ public class DatabaseConnector
             
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(isAutoCommit);
-            
-            System.out.println("Conexão com o Banco de Dados bem sucedida!");
         } 
         catch (SQLException e)
         {
@@ -47,6 +45,10 @@ public class DatabaseConnector
         catch(ClassNotFoundException e)
         {
             e.printStackTrace();
+        }
+        finally
+        {
+            System.out.println("Conexão com o Banco de Dados bem sucedida!"); 
         }
     }
     

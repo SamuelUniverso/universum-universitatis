@@ -9,13 +9,12 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 public class Turma implements DatabaseObjectInterface<Turma>
 {
     private Integer id;
+    
     private Professor professor;
     private Disciplina disciplina;
     private Periodo perido;
 
-    public Turma()
-    {
-    }
+    public Turma() {}
 
     public Turma(Integer id)
     {

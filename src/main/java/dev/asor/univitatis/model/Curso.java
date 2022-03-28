@@ -9,11 +9,10 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 public class Curso implements DatabaseObjectInterface<Curso>
 {
     private Integer id;
+    
     private String nome;
 
-    public Curso()
-    {
-    }
+    public Curso() {}
 
     public Curso(Integer id)
     {

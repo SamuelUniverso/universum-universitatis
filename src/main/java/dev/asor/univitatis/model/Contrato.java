@@ -11,14 +11,13 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 public class Contrato implements DatabaseObjectInterface<Contrato>
 {
     private Integer id;
+    
     private Aluno aluno;
     private Curso curso;
     private Date dataAtivacao;
     private Date dataDesativacao;
 
-    public Contrato()
-    {
-    }
+    public Contrato() {}
 
     public Contrato(Integer id)
     {

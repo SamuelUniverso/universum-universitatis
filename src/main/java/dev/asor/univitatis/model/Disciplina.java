@@ -9,11 +9,10 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 public class Disciplina implements DatabaseObjectInterface<Disciplina>
 {
     private Integer id;
+    
     private String nome;
 
-    public Disciplina()
-    {
-    }
+    public Disciplina() {}
 
     public Disciplina(Integer id)
     {

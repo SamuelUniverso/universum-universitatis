@@ -12,6 +12,7 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 public class Matricula implements DatabaseObjectInterface<Matricula>
 {
     private Integer id;
+    
     private Contrato contrato;
     private Turma turma;
     private Date dataMatricula;
@@ -21,9 +22,7 @@ public class Matricula implements DatabaseObjectInterface<Matricula>
     private BigDecimal nota3;
     private BigDecimal notaFinal;
 
-    public Matricula()
-    {
-    }
+    public Matricula() {}
 
     public Matricula(Integer id)
     {

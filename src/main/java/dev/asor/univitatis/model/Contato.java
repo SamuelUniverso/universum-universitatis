@@ -9,9 +9,7 @@ public class Contato extends Pessoa
 {
     private String telefone;
 
-    public Contato()
-    {
-    }
+    public Contato() {}
 
     public Contato(String nome, String cpf, String telefone)
     {
