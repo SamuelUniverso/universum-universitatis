@@ -1,5 +1,7 @@
 package dev.asor.univitatis.database.dao;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
@@ -37,5 +39,23 @@ public class AlunoDaoTest
         aluno.setMatriculaAluno("000-000-000");        
         
         dao.insert(aluno, false);
+    }
+    
+    @Test
+    public void fetchAlunoById()
+    {
+        AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
+        
+        Aluno aluno = dao.fetchById(3);
+        System.out.print(aluno);
+    }
+    
+    @Test
+    public void fetchAll()
+    {
+        AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
+        
+        List<Aluno> alunos = dao.fetchAll();
+        System.out.print(alunos);
     }
 }

@@ -3,6 +3,7 @@ package dev.asor.univitatis.database.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
@@ -38,11 +39,11 @@ public class ProfessorDao extends GenericDao implements CrudObjectInterface<Prof
     @Override
     public void insert(Professor professor, Boolean rollback)
     {
-        PessoaDao pessoaDao = new PessoaDao(getConnector()); /* passa conector do ProfessorDao para PessoaDao */
+        PessoaDao pessoaDao = new PessoaDao(getConnector());
         
         try
         {
-            if(professor.getPessoa() == null) /* Aluno precisa conter Pessoa */
+            if(professor.getPessoa() == null) /* Professor precisa conter Pessoa */
             {
                 throw new ProfessorException(ProfessorExceptionMessages.ERROR_PROFESSOR_NOT_DEFINED.getMessage());
             }
@@ -98,6 +99,13 @@ public class ProfessorDao extends GenericDao implements CrudObjectInterface<Prof
         // TODO Auto-generated method stub
         return null;
     }
+    
+    @Override
+    public List<Professor> fetchAll()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }    
 
     @Override
     public Integer getNextId()
@@ -116,6 +124,4 @@ public class ProfessorDao extends GenericDao implements CrudObjectInterface<Prof
     {
         return this.entity;
     }
-
-   
 }

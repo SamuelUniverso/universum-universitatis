@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
@@ -106,11 +107,11 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 			{
 			    pessoa = new Pessoa(resultSet.getInt(1));
 			    
-			    pessoa.setPrenome(resultSet.getString(2));
-			    pessoa.setNome(resultSet.getString(3));
-			    pessoa.setSobrenome(resultSet.getString(4));
-			    pessoa.setTelefone(resultSet.getString(5));
-			    pessoa.setCpf(resultSet.getString(6));
+			    pessoa.setPrenome    (resultSet.getString(2));
+			    pessoa.setNome       (resultSet.getString(3));
+			    pessoa.setSobrenome  (resultSet.getString(4));
+			    pessoa.setTelefone   (resultSet.getString(5));
+			    pessoa.setCpf        (resultSet.getString(6));
 			}
 		} 
 		catch (SQLException e) 
@@ -120,6 +121,13 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 		
 		return pessoa;
 	}
+	
+    @Override
+    public List<Pessoa> fetchAll()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     @Override
     public Integer getNextId()

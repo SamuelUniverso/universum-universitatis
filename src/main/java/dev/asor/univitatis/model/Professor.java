@@ -8,8 +8,8 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class Professor extends Pessoa implements PessoaInterface,
-                                                 DatabaseObjectInterface<Professor>
+public class Professor extends Pessoa implements PessoaInterface
+                                               , DatabaseObjectInterface<Professor>
 {
     private final EntityEnum entity = EntityEnum.PROFESSORES;
     
@@ -22,11 +22,13 @@ public class Professor extends Pessoa implements PessoaInterface,
 
     public Professor(Integer id)
     {
+        setPessoa(new Pessoa(id));
         setId(id);
     }
     public Professor(Pessoa pessoa)
     {
         setPessoa(pessoa);
+        setId(pessoa.getId());
     }
 
     public Integer getId()
@@ -79,5 +81,22 @@ public class Professor extends Pessoa implements PessoaInterface,
         {
             return null;
         }
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder str = new StringBuilder();
+
+        str.append("["                                                 );
+        str.append("id: "           + getId()                    + ", ");
+        str.append("prenome: "      + getPessoa().getPrenome()   + ", ");
+        str.append("nome: "         + getPessoa().getNome()      + ", ");
+        str.append("sobrenome: "    + getPessoa().getSobrenome() + ", ");
+        str.append("cpf: "          + getPessoa().getCpf()       + ", ");
+        str.append("cd_matricula: " + getMatriculaFuncionario()        );
+        str.append("]"                                                 );
+
+        return str.toString();
     }
 }

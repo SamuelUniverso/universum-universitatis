@@ -80,7 +80,7 @@ public class Pessoa implements PessoaInterface
     {
         this.cpf = cpf;
     }
-    
+
     @Override
     public EntityEnum getEntity()
     {
@@ -91,14 +91,15 @@ public class Pessoa implements PessoaInterface
     public String toString()
     {
         StringBuilder str = new StringBuilder();
-        str.append("[");
-        str.append("id: " + getId() + ", ");
-        str.append("prenome: " + getPrenome() + ", ");
-        str.append("nome: " + getNome() + ", ");
-        str.append("sobrenome: " + getSobrenome() + ", ");
-        str.append("cpf: " + getCpf());
-        str.append("]");
         
+        str.append("["                                       );
+        str.append("id: "           + getId()          + ", ");
+        str.append("prenome: "      + getPrenome()     + ", ");
+        str.append("nome: "         + getNome()        + ", ");
+        str.append("sobrenome: "    + getSobrenome()   + ", ");
+        str.append("cpf: "          + getCpf()               );
+        str.append("]"                                       );
+
         return str.toString();
     }
 }

@@ -9,7 +9,8 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class Aluno implements PessoaInterface, DatabaseObjectInterface<Aluno>
+public class Aluno implements PessoaInterface
+                            , DatabaseObjectInterface<Aluno>
 {
     private final EntityEnum entity = EntityEnum.ALUNOS;
     
@@ -22,11 +23,13 @@ public class Aluno implements PessoaInterface, DatabaseObjectInterface<Aluno>
     
     public Aluno(Integer id)
     {
+        setPessoa(new Pessoa(id));
         setId(id);
     }
     public Aluno(Pessoa pessoa)
     {
         setPessoa(pessoa);
+        setId(pessoa.getId());
     }
 
     public Integer getId()
@@ -55,7 +58,7 @@ public class Aluno implements PessoaInterface, DatabaseObjectInterface<Aluno>
     {
         this.matriculaAluno = matriculaAluno;
     }
-    
+
     public EntityEnum getEntity()
     {
         return entity;
@@ -78,5 +81,22 @@ public class Aluno implements PessoaInterface, DatabaseObjectInterface<Aluno>
         {
             return null;
         }
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder str = new StringBuilder();
+
+        str.append("["                                                 );
+        str.append("id: "           + getId()                    + ", ");
+        str.append("prenome: "      + getPessoa().getPrenome()   + ", ");
+        str.append("nome: "         + getPessoa().getNome()      + ", ");
+        str.append("sobrenome: "    + getPessoa().getSobrenome() + ", ");
+        str.append("cpf: "          + getPessoa().getCpf()       + ", ");
+        str.append("cd_matricula: " + getMatriculaAluno()              );
+        str.append("]"                                                 );
+
+        return str.toString();
     }
 }

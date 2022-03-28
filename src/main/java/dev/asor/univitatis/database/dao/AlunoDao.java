@@ -3,6 +3,9 @@ package dev.asor.univitatis.database.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
@@ -16,6 +19,7 @@ import dev.asor.univitatis.database.exceptions.errors.AlunoExceptionMessages;
 import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
 import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
 import dev.asor.univitatis.model.Aluno;
+import dev.asor.univitatis.model.Pessoa;
 
 /**
  * @class AlunoDao
@@ -41,17 +45,17 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 	@Override
 	public void insert(Aluno aluno, Boolean rollback) 
 	{
-	    PessoaDao pessoaDao = new PessoaDao(getConnector()); /* passa conector do AlunoDao para PessoaDao */
+	    PessoaDao pessoaDao = new PessoaDao(getConnector());
 	    
 	    try
 	    {
 	        if(aluno.getPessoa() == null) /* Aluno precisa conter Pessoa */
 	        {
-	            throw new AlunoException(AlunoExceptionMessages.ERROR_ALUNO_NOT_DEFINED.getMessage());
+	            throw new IllegalArgumentException(AlunoExceptionMessages.ERROR_ALUNO_NOT_DEFINED.getMessage());
 	        }
 	        pessoaDao.insert(aluno.getPessoa(), rollback);
 	         
-	        String sql = AlunoDaoHelper.createPreparedStatementAluno();
+	        String sql = AlunoDaoHelper.createPreparedStatementInsertAluno();
             PreparedStatement statement = getConnector().getConnection()
                                                         .prepareStatement(sql);
             
@@ -98,9 +102,69 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 	@Override
 	public Aluno fetchById(Integer id) 
 	{
-	    // TODO Auto-generated method stub
-		return null;
+	   Aluno aluno = null;
+	   try
+	   {
+	       if(id == null)
+	       {
+	           throw new IllegalArgumentException(AlunoExceptionMessages.ERROR_ALUNO_NOT_FOUND.getMessage());
+	       }
+	       
+	       String sql = AlunoDaoHelper.createPreparedStatementSelectAluno(false);
+	       PreparedStatement statement = getConnector().getConnection().prepareStatement(sql);
+	       
+	       statement.setInt(1, id);
+	       
+	       ResultSet result = statement.executeQuery();
+	       while(result.next())
+	       {
+	           aluno = new Aluno(new Pessoa(result.getInt(1)));
+	           aluno.getPessoa().setPrenome    (result.getString(2));
+	           aluno.getPessoa().setNome       (result.getString(3));
+	           aluno.getPessoa().setSobrenome  (result.getString(4));
+	           aluno.getPessoa().setCpf        (result.getString(5));
+	           aluno.getPessoa().setTelefone   (result.getString(6));
+	           aluno.setMatriculaAluno         (result.getString(8));
+	       }
+	   }
+	   catch(SQLException e)
+	   {
+	       e.printStackTrace();
+	   }
+	   
+	   return aluno;
 	}
+	
+    @Override
+    public List<Aluno> fetchAll() 
+    {
+       List<Aluno> alunos = new ArrayList<Aluno>(); 
+       try
+       {
+           String sql = AlunoDaoHelper.createPreparedStatementSelectAluno(true);
+           PreparedStatement statement = getConnector().getConnection().prepareStatement(sql);
+           
+           ResultSet result = statement.executeQuery();
+           while(result.next())
+           {
+               Aluno aluno = new Aluno(new Pessoa(result.getInt(1)));
+               aluno.getPessoa().setPrenome      (result.getString(2));
+               aluno.getPessoa().setNome         (result.getString(3));
+               aluno.getPessoa().setSobrenome    (result.getString(4));
+               aluno.getPessoa().setCpf          (result.getString(5));
+               aluno.getPessoa().setTelefone     (result.getString(6));
+               aluno.setMatriculaAluno           (result.getString(8));
+               
+               alunos.add(aluno);
+           }
+       }
+       catch(SQLException e)
+       {
+           e.printStackTrace();
+       }
+       
+       return alunos;
+    }	
 
     @Override
     public Integer getNextId()
