@@ -11,13 +11,13 @@ public class ProfessorDaoHelper extends GenericHelper
 {
     private final static EntityEnum entity = EntityEnum.PROFESSORES;
     
-    public static String createPreparedStatementProfessor()
+    public static String createPreparedStatementInsertProfessor()
     {
         StringBuilder sql = new StringBuilder();
             
         sql.append("INSERT INTO " + getEntity().getEntityName());
-        sql.append(" (fk_pessoa, codigo_matricula) ");
-        sql.append(" VALUES (?1, ?2) ");
+        sql.append(" (fk_pessoa, codigo_matricula)            ");
+        sql.append(" VALUES (?1, ?2)                          ");
         
         return sql.toString();
     }
@@ -47,7 +47,7 @@ public class ProfessorDaoHelper extends GenericHelper
             sql.append("  WHERE pessoa.id = ?1                                              ");
         }
         
-        return sql.toString();  
+        return sql.toString().strip();  
     }    
     
     private static EntityEnum getEntity()

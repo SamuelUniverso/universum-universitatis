@@ -15,7 +15,7 @@ import dev.asor.univitatis.model.Aluno;
  */
 public interface CrudObjectInterface<T>
 {
-    void insert(T object, Boolean rollback);
+    void insert(T object);
     
     T fetchById(Integer id);
     

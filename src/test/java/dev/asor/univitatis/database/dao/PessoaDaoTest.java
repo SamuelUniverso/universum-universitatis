@@ -25,7 +25,7 @@ public class PessoaDaoTest
         pessoa.setCpf("00000000009");
         pessoa.setTelefone("5551987654321");
         
-        dao.insert(pessoa, false);
+        dao.insert(pessoa);
         
         dao.getConnector().closeConnection();
 	}

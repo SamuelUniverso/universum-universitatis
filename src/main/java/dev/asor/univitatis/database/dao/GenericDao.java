@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.GenericHelper;
-import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
 import dev.asor.univitatis.database.exceptions.GenericDaoException;
 import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
@@ -60,6 +59,7 @@ public abstract class GenericDao implements GenericConnectorInterface
     /**
      * Retorna último Id na sequencia da entidade de Pessoas
      * @method getLastUsedId
+     * @param EntityEnum entity
      * @return Integer
      */
     @Override
@@ -89,6 +89,7 @@ public abstract class GenericDao implements GenericConnectorInterface
    /**
     * Retorna próximo Id na sequencia da entidade de Pessoas
     * @method getNextId
+    * @param EntityEnum entity
     * @return Integer
     */
     @Override

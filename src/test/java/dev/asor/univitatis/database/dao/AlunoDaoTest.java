@@ -22,7 +22,7 @@ public class AlunoDaoTest
 	    AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
 	    
 	    Aluno aluno = new Aluno();
-	    dao.insert(aluno, true);
+	    dao.insert(aluno);
 	}
     
     @Test
@@ -31,14 +31,14 @@ public class AlunoDaoTest
         AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
         
         Aluno aluno = new Aluno(new Pessoa());
-        aluno.getPessoa().setPrenome("Prenome");
-        aluno.getPessoa().setNome("Nome");
-        aluno.getPessoa().setSobrenome("Sobrenome");
-        aluno.getPessoa().setCpf("00000000004");
+        aluno.getPessoa().setPrenome("Nobilis");
+        aluno.getPessoa().setNome("Discipullum");
+        aluno.getPessoa().setSobrenome("Honorarium");
+        aluno.getPessoa().setCpf("22177716683");
         aluno.getPessoa().setTelefone("5551987654321");
-        aluno.setMatriculaAluno("000-000-000");        
+        aluno.setMatriculaAluno("221-777-166");        
         
-        dao.insert(aluno, false);
+        dao.insert(aluno);
     }
     
     @Test
@@ -46,7 +46,7 @@ public class AlunoDaoTest
     {
         AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
         
-        Aluno aluno = dao.fetchById(3);
+        Aluno aluno = dao.fetchById(1);
         System.out.print(aluno);
     }
     

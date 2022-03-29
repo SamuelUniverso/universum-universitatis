@@ -15,6 +15,7 @@ import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.database.exceptions.AlunoException;
 import dev.asor.univitatis.database.exceptions.GenericDaoException;
 import dev.asor.univitatis.database.exceptions.PessoaException;
+import dev.asor.univitatis.database.exceptions.ProfessorException;
 import dev.asor.univitatis.database.exceptions.errors.AlunoExceptionMessages;
 import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
 import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
@@ -36,14 +37,13 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
     }
 
     /**
-     * Insere um novo Aluno na base
+     * Insere um novo Aluno na Base
      * @method insert
      * @param Aluno aluno
-     * @param Boolean rollback : nao grava alteracoes
      * @return void
      */
 	@Override
-	public void insert(Aluno aluno, Boolean rollback) 
+	public void insert(Aluno aluno) 
 	{
 	    PessoaDao pessoaDao = new PessoaDao(getConnector());
 	    
@@ -53,7 +53,7 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 	        {
 	            throw new IllegalArgumentException(AlunoExceptionMessages.ERROR_ALUNO_NOT_DEFINED.getMessage());
 	        }
-	        pessoaDao.insert(aluno.getPessoa(), rollback);
+	        pessoaDao.insert(aluno.getPessoa());
 	         
 	        String sql = AlunoDaoHelper.createPreparedStatementInsertAluno();
             PreparedStatement statement = getConnector().getConnection()
@@ -63,6 +63,8 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
             statement.setString(2, aluno.getMatriculaAluno());
             
             statement.executeUpdate();
+            
+            getConnector().getConnection().commit();
         }
         catch(SQLException e)
         {
@@ -76,29 +78,26 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
                 throw new AlunoException(GenericErrors.ERROR_ROLLBAK_CONNECTION.getMessage());
             }
         }
-	    finally 
+	    finally
 	    {
-	    	try
-	    	{
-	    	    if(!rollback)
-                {
-                    getConnector().getConnection().commit();
-                }
-                else
-                {
-                    getConnector().getConnection().rollback();
-                }
-	    	    
-	    	    getConnector().getConnection().close();
-	    	}
-	    	catch(SQLException e)
-	    	{
-	    	    e.printStackTrace();
-	    	    throw new AlunoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
-	    	}
-		}
+	        try
+	        {
+	            getConnector().getConnection().close();
+	        }
+	        catch(SQLException e)
+	        {
+	            e.printStackTrace();
+	            throw new AlunoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
+	        }
+	    }
 	}
 
+    /**
+     * Busca um Aluno pelo Id especifico
+     * @method fetchById
+     * @param Integer id
+     * @return Aluno
+     */
 	@Override
 	public Aluno fetchById(Integer id) 
 	{
@@ -131,10 +130,27 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 	   {
 	       e.printStackTrace();
 	   }
+	   finally
+	   {
+	        try
+	        {
+	            getConnector().getConnection().close();
+	        }
+	        catch(SQLException e)
+	        {
+	            e.printStackTrace();
+	            throw new AlunoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
+	        }
+	   }
 	   
 	   return aluno;
 	}
 	
+    /**
+     * Retorna a lista de todos os Alunos
+     * @method fetchAll
+     * @return List<Aluno>
+     */
     @Override
     public List<Aluno> fetchAll() 
     {
@@ -161,6 +177,18 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
        catch(SQLException e)
        {
            e.printStackTrace();
+       }
+       finally
+       {
+           try
+           {
+               getConnector().getConnection().close();
+           }
+           catch(SQLException e)
+           {
+               e.printStackTrace();
+               throw new AlunoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
+           }
        }
        
        return alunos;

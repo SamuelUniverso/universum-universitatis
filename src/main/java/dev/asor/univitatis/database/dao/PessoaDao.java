@@ -35,13 +35,13 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 	
     /**
      * Insere uma nova Pessoa na base
+     * @notice transacao precisa ser controlada externamente pelo Stereotype
      * @method insert
      * @param Pessoa pessoa
-     * @param Boolean rollback : nao grava alteracoes
      * @return void
      */
 	@Override
-	public void insert(Pessoa pessoa, Boolean rollback) 
+	public void insert(Pessoa pessoa) 
 	{
         try
         {
@@ -62,25 +62,6 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
         {
         	e.printStackTrace();
         	throw new PessoaException(PessoaExceptionMessages.ERROR_INSERT_PESSOA.getMessage());
-        }
-        finally
-        {
-            try
-            {
-                if(!rollback)
-                {
-                    getConnector().getConnection().commit();
-                }
-                else
-                {
-                    getConnector().getConnection().rollback();
-                }
-            }
-            catch(SQLException e)
-            {
-                e.printStackTrace();
-                throw new AlunoException(GenericErrors.ERROR_END_TRANSACTION.getMessage());
-            } 
         }
 	}
 
@@ -125,7 +106,6 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
     @Override
     public List<Pessoa> fetchAll()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 

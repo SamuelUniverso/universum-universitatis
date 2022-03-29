@@ -1,5 +1,7 @@
 package dev.asor.univitatis.database.dao.helper;
 
+import dev.asor.univitatis.database.dao.enums.EntityEnum;
+
 /**
  * @class AlunoDaoHelper
  * @author dev.asor
@@ -7,13 +9,15 @@ package dev.asor.univitatis.database.dao.helper;
  */
 public class AlunoDaoHelper extends GenericHelper
 {
+    private final static EntityEnum entity = EntityEnum.ALUNOS;
+    
     public static String createPreparedStatementInsertAluno()
     {
         StringBuilder sql = new StringBuilder();
             
-        sql.append(" INSERT INTO aluno               ");
-        sql.append("   (fk_pessoa, codigo_matricula) ");
-        sql.append(" VALUES (?1, ?2)                 ");
+        sql.append("INSERT INTO " + getEntity().getEntityName());
+        sql.append("   (fk_pessoa, codigo_matricula)          ");
+        sql.append(" VALUES (?1, ?2)                          ");
         
         return sql.toString();
     }
@@ -38,5 +42,10 @@ public class AlunoDaoHelper extends GenericHelper
         }
         
         return sql.toString();  
+    }
+    
+    private static EntityEnum getEntity()
+    {
+        return entity;
     }
 }
