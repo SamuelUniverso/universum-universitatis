@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import dev.asor.univitatis.database.connector.interfaces.DatabaseConnectorInterace;
 import dev.asor.univitatis.database.exceptions.GenericDaoException;
 import dev.asor.univitatis.database.exceptions.PessoaException;
 import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
@@ -15,7 +16,7 @@ import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
  * @author dev.asor
  * @since 15.mar.2022
  */
-public class DatabaseConnector
+public class DatabaseConnector implements DatabaseConnectorInterace
 {
     private static DatabaseConnector INSTANCE = null;
     private Connection connection = null;
@@ -72,6 +73,7 @@ public class DatabaseConnector
      * @return void
      * @throws GenericDaoException
      */
+    @Override
     public void closeConnection()
     {
         try
