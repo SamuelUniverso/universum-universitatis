@@ -7,6 +7,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
  * A finalidade dessa interface e fazer com que a classe de DAO implemente o
  *  conector do banco de dados
  *  
+ * @interface GenericConnectorInterface
  * @author dev.asor
  * @since 17.march.2022
  */

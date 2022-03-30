@@ -11,8 +11,9 @@ import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.view.MainView;
 
 /**
+ * @calss UnivitatisApp
  * @author dev.asor
- * @since 23.feb.2022
+ * @since 23.february.2022
  */
 public class UnivitatisApp 
 {

@@ -6,7 +6,7 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
 /**
  * @class Pessoa
  * @author dev.asor
- * @since 23.feb.2022
+ * @since 23.february.2022
  */
 public class Pessoa implements PessoaInterface
 {

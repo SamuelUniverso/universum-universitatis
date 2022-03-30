@@ -3,8 +3,9 @@ package dev.asor.univitatis.model;
 import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 
 /**
+ * @class Turma
  * @author dev.asor
- * @since 15.mar.2022
+ * @since 15.march.2022
  */
 public class Turma implements DatabaseObjectInterface<Turma>
 {

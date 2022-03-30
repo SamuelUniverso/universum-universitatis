@@ -12,7 +12,7 @@ import dev.asor.univitatis.model.Pessoa;
  * Teste de CRUD na entidade de Aluno
  * 
  * @author dev.asor
- * @since 17.mar.2022
+ * @since 17.march.2022
  */
 public class AlunoDaoTest 
 {

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
+ * @class CSVFileParser
  * @author dev.asor
  * @since 23.february.2022
  */

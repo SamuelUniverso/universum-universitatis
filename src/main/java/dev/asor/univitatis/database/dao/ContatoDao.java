@@ -6,6 +6,7 @@ import java.util.List;
 import dev.asor.univitatis.model.Contato;
 
 /**
+ * @class ContatoDao
  * @author dev.asor
  * @since 23.february.2022
  */

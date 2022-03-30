@@ -3,6 +3,7 @@ package dev.asor.univitatis.database.dao.enums;
 /**
  * Este 'enumerador' contem o nome de todas as entidades da base de dados
  * 
+ * enum EntityEnum
  * @author dev.asor
  * @since 17.march.2022
  */

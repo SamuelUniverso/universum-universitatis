@@ -1,6 +1,7 @@
 package dev.asor.univitatis.database.exceptions;
 
 /**
+ * @class GenericDaoException
  * @author dev.asor
  * @since 17.march.2022
  */

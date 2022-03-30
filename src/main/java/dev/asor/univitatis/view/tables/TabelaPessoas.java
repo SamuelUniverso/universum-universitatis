@@ -9,9 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import dev.asor.univitatis.model.Contato;
 
 /**
- * @author dev.asor
- * @since 25.feb.2022
  * @class TabelaPessoas
+ * @author dev.asor
+ * @since 25.february.2022
  */
 @SuppressWarnings("serial")
 public class TabelaPessoas extends JTable

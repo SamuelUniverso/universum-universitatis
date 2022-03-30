@@ -1,8 +1,9 @@
 package dev.asor.univitatis.model;
 
 /**
+ * @class Contato
  * @author dev.asor
- * @since 23.feb.2022
+ * @since 23.february.2022
  */
 @Deprecated
 public class Contato extends Pessoa

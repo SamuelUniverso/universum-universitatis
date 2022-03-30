@@ -7,7 +7,7 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
 /**
  * @class Aluno
  * @author dev.asor
- * @since 15.mar.2022
+ * @since 15.march.2022
  */
 public class Aluno implements PessoaInterface
                             , DatabaseObjectInterface<Aluno>

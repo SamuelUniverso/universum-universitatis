@@ -34,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
+ * @class MainView
  * @author dev.asor
  * @since 23.february.2022
  */

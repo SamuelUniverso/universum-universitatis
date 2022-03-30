@@ -3,6 +3,7 @@ package dev.asor.univitatis.database.exceptions;
 /**
  * Excecoes customizadas para o DAO de Professor
  * 
+ * @class ProfessorException
  * @author dev.asor
  * @since 17.march.2022
  */

@@ -3,6 +3,7 @@ package dev.asor.univitatis.database.dao.helper;
 /**
  * Metodos auxiliares para a classe PessoaDao
  * 
+ * @class PessoaDaoHelper
  * @author dev.asor
  * @since 17.march.2022
  */
