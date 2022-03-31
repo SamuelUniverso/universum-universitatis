@@ -12,6 +12,7 @@ import dev.asor.univitatis.model.Professor;
 /**
  * Teste de CRUD na entidade de Professor
  * 
+ * @class ProfessorDaoTest
  * @author dev.asor
  * @since 17.march.2022
  */
