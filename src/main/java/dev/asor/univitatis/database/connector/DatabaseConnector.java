@@ -3,12 +3,14 @@ package dev.asor.univitatis.database.connector;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import dev.asor.univitatis.database.connector.interfaces.DatabaseConnectorInterace;
 import dev.asor.univitatis.messages.exceptions.connector.errors.DatabaseConnectorMessages;
 import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
 import dev.asor.univitatis.messages.exceptions.dao.PessoaException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
+import dev.asor.univitatis.utils.PropertiesLoader;
 
 /**
  * Implementa o driver basico do conector JDBC
@@ -21,23 +23,18 @@ public class DatabaseConnector implements DatabaseConnectorInterace
 {
     private static DatabaseConnector INSTANCE = null;
     private Connection connection = null;
-    
     private Boolean isAutoCommit = false;
     
-    private static final String SQLITE_JDBC = "jdbc:sqlite:";
-    private static final String DATABASE_PATH = "/database/app.database.db"; 
-    
-    private static String url = null;
-
-
     private DatabaseConnector() 
     {
+        PropertiesLoader propertiesLoader = new PropertiesLoader();
+        Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
         try
         {
-            setUrl(SQLITE_JDBC + getClass().getResource(DATABASE_PATH));
-            Class.forName("org.sqlite.JDBC");
-            
-            connection = DriverManager.getConnection(url);
+            Class.forName(properties.getProperty("db.class"));
+            connection = DriverManager
+                             .getConnection( properties.getProperty("db.driver") 
+                                           + getClass().getResource(properties.getProperty("db.url")));
             connection.setAutoCommit(isAutoCommit);
         } 
         catch (SQLException e)
@@ -52,15 +49,6 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         {
             System.out.println(DatabaseConnectorMessages.SUCCESS_CONNECTION_DATABASE.getMessage());  
         }
-    }
-    
-    private static void setUrl(String url)
-    {
-        DatabaseConnector.url = url;
-    }
-    public String getUrl()
-    {
-        return url;
     }
     
     public Connection getConnection()

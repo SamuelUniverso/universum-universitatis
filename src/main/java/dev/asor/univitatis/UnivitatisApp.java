@@ -36,7 +36,11 @@ public class UnivitatisApp
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					
-					File arquivo = new File(UnivitatisApp.class.getResource("/images/favicon/favicon_128x128.png").getFile());
+					File arquivo 
+					    = new File(UnivitatisApp.class
+					                            .getResource("/images/favicon/favicon_128x128.png")
+					                            .getFile());
+					
 			        Image icone = ImageIO.read(arquivo);
 			            
 					MainView frame = new MainView();
