@@ -1,4 +1,4 @@
-package dev.asor.univitatis.database.exceptions.errors;
+package dev.asor.univitatis.messages.exceptions.dao.errors;
 
 /**
  * @enum GenericErrors
@@ -24,4 +24,5 @@ public enum GenericErrors
   {
       return this.message;
   }
+  
 }

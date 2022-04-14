@@ -8,8 +8,8 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.GenericHelper;
 import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
-import dev.asor.univitatis.database.exceptions.GenericDaoException;
-import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
+import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
+import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
 
 /**
  * Implementa metodos padronizados que serao comum a todas as classes de DAO

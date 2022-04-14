@@ -1,4 +1,4 @@
-package dev.asor.univitatis.database.exceptions;
+package dev.asor.univitatis.messages.exceptions.dao;
 
 /**
  * @class GenericDaoException

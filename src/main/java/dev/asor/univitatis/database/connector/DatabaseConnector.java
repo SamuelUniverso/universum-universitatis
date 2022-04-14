@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import dev.asor.univitatis.database.connector.interfaces.DatabaseConnectorInterace;
-import dev.asor.univitatis.database.exceptions.GenericDaoException;
-import dev.asor.univitatis.database.exceptions.PessoaException;
-import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
+import dev.asor.univitatis.messages.exceptions.connector.errors.DatabaseConnectorMessages;
+import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
+import dev.asor.univitatis.messages.exceptions.dao.PessoaException;
+import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
 
 /**
  * Implementa o driver basico do conector JDBC
@@ -49,7 +50,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         }
         finally
         {
-            System.out.println("Conexão com o Banco de Dados bem sucedida!"); 
+            System.out.println(DatabaseConnectorMessages.SUCCESS_CONNECTION_DATABASE.getMessage());  
         }
     }
     

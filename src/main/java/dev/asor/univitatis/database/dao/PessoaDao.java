@@ -12,11 +12,11 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.database.dao.interfaces.GenericConnectorInterface;
-import dev.asor.univitatis.database.exceptions.AlunoException;
-import dev.asor.univitatis.database.exceptions.GenericDaoException;
-import dev.asor.univitatis.database.exceptions.PessoaException;
-import dev.asor.univitatis.database.exceptions.errors.GenericErrors;
-import dev.asor.univitatis.database.exceptions.errors.PessoaExceptionMessages;
+import dev.asor.univitatis.messages.exceptions.dao.AlunoException;
+import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
+import dev.asor.univitatis.messages.exceptions.dao.PessoaException;
+import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
+import dev.asor.univitatis.messages.exceptions.dao.errors.PessoaExceptionMessages;
 import dev.asor.univitatis.model.Pessoa;
 
 /**
