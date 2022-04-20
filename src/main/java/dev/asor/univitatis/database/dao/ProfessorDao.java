@@ -22,7 +22,7 @@ import dev.asor.univitatis.model.Professor;
 /**
  * @class ProfessorDao
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class ProfessorDao extends GenericDao implements CrudObjectInterface<Professor>
 {

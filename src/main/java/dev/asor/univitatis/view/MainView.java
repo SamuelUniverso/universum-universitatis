@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 /**
  * @class MainView
  * @author dev.asor
- * @since 23.february.2022
+ * @since february.2022
  */
 @SuppressWarnings("serial")
 public class MainView extends JFrame 

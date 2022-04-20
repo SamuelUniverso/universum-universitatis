@@ -5,7 +5,7 @@ package dev.asor.univitatis.messages.exceptions.connector;
  * 
  * @class DatabaseConnectorException
  * @author dev.asor
- * @since 13.april.2022
+ * @since april.2022
  */
 public class DatabaseConnectorException extends RuntimeException
 {

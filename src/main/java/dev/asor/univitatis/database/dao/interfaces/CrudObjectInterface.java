@@ -11,7 +11,7 @@ import dev.asor.univitatis.model.Aluno;
  * 
  * @interface CrudObjectInterface
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public interface CrudObjectInterface<T>
 {

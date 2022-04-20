@@ -3,7 +3,7 @@ package dev.asor.univitatis.messages.exceptions.dao;
 /**
  * @class GenericDaoException
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class GenericDaoException extends RuntimeException
 {

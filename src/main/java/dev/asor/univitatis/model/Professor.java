@@ -7,7 +7,7 @@ import dev.asor.univitatis.model.interfaces.PessoaInterface;
 /**
  * @class Professor
  * @author dev.asor
- * @since 15.march.2022
+ * @since march.2022
  */
 public class Professor extends Pessoa implements PessoaInterface
                                                , DatabaseObjectInterface<Professor>

@@ -25,7 +25,7 @@ import dev.asor.univitatis.model.Pessoa;
 /**
  * @class AlunoDao
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 {

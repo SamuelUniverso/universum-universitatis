@@ -5,7 +5,7 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 /**
  * @class Curso
  * @author dev.asor
- * @since 15.march.2022
+ * @since march.2022
  */
 public class Curso implements DatabaseObjectInterface<Curso>
 {

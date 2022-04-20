@@ -5,7 +5,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
 /**
  * @interface PessoaInterface
  * @author dev.asor
- * @sinde 15.march.2022
+ * @sinde march.2022
  */
 public interface PessoaInterface 
 {

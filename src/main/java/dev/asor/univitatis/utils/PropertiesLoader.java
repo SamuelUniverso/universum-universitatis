@@ -8,9 +8,9 @@ import dev.asor.univitatis.messages.exceptions.utils.PropertiesLoaderException;
 import dev.asor.univitatis.messages.exceptions.utils.errors.PropertiesLoaderExceptionEnum;
 
 /**
- * @author dev.asor
- * @since 13.april.2022
  * @class PropertiesLoader
+ * @author dev.asor
+ * @since april.2022
  */
 public class PropertiesLoader
 {

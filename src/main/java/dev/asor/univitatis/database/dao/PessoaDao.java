@@ -22,7 +22,7 @@ import dev.asor.univitatis.model.Pessoa;
 /**
  * @class PessoaDao
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 {

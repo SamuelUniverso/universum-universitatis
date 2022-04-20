@@ -9,7 +9,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
  *  
  * @interface GenericConnectorInterface
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public interface GenericConnectorInterface
 {

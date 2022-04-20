@@ -17,7 +17,7 @@ import dev.asor.univitatis.utils.PropertiesLoader;
  * 
  * @class DatabaseConnector
  * @author dev.asor
- * @since 15.mar.2022
+ * @since march.2022
  */
 public class DatabaseConnector implements DatabaseConnectorInterace
 {

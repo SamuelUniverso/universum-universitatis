@@ -5,7 +5,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
 /**
  * @class ProfessorDaoHelper
  * @author dev.asor
- * @since 16.march.2022
+ * @since march.2022
  */
 public class ProfessorDaoHelper extends GenericHelper
 {

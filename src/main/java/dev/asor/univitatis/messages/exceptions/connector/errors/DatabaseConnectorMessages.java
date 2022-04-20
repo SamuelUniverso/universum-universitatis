@@ -3,7 +3,7 @@ package dev.asor.univitatis.messages.exceptions.connector.errors;
 /**
  * @enum DatabaseConnectorMessages
  * @author dev.asor
- * @since 13.april.2022
+ * @since april.2022
  */
 public enum DatabaseConnectorMessages
 {

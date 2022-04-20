@@ -5,7 +5,7 @@ package dev.asor.univitatis.messages.exceptions.dao;
  * 
  * @class ProfessorException
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class ProfessorException extends RuntimeException
 {

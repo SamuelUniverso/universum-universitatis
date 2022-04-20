@@ -12,7 +12,7 @@ import dev.asor.univitatis.view.MainView;
 /**
  * @calss UnivitatisApp
  * @author dev.asor
- * @since 23.february.2022
+ * @since february.2022
  */
 public class UnivitatisApp 
 {

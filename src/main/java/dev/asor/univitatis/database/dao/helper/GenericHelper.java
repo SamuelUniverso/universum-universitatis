@@ -5,7 +5,7 @@ import dev.asor.univitatis.database.dao.enums.EntityEnum;
 /**
  * @class GenericHelper
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class GenericHelper 
 {

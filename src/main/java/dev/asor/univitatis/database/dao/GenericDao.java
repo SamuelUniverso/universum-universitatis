@@ -17,7 +17,7 @@ import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
  * 
  * @class GenericDao
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public abstract class GenericDao implements GenericConnectorInterface
 {    

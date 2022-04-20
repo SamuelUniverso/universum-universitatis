@@ -3,7 +3,7 @@ package dev.asor.univitatis.messages.exceptions.dao.errors;
 /**
  * @enum AlunoExceptionMessages
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public enum AlunoExceptionMessages
 {

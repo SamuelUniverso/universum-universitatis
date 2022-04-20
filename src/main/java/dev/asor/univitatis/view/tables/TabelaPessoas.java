@@ -11,7 +11,7 @@ import dev.asor.univitatis.model.Contato;
 /**
  * @class TabelaPessoas
  * @author dev.asor
- * @since 25.february.2022
+ * @since february.2022
  */
 @SuppressWarnings("serial")
 public class TabelaPessoas extends JTable

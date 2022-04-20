@@ -8,7 +8,7 @@ import dev.asor.univitatis.model.interfaces.DatabaseObjectInterface;
 /**
  * @class Matricula
  * @author dev.asor
- * @since 15.march.2022
+ * @since march.2022
  */
 public class Matricula implements DatabaseObjectInterface<Matricula>
 {

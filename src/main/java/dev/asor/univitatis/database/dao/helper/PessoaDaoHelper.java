@@ -5,7 +5,7 @@ package dev.asor.univitatis.database.dao.helper;
  * 
  * @class PessoaDaoHelper
  * @author dev.asor
- * @since 17.march.2022
+ * @since march.2022
  */
 public class PessoaDaoHelper extends GenericHelper
 {

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 /**
  * @class CSVFileParser
  * @author dev.asor
- * @since 23.february.2022
+ * @since february.2022
  */
 public class CSVFileParser
 {
