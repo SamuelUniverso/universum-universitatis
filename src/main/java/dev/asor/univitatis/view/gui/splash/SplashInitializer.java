@@ -1,4 +1,4 @@
-package dev.asor.univitatis.view.splash;
+package dev.asor.univitatis.view.gui.splash;
 
 import java.awt.BorderLayout;
 
@@ -59,10 +59,9 @@ public class SplashInitializer
         labelSplash.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(labelSplash);
         
-        JPanel progressPanel = new JPanel();
-        
-        progressPanel.add(pbar, BorderLayout.PAGE_START);
-        panel.add(progressPanel);
+//        JPanel progressPanel = new JPanel();
+//        progressPanel.add(pbar, BorderLayout.PAGE_START);
+//        panel.add(progressPanel);
         
         window.add(panel);
         window.pack();

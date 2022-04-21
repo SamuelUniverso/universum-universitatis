@@ -2,6 +2,8 @@ package dev.asor.univitatis.view.splash;
 
 import org.junit.Test;
 
+import dev.asor.univitatis.view.gui.splash.SplashInitializer;
+
 public class SplashInitializerTest
 {
     @Test

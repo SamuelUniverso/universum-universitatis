@@ -1,4 +1,4 @@
-package dev.asor.univitatis.view.tables;
+package dev.asor.univitatis.view.gui.main.pessoas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import dev.asor.univitatis.model.Contato;
  * @since february.2022
  */
 @SuppressWarnings("serial")
-public class TabelaPessoas extends JTable
+public class TablePessoas extends JTable
 {
 	private static final String HEADER_CODIGO = "Código";
 	private static final String HEADER_NOME = "Nome completo";
@@ -23,12 +23,12 @@ public class TabelaPessoas extends JTable
 	
 	private DefaultTableModel modelo;
 	
-	public TabelaPessoas(List<Contato> contatos)
+	public TablePessoas(List<Contato> contatos)
 	{
 		carregarConteudoNaTabela(contatos);
 	}
 	
-	public TabelaPessoas()
+	public TablePessoas()
 	{
 		gerarTabela();
 //		gerarDadosManequim();

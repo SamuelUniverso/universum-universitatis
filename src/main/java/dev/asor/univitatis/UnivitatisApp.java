@@ -6,7 +6,7 @@ import javax.swing.UIManager;
 
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.MainView;
-import dev.asor.univitatis.view.splash.SplashInitializer;
+import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
 /**
  * @calss UnivitatisApp

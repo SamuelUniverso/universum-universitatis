@@ -1,4 +1,4 @@
-package dev.asor.univitatis.view;
+package dev.asor.univitatis.view.gui.main.pessoas;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.utils.PictureHandler;
+import dev.asor.univitatis.view.TabelaPessoas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -34,7 +35,7 @@ import java.awt.event.ActionEvent;
  * @since february.2022
  */
 @SuppressWarnings("serial")
-public class MainView extends JFrame 
+public class FramePessoas extends JFrame 
 {
 	private static final String imagemLogoUni = "univates_logo.jpg";
 	
@@ -49,7 +50,7 @@ public class MainView extends JFrame
 	private JTextField inputCpf;
 	private JTextField inputTelefone;
 
-	public MainView() 
+	public FramePessoas() 
 	{
 		configurarView();
 		adicionarConteudo();
