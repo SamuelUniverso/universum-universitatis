@@ -1,17 +1,17 @@
 package dev.asor.univitatis.messages.exceptions.utils;
 
 /**
- * Excecoes customizadas para PropertiesLoader
+ * Excecoes customizadas para PictureHandlerException
  * 
- * @class PropertiesLoaderException
+ * @class PictureHandlerException
  * @author dev.asor
  * @since april.2022
  */
-public class PropertiesLoaderException extends RuntimeException
+public class PictureHandlerException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 
-    public PropertiesLoaderException(String message)
+    public PictureHandlerException(String message)
     {
         super(message);
     }

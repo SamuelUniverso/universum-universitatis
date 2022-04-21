@@ -15,7 +15,6 @@ import dev.asor.univitatis.utils.PictureHandler;
  */
 public class SplashInitializer
 {
-    private String splashBackgroundImagePath = "mascote-univates.jpg";
     private Integer splashDuartionMsec;
     
     private JWindow window = null;
@@ -26,11 +25,11 @@ public class SplashInitializer
      * @param height
      * @param durationMsec
      */
-    public SplashInitializer(Integer width, Integer height, Integer durationMsec)
+    public SplashInitializer(String imageFileName, Integer width, Integer height, Integer durationMsec)
     {
         setSplashDuartion(durationMsec);
         
-        showSplash(width, height);
+        showSplash(imageFileName, width, height);
         try
         {
             Thread.sleep(getSplashDuartion());
@@ -42,14 +41,14 @@ public class SplashInitializer
         disposeSplash();
     }
     
-    private void showSplash(Integer width, Integer height)
+    private void showSplash(String imageFileName, Integer width, Integer height)
     {
         window = new JWindow();
         panel = new JPanel();
         
         
         PictureHandler picHandler = new PictureHandler();
-        ImageIcon icon = picHandler.resizeIcon(width, height, splashBackgroundImagePath);
+        ImageIcon icon = picHandler.resizeIcon(width, height, imageFileName);
 
         JLabel labelSplash = new JLabel();
         labelSplash.setIcon(icon);

@@ -7,19 +7,18 @@ package dev.asor.univitatis.messages.exceptions.utils.errors;
  */
 public enum PropertiesLoaderExceptionEnum 
 {
-   ERROR_PROPERTIES_NOT_FOUND("Properties não encontradas!")
-  ;
+      ERROR_PROPERTIES_NOT_FOUND  ("Properties não encontradas!")
+    ;
   
-  private String message;
+    private String message;
   
-  PropertiesLoaderExceptionEnum(String message)
-  {
-      this.message = message;
-  }
+    PropertiesLoaderExceptionEnum(String message)
+    {
+        this.message = message;
+    }
   
-  public String getMessage()
-  {
+    public String getMessage()
+    {
       return this.message;
-  }
-  
+    }
 }

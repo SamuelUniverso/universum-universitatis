@@ -8,6 +8,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import dev.asor.univitatis.messages.exceptions.utils.errors.PictureHandlerExceptionEnum;
+
 /**
  * @class PictureHandler
  * @author dev.asor
@@ -17,18 +19,20 @@ public class PictureHandler
 {
     private String resourcePath = "/images/";
     
+    public PictureHandler() {}
+    
     public ImageIcon getImageFileAsIcon(String filename)
     {
         try
         {
             InputStream file = PictureHandler.class.getResourceAsStream(getResourcePath()+filename);
-            BufferedImage rawpic = ImageIO.read(file); 
+            BufferedImage buffered = ImageIO.read(file);
             
-            return new ImageIcon(rawpic);
+            return new ImageIcon(buffered);
         }
         catch (IOException e)
         {
-            System.out.println("Erro ao carregar imagem");
+            System.out.println(PictureHandlerExceptionEnum.ERROR_LOADING_IMAGE.getMessage());
             e.printStackTrace();
         }
         
@@ -56,7 +60,7 @@ public class PictureHandler
         }
         catch (IOException e)
         {
-            System.out.println("Erro ao carregar imagem");
+            System.out.println(PictureHandlerExceptionEnum.ERROR_LOADING_IMAGE.getMessage());
             e.printStackTrace();
         }
         

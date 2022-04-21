@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class MainView extends JFrame 
 {
-	private static final String LOGO_PATH = "/images/univates_logo.jpg";
+	private static final String imagemLogoUni = "univates_logo.jpg";
 	
 	private JPanel painelPrincipal;
 	private TabelaPessoas tabelaPessoas;
@@ -106,7 +106,7 @@ public class MainView extends JFrame
 		labelLogo.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		PictureHandler picHandler = new PictureHandler();
-	    labelLogo.setIcon(picHandler.resizeIcon(72, 72, "favicon/favicon_128x128.png"));
+	    labelLogo.setIcon(picHandler.resizeIcon(72, 72, imagemLogoUni));
         labelLogo.setBounds(559, 11, 72, 72);
         labelLogo.setText(null);
         

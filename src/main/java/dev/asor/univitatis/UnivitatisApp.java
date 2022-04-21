@@ -15,9 +15,12 @@ import dev.asor.univitatis.view.splash.SplashInitializer;
  */
 public class UnivitatisApp 
 {
+    private static String imagemMascote = "mascote-univates.jpg";
+    private static String imagemLogoUni = "univates_logo.jpg";
+    
 	public static void main(String[] args) 
 	{
-	    new SplashInitializer(442, 442, 2500);
+	    new SplashInitializer(imagemMascote, 442, 442, 2500);
 	    
 		criarJanela();
 	}
@@ -36,12 +39,11 @@ public class UnivitatisApp
 				try 
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					PictureHandler picHandler = new PictureHandler();
 					
 					MainView frame = new MainView();
 					
-					PictureHandler picHandler = new PictureHandler();
-		            frame.setIconImage(picHandler.resizeImage(128, 128, "favicon/favicon_128x128.png"));
-		            
+		            frame.setIconImage(picHandler.resizeImage(128, 128, imagemLogoUni));
 		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		            frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
