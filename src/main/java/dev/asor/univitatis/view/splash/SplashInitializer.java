@@ -1,8 +1,11 @@
 package dev.asor.univitatis.view.splash;
 
+import java.awt.BorderLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 
@@ -19,6 +22,7 @@ public class SplashInitializer
     
     private JWindow window = null;
     private JPanel panel = null;
+    private JProgressBar pbar = null;
     
     /**
      * @param width
@@ -45,7 +49,7 @@ public class SplashInitializer
     {
         window = new JWindow();
         panel = new JPanel();
-        
+        pbar = new JProgressBar();
         
         PictureHandler picHandler = new PictureHandler();
         ImageIcon icon = picHandler.resizeIcon(width, height, imageFileName);
@@ -53,9 +57,12 @@ public class SplashInitializer
         JLabel labelSplash = new JLabel();
         labelSplash.setIcon(icon);
         labelSplash.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        
         panel.add(labelSplash);
+        
+        JPanel progressPanel = new JPanel();
+        
+        progressPanel.add(pbar, BorderLayout.PAGE_START);
+        panel.add(progressPanel);
         
         window.add(panel);
         window.pack();
