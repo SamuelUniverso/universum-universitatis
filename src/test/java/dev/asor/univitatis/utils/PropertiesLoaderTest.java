@@ -1,4 +1,4 @@
-package dev.asor.univitatis.database.utils;
+package dev.asor.univitatis.utils;
 
 import java.util.Properties;
 import java.util.Set;

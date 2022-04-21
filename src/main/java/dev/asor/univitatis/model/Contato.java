@@ -5,7 +5,6 @@ package dev.asor.univitatis.model;
  * @author dev.asor
  * @since february.2022
  */
-@Deprecated
 public class Contato extends Pessoa
 {
     private String telefone;

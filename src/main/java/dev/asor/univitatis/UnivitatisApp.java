@@ -1,13 +1,12 @@
 package dev.asor.univitatis;
 
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.MainView;
+import dev.asor.univitatis.view.splash.SplashInitializer;
 
 /**
  * @calss UnivitatisApp
@@ -18,6 +17,8 @@ public class UnivitatisApp
 {
 	public static void main(String[] args) 
 	{
+	    new SplashInitializer(442, 442, 2500);
+	    
 		criarJanela();
 	}
 	
@@ -36,15 +37,11 @@ public class UnivitatisApp
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					
-					File arquivo 
-					    = new File(UnivitatisApp.class
-					                            .getResource("/images/favicon/favicon_128x128.png")
-					                            .getFile());
-					
-			        Image icone = ImageIO.read(arquivo);
-			            
 					MainView frame = new MainView();
-		            frame.setIconImage(icone);
+					
+					PictureHandler picHandler = new PictureHandler();
+		            frame.setIconImage(picHandler.resizeImage(128, 128, "favicon/favicon_128x128.png"));
+		            
 		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		            frame.setLocationRelativeTo(null);
 					frame.setVisible(true);

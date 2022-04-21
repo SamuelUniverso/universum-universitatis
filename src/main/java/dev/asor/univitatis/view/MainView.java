@@ -1,7 +1,5 @@
 package dev.asor.univitatis.view;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,10 +11,6 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +23,7 @@ import javax.swing.JScrollPane;
 
 import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
+import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.tables.TabelaPessoas;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -106,22 +101,17 @@ public class MainView extends JFrame
 		labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		painelTitulo.add(labelTitulo);
 		
+		
 		JLabel labelLogo = new JLabel("LOGO");
 		labelLogo.setHorizontalAlignment(SwingConstants.RIGHT);
-		try
-		{
-	        BufferedImage image = null;
-	        image = ImageIO.read(new File(getClass().getResource(LOGO_PATH).getFile()));
-	        Image dimg = image.getScaledInstance(72, 72, Image.SCALE_SMOOTH);
-	        labelLogo.setIcon(new ImageIcon(dimg));
-	        labelLogo.setBounds(559, 11, 72, 72);
-	        labelLogo.setText(null);
-       	}
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+
+		PictureHandler picHandler = new PictureHandler();
+	    labelLogo.setIcon(picHandler.resizeIcon(72, 72, "favicon/favicon_128x128.png"));
+        labelLogo.setBounds(559, 11, 72, 72);
+        labelLogo.setText(null);
+        
 		painelTitulo.add(labelLogo);
+		
 		
 		JTabbedPane painelTabulado = new JTabbedPane(JTabbedPane.TOP);
 		painelTabulado.setBounds(10, 79, 627, 426);
