@@ -22,7 +22,7 @@ public class UnivitatisApp
     
 	public static void main(String[] args) 
 	{
-	    starProgram(false);
+	    starProgram(true);
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class UnivitatisApp
 		{
 			try 
 			{
-//			    //LafManager.install();
+			    //LafManager.install();
 			    //LafManager.setDecorationsEnabled(true);
 			    
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -54,8 +54,8 @@ public class UnivitatisApp
 	            frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            frame.setLocationRelativeTo(null);
-	            frame.setResizable(true);
-	            //frame.setResizable(false);
+	            //frame.setResizable(true);
+	            frame.setResizable(false);
 				frame.setVisible(true);
 			}
 			catch (Exception e)
