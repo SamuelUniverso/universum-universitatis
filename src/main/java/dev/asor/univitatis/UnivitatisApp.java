@@ -4,8 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import com.github.weisj.darklaf.LafManager;
+
 import dev.asor.univitatis.utils.PictureHandler;
-import dev.asor.univitatis.view.MainView;
+import dev.asor.univitatis.view.gui.cardpanel.MainFrame;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
 /**
@@ -20,38 +22,45 @@ public class UnivitatisApp
     
 	public static void main(String[] args) 
 	{
-	    new SplashInitializer(imagemMascote, 442, 442, 2500);
-	    
-		criarJanela();
+	    starProgram(false);
 	}
 	
 	/**
-	 * Monta janela principal e exibe na tela
-	 * @method criarJanela
-	 * @return void
+     * Monta janela principal e exibe na tela
+     * @method starProgram
+     * @param showSplash
+     * @return void
 	 */
-	public static void criarJanela()
+	private static void starProgram(Boolean showSplash)
 	{
-		SwingUtilities.invokeLater(new Runnable() 
+	    if(showSplash)
+	    {
+	        new SplashInitializer(imagemMascote, 442, 442, 2500);
+	    }
+	    
+		SwingUtilities.invokeLater(() -> 
 		{
-			public void run() 
+			try 
 			{
-				try 
-				{
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					PictureHandler picHandler = new PictureHandler();
-					
-					MainView frame = new MainView();
-					
-		            frame.setIconImage(picHandler.resizeImage(128, 128, imagemLogoUni));
-		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		            frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
+//			    //LafManager.install();
+			    //LafManager.setDecorationsEnabled(true);
+			    
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				PictureHandler picHandler = new PictureHandler();
+				
+				//FramePessoas frame = new FramePessoas(); //old
+				MainFrame frame = new MainFrame();         //new
+				
+	            frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
+	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	            frame.setLocationRelativeTo(null);
+	            frame.setResizable(true);
+	            //frame.setResizable(false);
+				frame.setVisible(true);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
 			}
 		});
 	}

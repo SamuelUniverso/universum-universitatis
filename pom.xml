@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.asor</groupId>
   <artifactId>universum-universitatis</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>Univitatis</name>
   
   <dependencies>
@@ -12,6 +12,36 @@
 	    <artifactId>sqlite-jdbc</artifactId>
 	    <version>3.36.0.3</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-swing -->
+	<dependency>
+	    <groupId>com.miglayout</groupId>
+	    <artifactId>miglayout-swing</artifactId>
+	    <version>11.0</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.github.weisj/darklaf-core -->
+	<dependency>
+	    <groupId>com.github.weisj</groupId>
+	    <artifactId>darklaf-core</artifactId>
+	    <version>3.0.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.github.weisj/darklaf-theme -->
+	<dependency>
+	    <groupId>com.github.weisj</groupId>
+	    <artifactId>darklaf-theme</artifactId>
+	    <version>3.0.0</version>
+	    <scope>runtime</scope>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.github.weisj/darklaf-windows -->
+	<dependency>
+	    <groupId>com.github.weisj</groupId>
+	    <artifactId>darklaf-windows</artifactId>
+	    <version>3.0.0</version>
+	    <scope>runtime</scope>
+	</dependency>
+	
   </dependencies>
-
+  
+  
 </project>

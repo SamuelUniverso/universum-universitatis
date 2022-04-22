@@ -24,7 +24,7 @@ import javax.swing.JScrollPane;
 import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.utils.PictureHandler;
-import dev.asor.univitatis.view.TabelaPessoas;
+import dev.asor.univitatis.view.gui.main.pessoas.TablePessoas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,7 +40,7 @@ public class FramePessoas extends JFrame
 	private static final String imagemLogoUni = "univates_logo.jpg";
 	
 	private JPanel painelPrincipal;
-	private TabelaPessoas tabelaPessoas;
+	private TablePessoas tabelaPessoas;
 	
 	private JLabel labelNomeCompleto;
 	private JLabel labelCpf;
@@ -90,7 +90,7 @@ public class FramePessoas extends JFrame
 	private void adicionarConteudo()
 	{
 		/* Conteudo carregado na tabela pelo construtor de na TabelaPessoas */
-		tabelaPessoas = new TabelaPessoas(carregarDadosCSV());
+		tabelaPessoas = new TablePessoas(carregarDadosCSV());
 		
 		JPanel painelTitulo = new JPanel();
 		painelTitulo.setBounds(10, 11, 627, 57);
