@@ -20,12 +20,13 @@ import javax.swing.JButton;
 import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.utils.PictureHandler;
-import dev.asor.univitatis.view.gui.cardpanel.panels.PanelAluno;
-import dev.asor.univitatis.view.gui.cardpanel.panels.PanelProfessor;
+import dev.asor.univitatis.view.gui.cardpanel.form.alunoFormView;
+import dev.asor.univitatis.view.gui.cardpanel.form.professorFormView;
 import net.miginfocom.swing.MigLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLayeredPane;
 
 /**
  * @class MainView
@@ -39,10 +40,10 @@ public class MainFrame extends JFrame
 	
 	private JPanel containerPanel;
 	private JPanel leftMenuSection;
-	private JPanel formSection;
 	
 	private JPanel panelAluno;
 	private JPanel panelProfessor;
+	private JLayeredPane formSection;
 	
 	public static void main(String args[])
 	{
@@ -56,6 +57,7 @@ public class MainFrame extends JFrame
 		addTitleToView();
 		addLeftMenuToView();
 		addFormSectionToView();
+		addFormCardToView();
 	}
 	
 	/**
@@ -81,12 +83,11 @@ public class MainFrame extends JFrame
 	    PictureHandler picHandler = new PictureHandler();
 	    ImageIcon logoIcon = picHandler.resizeIcon(72, 72, imagemLogoUni);
       
-        containerPanel.setLayout(new MigLayout("", "[98px,grow][14px][511px,grow]", "[86px][402px,grow]"));
+        containerPanel.setLayout(new MigLayout("", "[98px,grow][14px][511px,grow][grow]", "[86px][402px,grow]"));
 	        
 		JPanel titleSection = new JPanel();
 		titleSection.setBackground(UIManager.getColor("Button.light"));
 		titleSection.setLayout(new MigLayout("", "[299px][72px][][][][][][][][][]", "[72px]"));
-		
 		
 		JLabel labelTitulo = new JLabel(" UNIVITATIS - Universum Universitatis");
 		labelTitulo.setIcon(logoIcon);
@@ -100,7 +101,7 @@ public class MainFrame extends JFrame
 	{
 	    leftMenuSection = new JPanel();
         leftMenuSection.setBackground(UIManager.getColor("Button.light"));
-        containerPanel.add(leftMenuSection, "cell 0 1 2 1,alignx center,growy");
+        containerPanel.add(leftMenuSection, "cell 0 1 2 1,alignx left,growy");
         leftMenuSection.setLayout(new MigLayout("", "[]", "[][][][][][][][][][][][][][]"));
         
         JButton btnAlunos = new JButton("Alunos");
@@ -163,15 +164,17 @@ public class MainFrame extends JFrame
         leftMenuSection.add(btnSair, "cell 0 13,growx");
 	}
 	
+	public void addFormCardToView()
+	{
+	    formSection = new JLayeredPane();
+        containerPanel.add(formSection, "cell 2 1,alignx left,growy");
+        formSection.setLayout(new CardLayout(0, 0));
+	}
+	
 	public void addFormSectionToView()
 	{
-	    formSection = new JPanel();
-        
-        containerPanel.add(formSection, "cell 2 1,grow");
-        formSection.setLayout(new CardLayout(0, 0));
-        
-        panelAluno = new PanelAluno();
-        panelProfessor = new PanelProfessor();
+        panelAluno = new alunoFormView();
+        panelProfessor = new professorFormView();
 	}
 
 	/**

@@ -4,7 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.github.weisj.darklaf.LafManager;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.IntelliJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame;
@@ -17,12 +20,15 @@ import dev.asor.univitatis.view.gui.splash.SplashInitializer;
  */
 public class UnivitatisApp 
 {
+
+//    private final String darkTheme = FlatDarkFlatIJTheme.;
+    
     private static String imagemMascote = "mascote-univates.jpg";
     private static String imagemLogoUni = "univates_logo.jpg";
     
 	public static void main(String[] args) 
 	{
-	    starProgram(true);
+	    starProgram(false);
 	}
 	
 	/**
@@ -45,7 +51,10 @@ public class UnivitatisApp
 			    //LafManager.install();
 			    //LafManager.setDecorationsEnabled(true);
 			    
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			    
+			    FlatDarkFlatIJTheme.setup();
+			    UIManager.setLookAndFeel(new FlatDarkFlatIJTheme());
 				PictureHandler picHandler = new PictureHandler();
 				
 				//FramePessoas frame = new FramePessoas(); //old
@@ -54,8 +63,8 @@ public class UnivitatisApp
 	            frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            frame.setLocationRelativeTo(null);
-	            //frame.setResizable(true);
-	            frame.setResizable(false);
+	            frame.pack();
+	            frame.setResizable(true);
 				frame.setVisible(true);
 			}
 			catch (Exception e)
