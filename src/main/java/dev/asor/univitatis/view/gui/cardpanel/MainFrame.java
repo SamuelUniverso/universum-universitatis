@@ -27,6 +27,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
+import java.awt.Component;
+import javax.swing.Box;
 
 /**
  * @class MainView
@@ -83,7 +85,7 @@ public class MainFrame extends JFrame
 	    PictureHandler picHandler = new PictureHandler();
 	    ImageIcon logoIcon = picHandler.resizeIcon(72, 72, imagemLogoUni);
       
-        containerPanel.setLayout(new MigLayout("", "[98px,grow][14px][511px,grow][grow]", "[86px][402px,grow]"));
+        containerPanel.setLayout(new MigLayout("", "[98px,left][14px,left][511px,left][left]", "[86px][402px]"));
 	        
 		JPanel titleSection = new JPanel();
 		titleSection.setBackground(UIManager.getColor("Button.light"));
@@ -92,7 +94,7 @@ public class MainFrame extends JFrame
 		JLabel labelTitulo = new JLabel(" UNIVITATIS - Universum Universitatis");
 		labelTitulo.setIcon(logoIcon);
 		labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		titleSection.add(labelTitulo, "cell 0 0 11 1,grow");
+		titleSection.add(labelTitulo, "cell 0 0 11 1,alignx left,growy");
 		
 		containerPanel.add(titleSection, "cell 0 0 3 1,growx,aligny top");
 	}

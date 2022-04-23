@@ -28,7 +28,7 @@ public class UnivitatisApp
     
 	public static void main(String[] args) 
 	{
-	    starProgram(false);
+	    starProgram(true);
 	}
 	
 	/**
@@ -48,17 +48,11 @@ public class UnivitatisApp
 		{
 			try 
 			{
-			    //LafManager.install();
-			    //LafManager.setDecorationsEnabled(true);
-			    
 				//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			    
-			    FlatDarkFlatIJTheme.setup();
 			    UIManager.setLookAndFeel(new FlatDarkFlatIJTheme());
 				PictureHandler picHandler = new PictureHandler();
 				
-				//FramePessoas frame = new FramePessoas(); //old
-				MainFrame frame = new MainFrame();         //new
+				MainFrame frame = new MainFrame();
 				
 	            frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
