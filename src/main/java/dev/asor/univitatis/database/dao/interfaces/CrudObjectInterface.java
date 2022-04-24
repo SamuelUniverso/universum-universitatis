@@ -3,7 +3,6 @@ package dev.asor.univitatis.database.dao.interfaces;
 import java.util.List;
 
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
-import dev.asor.univitatis.model.Aluno;
 
 /**
  * A finalidade dessa interface e fazer com que a classe de DAO implemente os

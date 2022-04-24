@@ -24,7 +24,6 @@ import javax.swing.JScrollPane;
 import dev.asor.univitatis.io.CSVFileParser;
 import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.utils.PictureHandler;
-import dev.asor.univitatis.view.gui.main.pessoas.TablePessoas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

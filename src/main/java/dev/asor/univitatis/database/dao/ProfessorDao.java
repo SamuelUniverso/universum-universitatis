@@ -8,14 +8,11 @@ import java.util.List;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
-import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
 import dev.asor.univitatis.database.dao.helper.ProfessorDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
-import dev.asor.univitatis.messages.exceptions.dao.AlunoException;
 import dev.asor.univitatis.messages.exceptions.dao.ProfessorException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
 import dev.asor.univitatis.messages.exceptions.dao.errors.ProfessorExceptionMessages;
-import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
 import dev.asor.univitatis.model.Professor;
 

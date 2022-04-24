@@ -1,19 +1,18 @@
 package dev.asor.univitatis.view.gui.cardpanel.form;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
-public class professorFormView extends JPanel
+public class ProfessorFormView extends _GenericFormView
 {
     private static final long serialVersionUID = 1L;
     private JTextField nomeCompletoField;
     private JTextField cpfField;
     private JTextField telefoneField;
 
-    public professorFormView() 
+    public ProfessorFormView() 
     {
         setLayout(new MigLayout("", "[77px][86px,grow][46px][23px][86px][86px]", "[20px][][][][][]"));
         

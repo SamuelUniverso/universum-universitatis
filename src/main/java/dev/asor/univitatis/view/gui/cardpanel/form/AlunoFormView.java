@@ -1,28 +1,20 @@
 package dev.asor.univitatis.view.gui.cardpanel.form;
 
-import javax.swing.JPanel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-
 import java.awt.Font;
-import java.text.Format;
-import java.text.ParseException;
-
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 import net.miginfocom.swing.MigLayout;
-import java.awt.Component;
-import javax.swing.Box;
 
-public class alunoFormView extends JPanel
+public class AlunoFormView extends _GenericFormView
 {
     private static final long serialVersionUID = 1L;
+    
     private JTextField nomeCompletoField;
     private JTextField cpfField;
     private JTextField telefoneField;
 
-    public alunoFormView() 
+    public AlunoFormView() 
     {
         setLayout(new MigLayout("wrap", "[77px][86px][46px][23px][86px][86px]", "[20px][][][][][]"));
         
@@ -41,15 +33,6 @@ public class alunoFormView extends JPanel
         JLabel cpfLabel = new JLabel("CPF:");
         add(cpfLabel, "cell 0 3,alignx right");
         
-        MaskFormatter cpfMask = null;
-        try
-        {
-            cpfMask = new MaskFormatter("###.###.###-##");
-        } 
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
         cpfField = new JTextField();
         cpfField.setColumns(14);
         add(cpfField, "cell 1 3,growx");

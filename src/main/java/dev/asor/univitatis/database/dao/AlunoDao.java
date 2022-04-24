@@ -3,22 +3,16 @@ package dev.asor.univitatis.database.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
-import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.messages.exceptions.dao.AlunoException;
-import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
-import dev.asor.univitatis.messages.exceptions.dao.PessoaException;
-import dev.asor.univitatis.messages.exceptions.dao.ProfessorException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.AlunoExceptionMessages;
 import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
-import dev.asor.univitatis.messages.exceptions.dao.errors.PessoaExceptionMessages;
 import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
 

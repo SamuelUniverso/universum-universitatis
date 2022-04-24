@@ -1,11 +1,8 @@
 package dev.asor.univitatis.utils;
 
 import java.util.Properties;
-import java.util.Set;
 
 import org.junit.Test;
-
-import dev.asor.univitatis.utils.PropertiesLoader;
 
 public class PropertiesLoaderTest
 {

@@ -9,7 +9,7 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.config.GuiModeConfig;
-import dev.asor.univitatis.view.gui.cardpanel.MainFrame;
+import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
 /**
@@ -20,7 +20,7 @@ import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 public class UnivitatisApp 
 {
     private static final String imagemMascote = "mascote-univates.jpg";
-    private static final String imagemLogoUni = "univates_logo.jpg";
+    private static final String imagemLogoUni = "univates-logo.jpg";
 
 	public static void main(String[] args) 
 	{
@@ -72,7 +72,7 @@ public class UnivitatisApp
 		{
 			PictureHandler picHandler = new PictureHandler();
 
-			MainFrame frame = new MainFrame();
+			MainFrame2 frame = new MainFrame2();
 			frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setLocationRelativeTo(null);

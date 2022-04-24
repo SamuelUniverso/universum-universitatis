@@ -1,7 +1,5 @@
 package dev.asor.univitatis.view.gui.splash;
 
-import java.awt.BorderLayout;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

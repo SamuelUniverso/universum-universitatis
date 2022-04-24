@@ -3,7 +3,6 @@ package dev.asor.univitatis.database.dao;
 import org.junit.Test;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
-import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
 
 /**

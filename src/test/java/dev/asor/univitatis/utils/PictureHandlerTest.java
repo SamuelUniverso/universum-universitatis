@@ -2,8 +2,6 @@ package dev.asor.univitatis.utils;
 
 import org.junit.Test;
 
-import dev.asor.univitatis.utils.PictureHandler;
-
 public class PictureHandlerTest
 {
 

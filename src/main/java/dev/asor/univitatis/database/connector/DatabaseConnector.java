@@ -8,7 +8,6 @@ import java.util.Properties;
 import dev.asor.univitatis.database.connector.interfaces.DatabaseConnectorInterace;
 import dev.asor.univitatis.messages.exceptions.connector.errors.DatabaseConnectorMessages;
 import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
-import dev.asor.univitatis.messages.exceptions.dao.PessoaException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
 import dev.asor.univitatis.utils.PropertiesLoader;
 
