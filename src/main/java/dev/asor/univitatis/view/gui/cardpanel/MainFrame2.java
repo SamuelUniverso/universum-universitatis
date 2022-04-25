@@ -172,7 +172,7 @@ public class MainFrame2 extends JFrame
 	private void repaintPanel(String name, _GenericFormView panel)
 	{
 	    /** FIX-ME ainda exitem lguns bugs ainda na alterancia de paineis */
-	    if(!panel.isShowing() && panel == getPanelShowingOnStage())
+	    if(!panel.isShowing())
 	    {
 	        formGroup.removeAll();
 	        formGroup.add(panel, name);
@@ -180,17 +180,14 @@ public class MainFrame2 extends JFrame
 	        formGroup.revalidate();
 	        panel.changeShowingState();
 	    }
-	    else if(panel.isShowing() && panel == getPanelShowingOnStage())
+	    else
 	    {
             formGroup.removeAll();
             formGroup.repaint();
             formGroup.revalidate();
             panel.changeShowingState();
 	    }
-	    else
-	    {
-	        panel.changeShowingState();
-	    }
+	    setPanelShowingOnStage(panel);
 	}
 	
 	private void setPanelShowingOnStage(_GenericFormView panel)
