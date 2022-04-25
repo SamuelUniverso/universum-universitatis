@@ -12,9 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import dev.asor.univitatis.utils.PictureHandler;
-import dev.asor.univitatis.view.gui.cardpanel.form.AlunoFormView;
-import dev.asor.univitatis.view.gui.cardpanel.form.ProfessorFormView;
-import dev.asor.univitatis.view.gui.cardpanel.form._GenericFormView;
+import dev.asor.univitatis.view.gui.cardpanel.aluno.AlunoFormView;
+import dev.asor.univitatis.view.gui.cardpanel.professor.ProfessorFormView;
 import net.miginfocom.swing.MigLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
@@ -35,10 +34,8 @@ public class MainFrame2 extends JFrame
 	private JPanel leftMenuSection;
 	private JLayeredPane formGroup;
 	
-	private _GenericFormView formAluno;
-	private _GenericFormView formProfessor;
-	
-	private _GenericFormView panelShowingOnStage;
+	private JPanel formAluno;
+	private JPanel formProfessor;
 	
 	public static void main(String args[])
 	{
@@ -102,8 +99,7 @@ public class MainFrame2 extends JFrame
         {
             public void actionPerformed(ActionEvent e) 
             {
-                setPanelShowingOnStage(formAluno);
-                repaintPanel("formAluno", formAluno);
+                 repaintPanel("formAluno", formAluno);
             }
         });
         btnAlunos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -114,7 +110,6 @@ public class MainFrame2 extends JFrame
         {
             public void actionPerformed(ActionEvent e) 
             {
-                setPanelShowingOnStage(formProfessor);
                 repaintPanel("formProfessor", formProfessor);
             }
         });
@@ -169,33 +164,22 @@ public class MainFrame2 extends JFrame
 	 * @param name
 	 * @param panel
 	 */
-	private void repaintPanel(String name, _GenericFormView panel)
+	private void repaintPanel(String name, JPanel panel)
 	{
-	    /** FIX-ME ainda exitem lguns bugs ainda na alterancia de paineis */
 	    if(!panel.isShowing())
 	    {
 	        formGroup.removeAll();
 	        formGroup.add(panel, name);
 	        formGroup.repaint();
 	        formGroup.revalidate();
-	        panel.changeShowingState();
+	        panel.setVisible(panel.isVisible() ? true : false);
 	    }
 	    else
 	    {
             formGroup.removeAll();
             formGroup.repaint();
             formGroup.revalidate();
-            panel.changeShowingState();
+            panel.setVisible(panel.isVisible() ? true : false);
 	    }
-	    setPanelShowingOnStage(panel);
-	}
-	
-	private void setPanelShowingOnStage(_GenericFormView panel)
-	{
-	    panelShowingOnStage = panel;
-	}
-	private _GenericFormView getPanelShowingOnStage()
-	{
-	    return panelShowingOnStage;
 	}
 }

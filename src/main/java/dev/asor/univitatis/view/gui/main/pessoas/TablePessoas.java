@@ -31,7 +31,7 @@ public class TablePessoas extends JTable
 	public TablePessoas()
 	{
 		gerarTabela();
-//		gerarDadosManequim();
+		//gerarDadosManequim();
 	}
 	
 	/**

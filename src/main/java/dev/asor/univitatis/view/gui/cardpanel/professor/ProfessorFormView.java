@@ -1,11 +1,14 @@
-package dev.asor.univitatis.view.gui.cardpanel.form;
+package dev.asor.univitatis.view.gui.cardpanel.professor;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+
 import net.miginfocom.swing.MigLayout;
 
-public class ProfessorFormView extends _GenericFormView
+public class ProfessorFormView extends JPanel
 {
     private static final long serialVersionUID = 1L;
     private JTextField nomeCompletoField;
@@ -41,5 +44,4 @@ public class ProfessorFormView extends _GenericFormView
         telefoneField = new JTextField();
         telefoneField.setColumns(10);
         add(telefoneField, "cell 1 4 2 1,growx");}
-
 }

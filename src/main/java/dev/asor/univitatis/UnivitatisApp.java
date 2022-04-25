@@ -24,7 +24,7 @@ public class UnivitatisApp
 
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.DARK_MODE);
+	    starProgram(false, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
