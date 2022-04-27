@@ -37,14 +37,9 @@ public class MainFrame2 extends JFrame
 	private JPanel formAluno;
 	private JPanel formProfessor;
 	
-	public static void main(String args[])
+	public MainFrame2(Integer width, Integer height) 
 	{
-	    new MainFrame2();
-	}
-
-	public MainFrame2() 
-	{
-		configureView();
+		configureView(width, height);
 		
 		addTitleToView();
 		addLeftMenuToView();
@@ -54,12 +49,13 @@ public class MainFrame2 extends JFrame
 	/**
 	 * Inicializa configuracoes basicas do Painel base do Frame
 	 */
-	private void configureView()
+	private void configureView(Integer width, Integer height)
 	{
-		setBounds(100, 100, 663, 565);
+		setBounds(100, 100, width, height);
 		containerPanel = new JPanel();
 		containerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(containerPanel);
+		setLocationRelativeTo(null);
 	}
 	
 	/**

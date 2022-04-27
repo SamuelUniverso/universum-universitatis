@@ -2,19 +2,25 @@ package dev.asor.univitatis.view.config;
 
 public enum GuiModeConfig
 {
-      LIGHT_MODE  ('L')
-    , DARK_MODE   ('D')
-    , SYS_DEFAULT ('S')
+      LIGHT_MODE      ('L')
+    , DARK_MODE       ('D')
+    , SYSTEM_NATIVE   ('S')
+    , CROSS_PLATAFORM ('J')
     ;
 
-    private final Character config;
+    private Character config;
 
     GuiModeConfig(Character config)
+    {
+        setConfing(config);
+    }
+    
+    private void setConfing(Character config)
     {
         this.config = config;
     }
 
-    public Character getMessage()
+    public Character getConfig()
     {
         return this.config;
     }

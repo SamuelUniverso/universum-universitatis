@@ -8,6 +8,7 @@ import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
+import dev.asor.univitatis.utils.ScreenHandler;
 import dev.asor.univitatis.view.config.GuiModeConfig;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
@@ -24,7 +25,7 @@ public class UnivitatisApp
 
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.LIGHT_MODE);
+	    starProgram(true, GuiModeConfig.SYSTEM_NATIVE);
 	}
 
 	/**
@@ -32,14 +33,18 @@ public class UnivitatisApp
 	 */
 	private static void starProgram(boolean showSplash, GuiModeConfig guiMode)
 	{
+	    ScreenHandler screen = new ScreenHandler();
+	    int width = screen.getScreenWidth();
+	    int height = screen.getScreenHeight();
+	    
 	    if(showSplash)
 	    {
-	        new SplashInitializer(imagemMascote, 442, 442, 2500);
+	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
 	    
 		SwingUtilities.invokeLater(() -> {
 		                                   configureLookAndFeel(guiMode);
-		                                   buildMainWindowFrame(); 
+		                                   buildMainWindowFrame(width, height); 
     				                      });
 	}
 
@@ -55,7 +60,11 @@ public class UnivitatisApp
 			{
 				UIManager.setLookAndFeel(new FlatLightFlatIJTheme());
 			}
-			else
+			else if(guiMode == GuiModeConfig.CROSS_PLATAFORM)
+			{
+			    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			}
+			else if(guiMode == GuiModeConfig.SYSTEM_NATIVE)
 			{
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			}
@@ -66,13 +75,13 @@ public class UnivitatisApp
 		}
 	}
 
-	private static void buildMainWindowFrame()
+	private static void buildMainWindowFrame(Integer width, Integer height)
 	{
 		try
 		{
 			PictureHandler picHandler = new PictureHandler();
 
-			MainFrame2 frame = new MainFrame2();
+			MainFrame2 frame = new MainFrame2(width, height);
 			frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setLocationRelativeTo(null);
