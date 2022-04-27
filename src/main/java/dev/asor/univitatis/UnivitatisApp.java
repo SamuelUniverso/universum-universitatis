@@ -25,7 +25,7 @@ public class UnivitatisApp
 
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.SYSTEM_NATIVE);
+	    starProgram(true, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
@@ -84,8 +84,8 @@ public class UnivitatisApp
 			MainFrame2 frame = new MainFrame2(width, height);
 			frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.setLocationRelativeTo(null);
 			frame.pack();
+			frame.setLocationRelativeTo(null);
 			frame.setResizable(true);
 			frame.setVisible(true);
 		}

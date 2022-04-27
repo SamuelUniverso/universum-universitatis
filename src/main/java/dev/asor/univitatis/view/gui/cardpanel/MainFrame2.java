@@ -55,7 +55,6 @@ public class MainFrame2 extends JFrame
 		containerPanel = new JPanel();
 		containerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(containerPanel);
-		setLocationRelativeTo(null);
 	}
 	
 	/**
