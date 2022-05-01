@@ -73,7 +73,7 @@ public class AlunoFormView extends JPanel
         matriculaField.setColumns(10);
         
         JButton btnNewButton = new JButton("Salvar");
-        add(btnNewButton, "cell 5 5");
+        add(btnNewButton, "cell 5 5,alignx right");
         
         JScrollPane previewList = new JScrollPane();
         add(previewList, "cell 0 7 7 2,grow");

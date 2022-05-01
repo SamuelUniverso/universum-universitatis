@@ -3,6 +3,7 @@ package dev.asor.univitatis;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
@@ -29,11 +30,12 @@ public class UnivitatisApp
 	}
 
 	/**
-     * Monta janela principal e exibe na tela
+     * Monta janela principal e exibe na telsa
 	 */
 	private static void starProgram(boolean showSplash, GuiModeConfig guiMode)
 	{
 	    ScreenHandler screen = new ScreenHandler();
+	    
 	    int width = screen.getScreenWidth();
 	    int height = screen.getScreenHeight();
 	    
@@ -69,7 +71,12 @@ public class UnivitatisApp
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			}
 		}
-		catch(Exception e)
+		catch(  ClassNotFoundException 
+		      | InstantiationException
+		      | IllegalAccessException
+		      | UnsupportedLookAndFeelException
+		      | ClassCastException
+		      | NullPointerException e )
 		{
 			e.printStackTrace();
 		}
@@ -84,7 +91,7 @@ public class UnivitatisApp
 			MainFrame2 frame = new MainFrame2(width, height);
 			frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.pack();
+			frame.setSize((width / 2), (int) (Math.round(height / 1.5)));
 			frame.setLocationRelativeTo(null);
 			frame.setResizable(true);
 			frame.setVisible(true);

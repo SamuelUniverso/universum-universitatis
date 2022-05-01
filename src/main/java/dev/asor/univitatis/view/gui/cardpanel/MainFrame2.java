@@ -51,7 +51,7 @@ public class MainFrame2 extends JFrame
 	 */
 	private void configureView(Integer width, Integer height)
 	{
-		setBounds(100, 100, width, height);
+		setBounds(100, 100, 604, 425);
 		containerPanel = new JPanel();
 		containerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(containerPanel);
