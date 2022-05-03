@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
 
 public class AlunoFormView extends JPanel 
@@ -20,6 +21,8 @@ public class AlunoFormView extends JPanel
     private JTextField textField;
     private JTextField sobrenomeField;
     private JTextField matriculaField;
+    
+    private JTable alunoTable;
 
     public AlunoFormView() 
     {
@@ -76,6 +79,8 @@ public class AlunoFormView extends JPanel
         add(btnNewButton, "cell 5 5,alignx right");
         
         JScrollPane previewList = new JScrollPane();
+        alunoTable = new AlunoTable();
+        previewList.add(alunoTable);
         add(previewList, "cell 0 7 7 2,grow");
     }
 }
