@@ -27,7 +27,7 @@ public class UnivitatisApp
 
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.LIGHT_MODE);
+	    starProgram(false, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
@@ -51,6 +51,9 @@ public class UnivitatisApp
     				                      });
 	}
 
+	/**
+ 	 * Configura estetica da UI
+	 */
 	private static void configureLookAndFeel(GuiModeConfig guiMode)
 	{
 		try

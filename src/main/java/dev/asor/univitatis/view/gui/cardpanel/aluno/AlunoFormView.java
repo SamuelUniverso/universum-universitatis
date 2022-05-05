@@ -9,7 +9,10 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author dev.asor
@@ -36,6 +39,8 @@ public class AlunoFormView extends JPanel
     private JTextField matriculaField;
     
     private JButton saveButton;
+    private JButton deleteButtton;
+    private JButton editButton;
     
     private AlunoTable alunoTable;
     private JScrollPane scrollPane;
@@ -45,8 +50,8 @@ public class AlunoFormView extends JPanel
         setLayout(new MigLayout("wrap", "[77px,grow][86px,grow][46px][23px][86px][117.00px][38.00]", "[20px][][][][][][][grow][]"));
         
         createForm();          /* formulario */
-        createActinoButtons(); /* botoes de acao */
-        createTableList();     /* listagem */
+        createActionButtons(); /* botoes de acao */
+        createTableList();     /* inserir dados na tabela */
     }
     
     private void createForm()
@@ -109,16 +114,45 @@ public class AlunoFormView extends JPanel
         matriculaField.setColumns(10);
     }
     
-    private void createActinoButtons()
+    private void createActionButtons()
     {
+        /* save */
         saveButton = new JButton("Salvar");
+        saveButton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+            }
+        });
         saveButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        add(saveButton, "cell 5 5,alignx right");
+        add(saveButton, "flowx,cell 5 5,alignx right");
+        
+        /* delete */
+        deleteButtton = new JButton("Excluir");
+        deleteButtton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+            }
+        });
+        add(deleteButtton, "cell 6 5");
+        
+        /* edit */
+        editButton = new JButton("Editar");
+        editButton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+            }
+        });
+        add(editButton, "cell 5 5");
     }
     
     private void createTableList()
     {
         alunoTable = new AlunoTable();
+        alunoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
         scrollPane = new JScrollPane(alunoTable);
         add(scrollPane, "cell 0 7 7 2,grow");
         

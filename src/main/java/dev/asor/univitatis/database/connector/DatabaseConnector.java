@@ -22,7 +22,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
 {
     private static DatabaseConnector INSTANCE = null;
     private Connection connection = null;
-    private Boolean isAutoCommit = false;
+    private Boolean isAutoCommit  = false;
     
     private DatabaseConnector() 
     {

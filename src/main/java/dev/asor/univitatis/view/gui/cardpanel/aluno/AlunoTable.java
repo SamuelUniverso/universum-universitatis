@@ -54,25 +54,25 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
         {
             generateTable();
         }
-
+        
         Object[] objeto = new Object[] { aluno.getId()
                                        , aluno.getPessoa().getPrenome()
                                        , aluno.getPessoa().getNome()
                                        , aluno.getPessoa().getSobrenome()
                                        , aluno.getPessoa().getCpf()
                                        , aluno.getPessoa().getTelefone()
-                                       , aluno.getMatriculaAluno()
+                                       , aluno.getMatriculaAluno() 
                                        };
         objeto[0] = modelo.getRowCount() +1; /* incrementando 'rowcount' da tabela */
-        
         modelo.addRow(objeto);
     }
 
     @Override
     public void addDataOnTable(List<Aluno> alunos)
     {
-        alunos.forEach(aluno -> { addElement(aluno); });
-      
+        alunos.forEach((aluno) -> { 
+                                      addElement(aluno); 
+                                  });
         this.setModel(modelo);
         // this.getColumnModel().getColumn(0).setPreferredWidth(5);
     }
@@ -87,5 +87,7 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
         
         List<Aluno> alunos = dao.fetchAll();
         this.addDataOnTable(alunos);
+        
+        dao.closeConnection();
     }
 }
