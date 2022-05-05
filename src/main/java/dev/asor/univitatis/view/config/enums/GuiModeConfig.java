@@ -1,4 +1,4 @@
-package dev.asor.univitatis.view.config;
+package dev.asor.univitatis.view.config.enums;
 
 public enum GuiModeConfig
 {

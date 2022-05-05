@@ -32,6 +32,7 @@ public class MainFrame2 extends JFrame
 	
 	private JPanel containerPanel;
 	private JPanel leftMenuSection;
+	
 	private JLayeredPane formGroup;
 	
 	private JPanel formAluno;

@@ -8,6 +8,5 @@ public interface FormTableInterface<E>
     
     void addElement(E object);
     
-    void loadDataOnTable(List<E> objects);
-    
+    void addDataOnTable(List<E> objects);
 }

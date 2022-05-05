@@ -10,7 +10,8 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.utils.ScreenHandler;
-import dev.asor.univitatis.view.config.GuiModeConfig;
+import dev.asor.univitatis.view.GlobalFontChanger;
+import dev.asor.univitatis.view.config.enums.GuiModeConfig;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
@@ -54,6 +55,9 @@ public class UnivitatisApp
 	{
 		try
 		{
+		    /* Modificia fonte Global para SegoeUI */
+	        // GlobalFontChanger.setGlobalFont(new Font("SegoeUI", Font.PLAIN, 12));
+	          
 			if(guiMode == GuiModeConfig.DARK_MODE)
 			{
 				UIManager.setLookAndFeel(new FlatDarkFlatIJTheme());
