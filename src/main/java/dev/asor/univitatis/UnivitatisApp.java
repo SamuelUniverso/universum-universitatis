@@ -1,5 +1,7 @@
 package dev.asor.univitatis;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -13,6 +15,7 @@ import dev.asor.univitatis.utils.ScreenHandler;
 import dev.asor.univitatis.view.GlobalFontChanger;
 import dev.asor.univitatis.view.config.enums.GuiModeConfig;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
+import dev.asor.univitatis.view.gui.login.LoginScreen;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
 /**
@@ -22,12 +25,12 @@ import dev.asor.univitatis.view.gui.splash.SplashInitializer;
  */
 public class UnivitatisApp 
 {
-    private static final String imagemMascote = "mascote-univates.jpg";
+    private static final String imagemMascote = "mascote-talini.jpg";
     private static final String imagemLogoUni = "univates-logo.jpg";
 
 	public static void main(String[] args) 
 	{
-	    starProgram(false, GuiModeConfig.LIGHT_MODE);
+	    starProgram(true, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
@@ -45,10 +48,28 @@ public class UnivitatisApp
 	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
 	    
+	    try
+        {
+            SwingUtilities.invokeAndWait(() -> {
+                                                 configureLookAndFeel(guiMode);
+                                                 handleAuthentication();
+                                                });
+        } catch (InvocationTargetException | InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	    
+	    
 		SwingUtilities.invokeLater(() -> {
 		                                   configureLookAndFeel(guiMode);
 		                                   buildMainWindowFrame(width, height); 
     				                      });
+	}
+	
+	private static void handleAuthentication()
+	{
+	    
 	}
 
 	/**
