@@ -70,10 +70,10 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
     @Override
     public void addDataOnTable(List<Aluno> alunos)
     {
-        alunos.forEach((aluno) -> { 
-                                      addElement(aluno); 
-                                  });
-        this.setModel(modelo);
+        alunos.forEach( (aluno) -> { addElement(aluno); } );
+        if(modelo != null)
+            this.setModel(modelo);
+
         // this.getColumnModel().getColumn(0).setPreferredWidth(5);
     }
     
