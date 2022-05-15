@@ -47,24 +47,27 @@ public class UnivitatisApp
 	    {
 	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
-	    
+
 	    try
         {
-            SwingUtilities.invokeAndWait(() -> {
-                                                 configureLookAndFeel(guiMode);
-                                                 handleAuthentication();
-                                                });
-        } catch (InvocationTargetException | InterruptedException e)
+            SwingUtilities.invokeAndWait(
+                () -> {
+                    configureLookAndFeel(guiMode);
+                    handleAuthentication();
+                });
+            
+            SwingUtilities.invokeLater(
+                () -> {
+                    configureLookAndFeel(guiMode);
+                    buildMainWindowFrame(width, height); 
+                });
+        } 
+	    catch(InvocationTargetException | InterruptedException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 	    
 	    
-		SwingUtilities.invokeLater(() -> {
-		                                   configureLookAndFeel(guiMode);
-		                                   buildMainWindowFrame(width, height); 
-    				                      });
 	}
 	
 	private static void handleAuthentication()
