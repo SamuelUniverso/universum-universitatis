@@ -12,10 +12,8 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.utils.ScreenHandler;
-import dev.asor.univitatis.view.GlobalFontChanger;
 import dev.asor.univitatis.view.config.enums.GuiModeConfig;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
-import dev.asor.univitatis.view.gui.login.LoginScreen;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
 /**
@@ -27,10 +25,12 @@ public class UnivitatisApp
 {
     private static final String imagemMascote = "mascote-talini.jpg";
     private static final String imagemLogoUni = "univates-logo.jpg";
+    
+    private static boolean loginApproved = false;
 
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.LIGHT_MODE);
+	    starProgram(false, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
@@ -48,12 +48,19 @@ public class UnivitatisApp
 	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
 
+	    /**
+	     * Controle de login
+	     * Mantem programa suspenso equanto usuario nao autenticar
+	     */
 	    try
         {
             SwingUtilities.invokeAndWait(
                 () -> {
                     configureLookAndFeel(guiMode);
-                    handleAuthentication();
+                    while(!isLoginApproved())
+                    {
+                        setLoginApproved(handleAuthentication());
+                    }
                 });
             
             SwingUtilities.invokeLater(
@@ -66,13 +73,16 @@ public class UnivitatisApp
         {
             e.printStackTrace();
         }
-	    
-	    
 	}
-	
-	private static void handleAuthentication()
+
+	/**
+	 * Retorna true quanto usuario for permitido autenticar
+	 * @return boolean
+	 */
+	private static boolean handleAuthentication()
 	{
-	    
+
+	    return false;
 	}
 
 	/**
@@ -82,7 +92,7 @@ public class UnivitatisApp
 	{
 		try
 		{
-		    /* Modificia fonte Global para SegoeUI */
+		    /* Modifica fonte Global para SegoeUI */
 	        // GlobalFontChanger.setGlobalFont(new Font("SegoeUI", Font.PLAIN, 12));
 	          
 			if(guiMode == GuiModeConfig.DARK_MODE)
@@ -131,5 +141,14 @@ public class UnivitatisApp
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	private static void setLoginApproved(boolean allow)
+	{
+	    loginApproved = allow;
+	}
+	private static boolean isLoginApproved()
+	{
+	    return loginApproved;
 	}
 }
