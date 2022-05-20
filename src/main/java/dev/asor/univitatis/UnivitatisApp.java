@@ -1,5 +1,7 @@
 package dev.asor.univitatis;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -10,7 +12,6 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.utils.ScreenHandler;
-import dev.asor.univitatis.view.GlobalFontChanger;
 import dev.asor.univitatis.view.config.enums.GuiModeConfig;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
@@ -22,8 +23,10 @@ import dev.asor.univitatis.view.gui.splash.SplashInitializer;
  */
 public class UnivitatisApp 
 {
-    private static final String imagemMascote = "mascote-univates.jpg";
+    private static final String imagemMascote = "mascote-talini.jpg";
     private static final String imagemLogoUni = "univates-logo.jpg";
+    
+    private static boolean loginApproved = false;
 
 	public static void main(String[] args) 
 	{
@@ -44,11 +47,42 @@ public class UnivitatisApp
 	    {
 	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
-	    
-		SwingUtilities.invokeLater(() -> {
-		                                   configureLookAndFeel(guiMode);
-		                                   buildMainWindowFrame(width, height); 
-    				                      });
+
+	    /**
+	     * Controle de login
+	     * Mantem programa suspenso equanto usuario nao autenticar
+	     */
+	    try
+        {
+            SwingUtilities.invokeAndWait(
+                () -> {
+                    configureLookAndFeel(guiMode);
+                    while(!isLoginApproved())
+                    {
+                        setLoginApproved(handleAuthentication());
+                    }
+                });
+            
+            SwingUtilities.invokeLater(
+                () -> {
+                    configureLookAndFeel(guiMode);
+                    buildMainWindowFrame(width, height); 
+                });
+        } 
+	    catch(InvocationTargetException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+	}
+
+	/**
+	 * Retorna true quanto usuario for permitido autenticar
+	 * @return boolean
+	 */
+	private static boolean handleAuthentication()
+	{
+
+	    return false;
 	}
 
 	/**
@@ -58,7 +92,7 @@ public class UnivitatisApp
 	{
 		try
 		{
-		    /* Modificia fonte Global para SegoeUI */
+		    /* Modifica fonte Global para SegoeUI */
 	        // GlobalFontChanger.setGlobalFont(new Font("SegoeUI", Font.PLAIN, 12));
 	          
 			if(guiMode == GuiModeConfig.DARK_MODE)
@@ -107,5 +141,14 @@ public class UnivitatisApp
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	private static void setLoginApproved(boolean allow)
+	{
+	    loginApproved = allow;
+	}
+	private static boolean isLoginApproved()
+	{
+	    return loginApproved;
 	}
 }
