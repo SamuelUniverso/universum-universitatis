@@ -1,62 +1,96 @@
 package dev.asor.univitatis.view.gui.login;
 
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import dev.asor.univitatis.UnivitatisApp;
+
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Component;
+import javax.swing.Box;
 
 /**
  * @author dev.asor
  * @since may.2022
  */
-public class LoginScreen
+public class LoginScreen extends JFrame implements ActionListener
 {
-    private JDialog loginScreen = null;
+    private static final long serialVersionUID = 1L;
+
     private JPanel panelScreen = null;
     
-    private boolean isAuthenticated = false;
     private JTextField usuarioInput;
     private JTextField senhaInput;
+
+    private JButton loginButton;
     
     public LoginScreen()
     {
         buildLoginScreen();
     }
-    
+       
     public void buildLoginScreen()
     {
-        loginScreen = new JDialog();
         panelScreen = new JPanel();
-        
-        loginScreen.getContentPane().add(panelScreen);
-        panelScreen.setLayout(new MigLayout("", "[][][grow]", "[][][][][]"));
+        panelScreen.setLayout(new MigLayout("", "[][][][grow][]", "[][][][][][]"));
+        getContentPane().add(panelScreen);
         
         JLabel usuarioLabel = new JLabel("Usuário:");
-        panelScreen.add(usuarioLabel, "cell 0 1,alignx trailing");
+        usuarioLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        panelScreen.add(usuarioLabel, "cell 1 1,alignx right");
         
         usuarioInput = new JTextField();
-        panelScreen.add(usuarioInput, "cell 2 1,growx");
+        panelScreen.add(usuarioInput, "cell 3 1,growx");
         usuarioInput.setColumns(10);
         
+        Component verticalStrut = Box.createVerticalStrut(20);
+        panelScreen.add(verticalStrut, "cell 0 2");
+        
         JLabel senhaLabel = new JLabel("Senha:");
-        panelScreen.add(senhaLabel, "cell 0 2,alignx right");
+        senhaLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        panelScreen.add(senhaLabel, "cell 1 2,alignx right");
         
         senhaInput = new JTextField();
-        panelScreen.add(senhaInput, "cell 2 2,growx");
+        panelScreen.add(senhaInput, "cell 3 2,growx");
         senhaInput.setColumns(10);
         
-        JButton loginButton = new JButton("Ingressar");
-        panelScreen.add(loginButton, "cell 2 4,alignx right");
-
-//        loginScreen.pack();
-        loginScreen.setLocationRelativeTo(null);
-        loginScreen.setVisible(true);
+        loginButton = new JButton("Ingressar");
+        loginButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        loginButton.addActionListener(this);
+        panelScreen.add(loginButton, "cell 3 4,alignx right");
+  
+        //this.pack();
+        this.setSize(331, 166);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
     
-    public boolean isAuthenticated()
+    /**
+     * Validar o ingresso de usuario no sistema
+     */
+    public void authenticate()
     {
-        return this.isAuthenticated;
+        if(true)
+        {
+            this.setVisible(false);
+            UnivitatisApp.afterLogin();
+        }
+    }
+    
+    /**
+     * Escuta para as acoes no botao de ingresso
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        authenticate();
     }
 }

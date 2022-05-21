@@ -15,6 +15,7 @@ import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.utils.ScreenHandler;
 import dev.asor.univitatis.view.config.enums.GuiModeConfig;
 import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
+import dev.asor.univitatis.view.gui.login.LoginScreen;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
 /**
@@ -27,63 +28,47 @@ public class UnivitatisApp
     private static final String imagemMascote = "mascote-talini.jpg";
     private static final String imagemLogoUni = "univates-logo.jpg";
     
-    private static boolean loginApproved = false;
-
+    private static GuiModeConfig guiMode;
+    private static int width;
+    private static int height;
+    
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.LIGHT_MODE);
+	    starProgram(false, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
-     * Monta janela principal e exibe na telsa
+     * Monta janela principal e exibe na tela
 	 */
 	private static void starProgram(boolean showSplash, GuiModeConfig guiMode)
 	{
 	    ScreenHandler screen = new ScreenHandler();
+
+	    UnivitatisApp.guiMode = guiMode;
+	    UnivitatisApp.width = screen.getScreenWidth();
+	    UnivitatisApp.height = screen.getScreenHeight();
 	    
-	    int width = screen.getScreenWidth();
-	    int height = screen.getScreenHeight();
-	    
-	    if(showSplash)
-	    {
+	    if(showSplash) {
 	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
 
 	    /**
-	     * Controle de login
 	     * Mantem programa suspenso equanto usuario nao autenticar
 	     */
-	    try
-        {
-            SwingUtilities.invokeAndWait(
-                () -> {
-                    configureLookAndFeel(guiMode);
-                    while(!isLoginApproved())
-                    {
-                        setLoginApproved(handleAuthentication());
-                    }
-                });
-            
-            SwingUtilities.invokeLater(
-                () -> {
-                    configureLookAndFeel(guiMode);
-                    buildMainWindowFrame(width, height); 
-                });
-        } 
-	    catch(InvocationTargetException | InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+	    configureLookAndFeel(guiMode);
+
+	    /**
+	     * Invocando tela de login
+	     */
+	    new LoginScreen();
 	}
-
-	/**
-	 * Retorna true quanto usuario for permitido autenticar
-	 * @return boolean
-	 */
-	private static boolean handleAuthentication()
+	
+	public static void afterLogin()
 	{
-
-	    return true;
+	    SwingUtilities.invokeLater(() -> {
+            configureLookAndFeel(UnivitatisApp.guiMode);
+            buildMainWindowFrame(UnivitatisApp.width, UnivitatisApp.height); 
+        });
 	}
 
 	/**
@@ -143,14 +128,5 @@ public class UnivitatisApp
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	private static void setLoginApproved(boolean allow)
-	{
-	    loginApproved = allow;
-	}
-	private static boolean isLoginApproved()
-	{
-	    return loginApproved;
 	}
 }

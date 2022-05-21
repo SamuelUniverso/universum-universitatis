@@ -20,8 +20,8 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
 
     private static final String HEADER_ID        = "Código";
     private static final String HEADER_NOME      = "Nome";
-    private static final String HEADER_PRENOME   = "Prenome";
-    private static final String HEADER_SOBRENOME = "Sobrenome";
+    //private static final String HEADER_PRENOME   = "Prenome";
+    //private static final String HEADER_SOBRENOME = "Sobrenome";
     private static final String HEADER_CPF       = "CPF";
     private static final String HEADER_TELEFONE  = "Telefone";
     private static final String HEADER_MATRICULA = "Matrícula";
@@ -59,12 +59,12 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
         Object[] objeto = new Object[] {  
               aluno.getId()
             , aluno.getPessoa().getPrenome() 
-                + ' ' + aluno.getPessoa().getNome() 
-                + ' ' + aluno.getPessoa().getSobrenome() 
+                + " "  + aluno.getPessoa().getNome() 
+                + " " + aluno.getPessoa().getSobrenome() 
             , aluno.getPessoa().getCpf()
-            , '+' + aluno.getPessoa().getTelefone()
+            , "+" + aluno.getPessoa().getTelefone()
             , aluno.getMatriculaAluno() 
-        };        
+        };  
         objeto[0] = modelo.getRowCount() +1; /* incrementando 'rowcount' da tabela */
         modelo.addRow(objeto);
     }
@@ -74,9 +74,8 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
     {
         //this.setPreferredSize(new Dimension(500, 250));
         
-        alunos.forEach(
-                (aluno) -> { 
-                    addElement(aluno); 
+        alunos.forEach((aluno) -> { 
+            addElement(aluno); 
         });
         
         if(modelo != null) {

@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.gui.cardpanel.aluno.AlunoFormView;
 import dev.asor.univitatis.view.gui.cardpanel.professor.ProfessorFormView;
+import dev.asor.univitatis.view.gui.login.LoginScreen;
 import net.miginfocom.swing.MigLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
@@ -138,7 +139,11 @@ public class MainFrame2 extends JFrame
         {
             public void actionPerformed(ActionEvent e) 
             {
-                System.exit(DO_NOTHING_ON_CLOSE);
+                /**
+                 * Volta para tela de login ao sair
+                 */
+                dispose();
+                new LoginScreen();
             }
         });
         leftMenuSection.add(btnSair, "cell 0 13,growx");
