@@ -82,7 +82,7 @@ public class UnivitatisApp
 	private static boolean handleAuthentication()
 	{
 
-	    return false;
+	    return true;
 	}
 
 	/**
