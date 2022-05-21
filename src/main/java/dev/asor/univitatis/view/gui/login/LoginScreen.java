@@ -80,7 +80,7 @@ public class LoginScreen extends JFrame implements ActionListener
     {
         if(true)
         {
-            this.setVisible(false);
+            dispose();
             UnivitatisApp.afterLogin();
         }
     }
