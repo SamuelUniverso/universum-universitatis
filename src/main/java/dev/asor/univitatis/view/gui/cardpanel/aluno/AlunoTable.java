@@ -39,9 +39,9 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
         }
 
         modelo.addColumn(HEADER_ID);
-        modelo.addColumn(HEADER_PRENOME);
+        //modelo.addColumn(HEADER_PRENOME);
         modelo.addColumn(HEADER_NOME);
-        modelo.addColumn(HEADER_SOBRENOME);
+        //modelo.addColumn(HEADER_SOBRENOME);
         modelo.addColumn(HEADER_CPF);
         modelo.addColumn(HEADER_TELEFONE);
         modelo.addColumn(HEADER_MATRICULA);
@@ -55,14 +55,16 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
             generateTable();
         }
         
-        Object[] objeto = new Object[] { aluno.getId()
-                                       , aluno.getPessoa().getPrenome()
-                                       , aluno.getPessoa().getNome()
-                                       , aluno.getPessoa().getSobrenome()
-                                       , aluno.getPessoa().getCpf()
-                                       , aluno.getPessoa().getTelefone()
-                                       , aluno.getMatriculaAluno() 
-                                       };
+        /* adicionando elementos no modelo */
+        Object[] objeto = new Object[] {  
+              aluno.getId()
+            , aluno.getPessoa().getPrenome() 
+                + ' ' + aluno.getPessoa().getNome() 
+                + ' ' + aluno.getPessoa().getSobrenome() 
+            , aluno.getPessoa().getCpf()
+            , '+' + aluno.getPessoa().getTelefone()
+            , aluno.getMatriculaAluno() 
+        };        
         objeto[0] = modelo.getRowCount() +1; /* incrementando 'rowcount' da tabela */
         modelo.addRow(objeto);
     }
@@ -70,11 +72,23 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
     @Override
     public void addDataOnTable(List<Aluno> alunos)
     {
-        alunos.forEach( (aluno) -> { addElement(aluno); } );
-        if(modelo != null)
+        //this.setPreferredSize(new Dimension(500, 250));
+        
+        alunos.forEach(
+                (aluno) -> { 
+                    addElement(aluno); 
+        });
+        
+        if(modelo != null) {
             this.setModel(modelo);
-
-        // this.getColumnModel().getColumn(0).setPreferredWidth(5);
+        }
+        
+        /* configurando proporcoes entre colunas */
+        this.getColumn(getColumnName(0)).setPreferredWidth(0);
+        this.getColumn(getColumnName(1)).setPreferredWidth(221);
+        this.getColumn(getColumnName(2)).setPreferredWidth(50);
+        this.getColumn(getColumnName(3)).setPreferredWidth(70);
+        this.getColumn(getColumnName(4)).setPreferredWidth(40);
     }
     
     /**

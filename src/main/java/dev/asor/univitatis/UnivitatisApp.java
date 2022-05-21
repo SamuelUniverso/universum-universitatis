@@ -1,5 +1,6 @@
 package dev.asor.univitatis;
 
+import java.awt.Font;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
@@ -30,7 +31,7 @@ public class UnivitatisApp
 
 	public static void main(String[] args) 
 	{
-	    starProgram(false, GuiModeConfig.LIGHT_MODE);
+	    starProgram(true, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
@@ -87,14 +88,15 @@ public class UnivitatisApp
 
 	/**
  	 * Configura estetica da UI
+ 	 * @method configureLookAndFeel
 	 */
 	private static void configureLookAndFeel(GuiModeConfig guiMode)
 	{
 		try
 		{
-		    /* Modifica fonte Global para SegoeUI */
-	        // GlobalFontChanger.setGlobalFont(new Font("SegoeUI", Font.PLAIN, 12));
-	          
+		    /* Modifica fonte Global para Segoe UI */
+		    UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Segoe UI", Font.PLAIN, 12));
+		    
 			if(guiMode == GuiModeConfig.DARK_MODE)
 			{
 				UIManager.setLookAndFeel(new FlatDarkFlatIJTheme());
