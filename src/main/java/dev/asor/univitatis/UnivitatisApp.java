@@ -1,7 +1,6 @@
 package dev.asor.univitatis;
 
 import java.awt.Font;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -51,10 +50,7 @@ public class UnivitatisApp
 	    if(showSplash) {
 	        new SplashInitializer(imagemMascote, (height / 2), (height / 2), 2500);
 	    }
-
-	    /**
-	     * Mantem programa suspenso equanto usuario nao autenticar
-	     */
+	    
 	    configureLookAndFeel(guiMode);
 
 	    /**
