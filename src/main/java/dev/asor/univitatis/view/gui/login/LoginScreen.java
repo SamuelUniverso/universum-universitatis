@@ -81,6 +81,7 @@ public class LoginScreen extends JFrame implements ActionListener
         if(true)
         {
             dispose();
+            /* call on the Main class */
             UnivitatisApp.afterLogin();
         }
     }
