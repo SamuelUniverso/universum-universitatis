@@ -73,6 +73,54 @@ public class LdapDao extends GenericDao implements CrudObjectInterface<Ldap>
         
         return ldap;
     }
+    
+    /**
+     * Busca um usuario cadastrado na base pelo UUID
+     * @param useruid
+     * @return
+     */
+    public Ldap fetchByUsername(String useruid)
+    {   
+        Ldap ldap = null;
+        try
+        {
+            if(useruid == null)
+            {
+                throw new IllegalArgumentException();
+            }
+            
+            //String sql = LdapDaoHelper.createPreparedStatementSelectLdap(false);
+            String sql = "SELECT id, usuario, senha FROM ldap WHERE usuario like ?1"; 
+            PreparedStatement statement = getConnector().getConnection().prepareStatement(sql);
+            
+            statement.setString(1, useruid);
+            
+            ResultSet result = statement.executeQuery();
+            while(result.next())
+            {
+                ldap = new Ldap(result.getInt(1));
+                ldap.setUsuario(result.getString(2));
+                ldap.setSenha(result.getString(3));
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+             try
+             {
+                 getConnector().getConnection().close();
+             }
+             catch(SQLException e)
+             {
+                 e.printStackTrace();
+             }
+        }
+        
+        return ldap;
+    }
 
     @Override
     public Integer getNextId()

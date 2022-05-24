@@ -15,4 +15,13 @@ public class LdapDaoTest
         Ldap ldap = dao.fetchById(1);
         System.out.print(ldap);
     }
+    
+    @Test
+    public void fetchLdapByUsername()
+    {
+        LdapDao dao = new LdapDao(DatabaseConnector.getInstance());
+        
+        Ldap ldap = dao.fetchByUsername("admin");
+        System.out.print(ldap);
+    }
 }
