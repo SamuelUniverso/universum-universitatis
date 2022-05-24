@@ -11,9 +11,10 @@ CREATE TABLE IF NOT EXISTS "pessoas" (
 );
 
 CREATE TABLE IF NOT EXISTS "ldap" (
-	  "usuario" TYPE text
-	, "senha" TYPE text
-	, "fk_pessoa" TYPE integer REFERENCES "pessoas"("id")
+	  "id" INTEGER NOT NULL UNIQUE,
+	, "usuario" TEXT
+	, "senha" TEXT
+	, "fk_pessoa" INTEGER REFERENCES "pessoas"("id")
 );
 
 CREATE TABLE IF NOT EXISTS "alunos" (
@@ -84,8 +85,8 @@ CREATE TABLE IF NOT EXISTS "matriculas" (
 );
 
 -- Dummy Data
-INSERT INTO ldap (usuario, senha,fk_pessoa) 
-	VALUES ('admin','21232f297a57a5a743894a0e4a801fc3', null);
+INSERT INTO ldap (id, usuario, senha,fk_pessoa) 
+	VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', null); -- md5 hash for 'admin'
 
 INSERT INTO "pessoas"(id, prenome, nome, sobrenome, telefone, cpf) 
 	VALUES (1, 'Nobilis', 'Discipullum', 'Honorarium', '5551987654321', '22177716683');

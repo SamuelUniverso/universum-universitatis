@@ -95,7 +95,7 @@ public class UnivitatisApp
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			}
 		}
-		catch(  ClassNotFoundException 
+		catch(  ClassNotFoundException
 		      | InstantiationException
 		      | IllegalAccessException
 		      | UnsupportedLookAndFeelException
