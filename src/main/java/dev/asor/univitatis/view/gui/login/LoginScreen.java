@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import dev.asor.univitatis.UnivitatisApp;
+import dev.asor.univitatis.control.LoginHandler;
 
 import java.awt.event.ActionListener;
 
@@ -78,11 +79,15 @@ public class LoginScreen extends JFrame implements ActionListener
      */
     public void authenticate()
     {
-        if(true)
+        LoginHandler login = new LoginHandler(usuarioInput.getText(), senhaInput.getText());
+        if(login.isLoginAllowed())
         {
             dispose();
-            /* call on the Main class */
-            UnivitatisApp.afterLogin();
+            UnivitatisApp.afterLogin(); /* call on the Main class */
+        }
+        else
+        {
+            buildLoginScreen(); /* restarts the process */
         }
     }
     
