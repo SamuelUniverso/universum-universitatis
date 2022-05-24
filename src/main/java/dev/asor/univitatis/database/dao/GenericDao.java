@@ -31,6 +31,11 @@ public abstract class GenericDao implements GenericConnectorInterface
     @Override
     public DatabaseConnector getConnector()
     {
+        if(this.connector == null)
+        {
+            this.connector = DatabaseConnector.getInstance();
+        }
+            
         return this.connector;
     }
     

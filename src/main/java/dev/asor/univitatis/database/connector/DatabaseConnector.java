@@ -24,16 +24,18 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     private Connection connection = null;
     private Boolean isAutoCommit  = false;
     
-    private DatabaseConnector() 
+    private DatabaseConnector()
     {
         PropertiesLoader propertiesLoader = new PropertiesLoader();
         Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
         try
         {
             Class.forName(properties.getProperty("db.class"));
-            connection = DriverManager
-                             .getConnection( properties.getProperty("db.driver") 
-                                           + getClass().getResource(properties.getProperty("db.url")));
+            
+            if(connection == null) {
+                tryConnection();
+            }
+            
             connection.setAutoCommit(isAutoCommit);
         } 
         catch (SQLException e)
@@ -50,8 +52,35 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         }
     }
     
-    public Connection getConnection()
+    /**
+     * Realiza tentativa de conexao ao banco de dados
+     */
+    private Connection tryConnection()
     {
+        try
+        {
+            if(this.connection == null || this.connection.isClosed())
+            {
+                try
+                {
+                    PropertiesLoader propertiesLoader = new PropertiesLoader();
+                    Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
+                    
+                    this.connection = DriverManager
+                            .getConnection( properties.getProperty("db.driver") 
+                                          + getClass().getResource(properties.getProperty("db.url")));
+                }
+                catch(SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+       
        return this.connection; 
     }
     
@@ -74,6 +103,31 @@ public class DatabaseConnector implements DatabaseConnectorInterace
             e.printStackTrace();
             throw new GenericDaoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
         }
+    }
+    
+    @Override
+    public Connection getConnection()
+    {
+        if(this.connection == null)
+        {
+            tryConnection();
+        } 
+        else
+        {  
+            try
+            {
+                if(this.connection.isClosed())
+                {
+                    tryConnection();
+                }
+            } 
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        
+        return this.connection;
     }
 
     /**

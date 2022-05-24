@@ -32,9 +32,9 @@ public class LoginHandler
             LdapDao ldao = new LdapDao(DatabaseConnector.getInstance());
             Ldap ldap = ldao.fetchByUsername(getUseruid());
             
-            MD5Hasher hasher = new MD5Hasher(ldap.getSenha());
+            MD5Hasher hasher = new MD5Hasher(getPassword());
             
-            return hasher.checkHashesEquality(getPassword());
+            return hasher.checkHashesEquality(ldap.getSenha());
         }
         catch(Exception e)
         {
