@@ -46,9 +46,9 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         {
             e.printStackTrace();
         }
-        finally
+        finally /* msg connection successful */
         {
-            System.out.println(DatabaseConnectorMessages.SUCCESS_CONNECTION_DATABASE.getMessage());  
+            //System.out.println(DatabaseConnectorMessages.SUCCESS_CONNECTION_DATABASE.getMessage());  
         }
     }
     

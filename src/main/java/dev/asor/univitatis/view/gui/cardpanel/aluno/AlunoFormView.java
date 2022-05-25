@@ -1,12 +1,19 @@
 package dev.asor.univitatis.view.gui.cardpanel.aluno;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JTextField;
 
+import dev.asor.univitatis.database.connector.DatabaseConnector;
+import dev.asor.univitatis.database.dao.AlunoDao;
+import dev.asor.univitatis.model.Aluno;
+import dev.asor.univitatis.model.Contato;
+import dev.asor.univitatis.model.Pessoa;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -122,6 +129,25 @@ public class AlunoFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
+                if(validateForm())
+                {
+                    nomeField.setBackground(Color.WHITE);
+                    sobrenomeField.setBackground(Color.WHITE);
+                    telefoneField.setBackground(Color.WHITE);
+                    
+                    Aluno aluno = new Aluno(new Pessoa());
+                    aluno.getPessoa().setPrenome(prenomeField.getText());
+                    aluno.getPessoa().setNome(nomeField.getText());
+                    aluno.getPessoa().setSobrenome(sobrenomeField.getText());
+                    aluno.getPessoa().setCpf(cpfField.getText());
+                    aluno.getPessoa().setTelefone(telefoneField.getText());
+                    aluno.setMatriculaAluno(matriculaField.getText());
+                    
+                   AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
+                   dao.insert(aluno);
+                   
+                   alunoTable.addElement(aluno);
+               }
             }
         });
         saveButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -146,6 +172,52 @@ public class AlunoFormView extends JPanel
             }
         });
         add(editButton, "cell 5 5");
+    }
+    
+    private boolean validateForm()
+    {
+        try
+        {
+            if(  nomeField.getText().equals("")
+              || sobrenomeField.getText().equals("")
+              || cpfField.getText().equals("") )
+            {
+                nomeField.setBackground(Color.GRAY);
+                nomeField.setForeground(Color.WHITE);
+                
+                sobrenomeField.setBackground(Color.GRAY);
+                sobrenomeField.setForeground(Color.WHITE);
+                
+                cpfField.setBackground(Color.GRAY);
+                cpfField.setForeground(Color.WHITE);
+                
+                throw new IllegalArgumentException("Formulário incompleto! \r\n Confira os dados e tente novamente.");
+            }
+        }
+        catch(IllegalArgumentException exception) 
+        {
+            limparInputs();
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Esvazia todos os campos de Input do cadastro
+     * @method limparInputs
+     * @return void
+     */
+    private void limparInputs()
+    {
+        prenomeField.setText(null);
+        nomeField.setText(null);
+        sobrenomeField.setText(null);
+        cpfField.setText(null);
+        telefoneField.setText(null);
+        matriculaField.setText(null);
     }
     
     private void createTableList()
