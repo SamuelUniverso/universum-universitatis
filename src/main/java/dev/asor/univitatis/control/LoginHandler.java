@@ -34,6 +34,9 @@ public class LoginHandler
             
             MD5Hasher hasher = new MD5Hasher(getPassword());
             
+            if(hasher == null || ldap == null) {
+                return false;
+            }
             return hasher.checkHashesEquality(ldap.getSenha());
         }
         catch(Exception e)

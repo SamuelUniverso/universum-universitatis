@@ -2,6 +2,8 @@ package dev.asor.univitatis.view.gui.login;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -58,7 +60,7 @@ public class LoginScreen extends JFrame implements ActionListener
         senhaLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         panelScreen.add(senhaLabel, "cell 1 2,alignx right");
         
-        senhaInput = new JTextField();
+        senhaInput = new JPasswordField();
         panelScreen.add(senhaInput, "cell 3 2,growx");
         senhaInput.setColumns(10);
         

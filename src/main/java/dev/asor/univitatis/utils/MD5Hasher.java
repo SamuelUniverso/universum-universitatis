@@ -64,6 +64,10 @@ public class MD5Hasher
      */
     public boolean checkHashesEquality(String hashToCompare)
     {
+        if(hashToCompare == null || getHash() == null) {
+            return false;
+        }
+        
         return getHash().equals(hashToCompare) ? true : false;
     }
 }
