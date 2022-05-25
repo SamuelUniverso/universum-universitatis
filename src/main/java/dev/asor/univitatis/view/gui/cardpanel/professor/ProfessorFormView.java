@@ -1,32 +1,24 @@
 package dev.asor.univitatis.view.gui.cardpanel.professor;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import java.awt.Color;
-import java.awt.Font;
-
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.ProfessorDao;
-import dev.asor.univitatis.database.dao.ProfessorDao;
-import dev.asor.univitatis.database.dao.ProfessorDao;
-import dev.asor.univitatis.model.Professor;
-import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
 import dev.asor.univitatis.model.Professor;
 import dev.asor.univitatis.utils.Valitations;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author dev.asor
@@ -245,6 +237,8 @@ public class ProfessorFormView extends JPanel
                    professor.setMatriculaFuncionario(matriculaField.getText());;
                    
                    dao.update(professor);
+                   
+                   professorTable.updateElement(professorTable.getSelectedRow(), professor);
                    
                    if(isEditingRow()) 
                    {

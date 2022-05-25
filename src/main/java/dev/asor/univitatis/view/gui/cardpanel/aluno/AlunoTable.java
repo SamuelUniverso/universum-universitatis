@@ -71,8 +71,26 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
     
     public void removeElement(Integer rowNumber) 
     {
-        if(modelo != null) {
+        if(modelo != null) 
+        {
             modelo.removeRow(rowNumber);
+        }
+    }
+    
+    public void updateElement(Integer rowNumber, Aluno aluno)
+    {
+        if(modelo != null)  
+        {
+            modelo.setValueAt(aluno.getId(), rowNumber, 0);
+            modelo.setValueAt(
+                (aluno.getPessoa().getPrenome() 
+                    + " "  + aluno.getPessoa().getNome() 
+                    + " " + aluno.getPessoa().getSobrenome()).toString()
+                , rowNumber, 1
+            ); 
+            modelo.setValueAt(aluno.getPessoa().getTelefone() , rowNumber, 2);
+            modelo.setValueAt(aluno.getPessoa().getCpf()      , rowNumber, 3);
+            modelo.setValueAt(aluno.getMatriculaAluno()       , rowNumber, 4);
         }
     }
 

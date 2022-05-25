@@ -87,6 +87,23 @@ public class ProfessorTable extends JTable implements FormTableInterface<Profess
         modelo.addRow(objeto);
     }
     
+    public void updateElement(Integer rowNumber, Professor professor)
+    {
+        if(modelo != null)  
+        {
+            modelo.setValueAt(professor.getId(), rowNumber, 0);
+            modelo.setValueAt(
+                (professor.getPessoa().getPrenome() 
+                    + " "  + professor.getPessoa().getNome() 
+                    + " " + professor.getPessoa().getSobrenome()).toString()
+                , rowNumber, 1
+            ); 
+            modelo.setValueAt(professor.getPessoa().getTelefone() , rowNumber, 2);
+            modelo.setValueAt(professor.getPessoa().getCpf()      , rowNumber, 3);
+            modelo.setValueAt(professor.getMatriculaFuncionario() , rowNumber, 4);
+        }
+    }
+    
     public void removeElement(Integer rowNumber) 
     {
         if(modelo != null) {

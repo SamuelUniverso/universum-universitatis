@@ -9,7 +9,6 @@ import java.util.List;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
-import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.messages.exceptions.dao.AlunoException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.AlunoExceptionMessages;

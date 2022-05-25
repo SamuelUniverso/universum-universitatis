@@ -182,6 +182,7 @@ public class AlunoFormView extends JPanel
                        JOptionPane.showMessageDialog(null, "Falha ao deletar registro.");
                    }
                }
+               clearInputs();
             }
         });
         add(deleteButtton, "cell 6 5");
@@ -228,7 +229,7 @@ public class AlunoFormView extends JPanel
 
                     editButton.setText("Atualizar");
                }
-               else /* writes change to database */
+               else if(validateForm()) /* writes change to database */
                {
                    AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
                    
@@ -241,6 +242,9 @@ public class AlunoFormView extends JPanel
                    aluno.setMatriculaAluno(matriculaField.getText());
                    
                    dao.update(aluno);
+                   
+                   /* update table row */
+                   alunoTable.updateElement(alunoTable.getSelectedRow(), aluno);
                    
                    if(isEditingRow()) 
                    {
@@ -329,7 +333,6 @@ public class AlunoFormView extends JPanel
         
         alunoTable.fetchDataFromDatabase();
     }
-
     
     public boolean isEditingRow()
     {
