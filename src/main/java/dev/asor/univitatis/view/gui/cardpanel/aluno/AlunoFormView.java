@@ -19,6 +19,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 /**
@@ -186,6 +189,7 @@ public class AlunoFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
+                
             }
         });
         add(editButton, "cell 5 5");
@@ -259,7 +263,7 @@ public class AlunoFormView extends JPanel
     
     private void createTableList()
     {
-        alunoTable = new AlunoTable();
+        alunoTable = new AlunoTable(this); /* to be able to change JFrame from inside JTable */
         alunoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         scrollPane = new JScrollPane(alunoTable);

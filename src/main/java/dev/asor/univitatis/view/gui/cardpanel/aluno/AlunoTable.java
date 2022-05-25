@@ -1,5 +1,6 @@
 package dev.asor.univitatis.view.gui.cardpanel.aluno;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -9,6 +10,8 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.view.gui.interfaces.FormTableInterface;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author dev.asor
@@ -28,7 +31,20 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
 
     private DefaultTableModel modelo;
     
-    public AlunoTable() {}
+    public AlunoTable(AlunoFormView jTable) 
+    {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) 
+            {
+                List<Object> values = new ArrayList<Object>();
+                
+                for(int i = 0; i < getColumnCount(); i++) {
+                    values.add(getValueAt(getSelectedRow(), i));
+                }
+            }
+        });
+    }
 
     @Override
     public void generateTable()
