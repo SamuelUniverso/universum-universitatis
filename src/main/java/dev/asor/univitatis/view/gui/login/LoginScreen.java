@@ -34,6 +34,8 @@ public class LoginScreen extends JFrame implements ActionListener
     private JTextField senhaInput;
 
     private JButton loginButton;
+    private JLabel lblNewLabel;
+    private Component horizontalStrut;
     
     public LoginScreen()
     {
@@ -43,35 +45,42 @@ public class LoginScreen extends JFrame implements ActionListener
     public void buildLoginScreen()
     {
         panelScreen = new JPanel();
-        panelScreen.setLayout(new MigLayout("", "[][][][grow][]", "[][][][][][]"));
+        panelScreen.setLayout(new MigLayout("", "[][][][grow][]", "[][][][][][][]"));
         getContentPane().add(panelScreen);
+        
+        lblNewLabel = new JLabel("UNIVERSUM UNIVERSITATIS");
+        lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        panelScreen.add(lblNewLabel, "cell 1 0 3 1");
+        
+        horizontalStrut = Box.createHorizontalStrut(20);
+        panelScreen.add(horizontalStrut, "cell 0 1");
         
         JLabel usuarioLabel = new JLabel("Usuário:");
         usuarioLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        panelScreen.add(usuarioLabel, "cell 1 1,alignx right");
+        panelScreen.add(usuarioLabel, "cell 1 2,alignx right");
         
         usuarioInput = new JTextField();
-        panelScreen.add(usuarioInput, "cell 3 1,growx");
+        panelScreen.add(usuarioInput, "cell 3 2,growx");
         usuarioInput.setColumns(10);
         
         Component verticalStrut = Box.createVerticalStrut(20);
-        panelScreen.add(verticalStrut, "cell 0 2");
+        panelScreen.add(verticalStrut, "cell 0 3");
         
         JLabel senhaLabel = new JLabel("Senha:");
         senhaLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        panelScreen.add(senhaLabel, "cell 1 2,alignx right");
+        panelScreen.add(senhaLabel, "cell 1 3,alignx right");
         
         senhaInput = new JPasswordField();
-        panelScreen.add(senhaInput, "cell 3 2,growx");
+        panelScreen.add(senhaInput, "cell 3 3,growx");
         senhaInput.setColumns(10);
         
         loginButton = new JButton("Ingressar");
         loginButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
         loginButton.addActionListener(this);
-        panelScreen.add(loginButton, "cell 3 4,alignx right");
+        panelScreen.add(loginButton, "cell 3 5,alignx right");
   
         //this.pack();
-        this.setSize(331, 166);
+        this.setSize(331, 183);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

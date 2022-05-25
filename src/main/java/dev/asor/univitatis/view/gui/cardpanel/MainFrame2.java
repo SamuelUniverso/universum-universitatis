@@ -73,7 +73,7 @@ public class MainFrame2 extends JFrame
 		titleSection.setBackground(UIManager.getColor("Button.light"));
 		titleSection.setLayout(new MigLayout("", "[299px][72px][][][][][][][][][]", "[72px]"));
 		
-		JLabel labelTitulo = new JLabel(" UNIVITATIS - Universum Universitatis");
+		JLabel labelTitulo = new JLabel("   UNIVERSUM UNIVERSITATIS");
 		labelTitulo.setIcon(logoIcon);
 		labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		titleSection.add(labelTitulo, "cell 0 0 11 1,alignx left,growy");
