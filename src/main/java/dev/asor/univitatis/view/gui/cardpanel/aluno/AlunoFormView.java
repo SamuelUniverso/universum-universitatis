@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.model.Aluno;
-import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.model.Pessoa;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
