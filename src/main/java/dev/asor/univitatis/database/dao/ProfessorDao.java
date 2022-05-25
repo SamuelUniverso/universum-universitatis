@@ -10,6 +10,7 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.ProfessorDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
+import dev.asor.univitatis.messages.exceptions.dao.AlunoException;
 import dev.asor.univitatis.messages.exceptions.dao.ProfessorException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
 import dev.asor.univitatis.messages.exceptions.dao.errors.ProfessorExceptionMessages;
@@ -85,7 +86,56 @@ public class ProfessorDao extends GenericDao implements CrudObjectInterface<Prof
             }
         }
     }
-
+    
+    @Override
+    public void update(Professor professor)
+    {
+        try
+        {
+            if(professor.getPessoa() == null) /* Aluno precisa conter Pessoa */
+            {
+                throw new IllegalArgumentException("Pessoa não pode estar nula!");
+            }
+              PessoaDao pessoaDao = new PessoaDao(DatabaseConnector.getInstance());
+              pessoaDao.update(professor.getPessoa());
+              
+            //AlunoDao alunoDao = new AlunoDao(DatabaseConnector.getInstance());
+            //alunoDao.update(aluno);
+            
+            if(!getConnector().getConnection().getAutoCommit()) 
+            {
+                getConnector().getConnection().commit();
+            }
+        }
+        catch(SQLException e)
+        {
+            try
+            {
+                if(!getConnector().getConnection().getAutoCommit()) 
+                {
+                    getConnector().getConnection().rollback();
+                }
+            }
+            catch(SQLException e1)
+            {
+                e1.printStackTrace();
+                throw new AlunoException("Erro ao atualizar aluno.");
+            }
+        }
+        finally
+        {
+            try
+            {
+                getConnector().getConnection().close();
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+                throw new AlunoException("Erro ao encerrar conexão.");
+            }
+        }
+    }    
+    
     /**
      * Busca um Professor pelo Id especifico
      * @method fetchById
@@ -138,6 +188,49 @@ public class ProfessorDao extends GenericDao implements CrudObjectInterface<Prof
         }
         
         return professor;
+    }
+    
+    /**
+     * Deleta um registro da entidade
+     * Retorno booleano indica sucesso ou falha da operacao
+     * 
+     * @method deleteById
+     * @param id
+     * @return
+     */
+    public boolean deleteById(Integer id)
+    {
+        try
+        {
+            if(id == null) {
+                throw new IllegalArgumentException();
+            }
+            
+            PreparedStatement statement = null;
+            
+           String sqlProfessor = "DELETE FROM professores WHERE fk_pessoa = ?1";
+           
+           statement = getConnector().getConnection().prepareStatement(sqlProfessor);
+           statement.setInt(1, id);
+           statement.executeUpdate();
+           
+           String sqlPessoa = "DELETE FROM pessoas WHERE id = ?1";
+           
+           statement = getConnector().getConnection().prepareStatement(sqlPessoa);
+           statement.setInt(1, id);
+           statement.executeUpdate();
+           
+           if(!getConnector().getConnection().getAutoCommit()) {
+               getConnector().getConnection().commit();
+           }
+        }  
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        
+        return true;
     }
     
     /**

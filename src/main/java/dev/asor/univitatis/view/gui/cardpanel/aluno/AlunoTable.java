@@ -31,20 +31,7 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
 
     private DefaultTableModel modelo;
     
-    public AlunoTable(AlunoFormView jTable) 
-    {
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent evt) 
-            {
-                List<Object> values = new ArrayList<Object>();
-                
-                for(int i = 0; i < getColumnCount(); i++) {
-                    values.add(getValueAt(getSelectedRow(), i));
-                }
-            }
-        });
-    }
+    public AlunoTable() {}
 
     @Override
     public void generateTable()

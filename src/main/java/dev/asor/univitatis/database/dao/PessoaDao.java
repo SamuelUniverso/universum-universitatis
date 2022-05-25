@@ -61,6 +61,38 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
 	}
 
 	/**
+     * Insere uma nova Pessoa na base
+     * @notice transacao precisa ser controlada externamente pelo Stereotype
+     * @method insert
+     * @param Pessoa pessoa
+     * @return void
+     */
+    @Override
+    public void update(Pessoa pessoa) 
+    {
+        try
+        {
+            String sql = PessoaDaoHelper.createUpdatePessoaPreparedStatement();
+            PreparedStatement statement = getConnector().getConnection()
+                                                        .prepareStatement(sql);
+            
+            statement.setInt   (1, getNextId(pessoa.getEntity()));
+            statement.setString(2, pessoa.getPrenome());
+            statement.setString(3, pessoa.getNome());
+            statement.setString(4, pessoa.getSobrenome());
+            statement.setString(5, pessoa.getTelefone());
+            statement.setString(6, pessoa.getCpf());
+            
+            statement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            throw new PessoaException("Erro ao atualizar Pessoa.");
+        }
+    }
+
+	/**
 	 * Busca Pessoa pelo Id
 	 * @method fetchById
 	 * @param Integer id

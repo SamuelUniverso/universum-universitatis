@@ -9,6 +9,7 @@ import java.util.List;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
 import dev.asor.univitatis.database.dao.helper.AlunoDaoHelper;
+import dev.asor.univitatis.database.dao.helper.PessoaDaoHelper;
 import dev.asor.univitatis.database.dao.interfaces.CrudObjectInterface;
 import dev.asor.univitatis.messages.exceptions.dao.AlunoException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.AlunoExceptionMessages;
@@ -91,6 +92,61 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 	        }
 	    }
 	}
+
+    /**
+     * Atualiza um novo Aluno na Base
+     * @method insert
+     * @param Aluno aluno
+     * @return void
+     */
+    @Override
+    public void update(Aluno aluno)
+    {
+        try
+        {
+            if(aluno.getPessoa() == null) /* Aluno precisa conter Pessoa */
+            {
+                throw new IllegalArgumentException("Pessoa não pode estar nula!");
+            }
+              PessoaDao pessoaDao = new PessoaDao(DatabaseConnector.getInstance());
+              pessoaDao.update(aluno.getPessoa());
+              
+            //AlunoDao alunoDao = new AlunoDao(DatabaseConnector.getInstance());
+            //alunoDao.update(aluno);
+            
+            if(!getConnector().getConnection().getAutoCommit()) 
+            {
+                getConnector().getConnection().commit();
+            }
+        }
+        catch(SQLException e)
+        {
+            try
+            {
+                if(!getConnector().getConnection().getAutoCommit()) 
+                {
+                    getConnector().getConnection().rollback();
+                }
+            }
+            catch(SQLException e1)
+            {
+                e1.printStackTrace();
+                throw new AlunoException("Erro ao atualizar aluno.");
+            }
+        }
+        finally
+        {
+            try
+            {
+                getConnector().getConnection().close();
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+                throw new AlunoException("Erro ao encerrar conexão.");
+            }
+        }
+    }	
 
     /**
      * Busca um Aluno pelo Id especifico

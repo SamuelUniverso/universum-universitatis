@@ -10,9 +10,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
-import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.database.dao.ProfessorDao;
-import dev.asor.univitatis.model.Aluno;
+import dev.asor.univitatis.database.dao.ProfessorDao;
+import dev.asor.univitatis.model.Professor;
 import dev.asor.univitatis.model.Pessoa;
 import dev.asor.univitatis.model.Professor;
 import dev.asor.univitatis.utils.Valitations;
@@ -33,6 +33,9 @@ import java.awt.event.ActionEvent;
 public class ProfessorFormView extends JPanel 
 {
     private static final long serialVersionUID = 1L;
+    
+    private Integer selectedId;
+    private boolean editingRow;
     
     private JLabel titleLabel;
     
@@ -170,7 +173,7 @@ public class ProfessorFormView extends JPanel
                if(choice == 0) /* yes */
                {
                    int id = (Integer) alunoTable.getValueAt(alunoTable.getSelectedRow(), 0);
-                   AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
+                   ProfessorDao dao = new ProfessorDao(DatabaseConnector.getInstance());
                    
                    if(dao.deleteById(id +1)) /* rowcount begins at 0 */
                    {
@@ -191,7 +194,61 @@ public class ProfessorFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
+                Integer id 
+                = Integer.parseInt(alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 0).toString());
+        
+            String[] nomeCompleto 
+                = alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 1).toString().split(" ");
+            
+            String prenome   = nomeCompleto[0];
+            String nome      = nomeCompleto[1];
+            String sobrenome = nomeCompleto[2];
+            
+            String cpf 
+                = alunoTable.getModel()
+                            .getValueAt(alunoTable.getSelectedRow(), 2).toString();
+            
+            String telefone 
+                = alunoTable.getModel()
+                            .getValueAt(alunoTable.getSelectedRow(), 3).toString().substring(1);
+            
+            String matricula
+                = alunoTable.getModel()
+                            .getValueAt(alunoTable.getSelectedRow(), 4).toString();
+        
+            if(!isEditingRow()) /* loads table to form */ 
+            {
+                setIsEditingRow(true);
                 
+                setSelectedId(id);
+                prenomeField.setText(prenome);
+                nomeField.setText(nome);
+                sobrenomeField.setText(sobrenome);
+                telefoneField.setText(telefone);
+                cpfField.setText(cpf);
+                matriculaField.setText(matricula);
+
+                editButton.setText("Atualizar");
+           }
+           else /* writes change to database */
+           {
+               ProfessorDao dao = new ProfessorDao(DatabaseConnector.getInstance());
+               
+               Professor professor = new Professor(new Pessoa(id));
+               professor.getPessoa().setPrenome(prenome);
+               professor.getPessoa().setNome(nome);
+               professor.getPessoa().setSobrenome(sobrenome);;
+               professor.getPessoa().setTelefone(telefone);
+               professor.getPessoa().setCpf(cpf);
+               professor.setMatriculaFuncionario(matricula);
+               
+               dao.update(professor);
+               
+               if(isEditingRow()) {
+                   setIsEditingRow(false);
+                   editButton.setText("Editar");
+               }
+           }
             }
         });
         add(editButton, "cell 5 5");
@@ -272,5 +329,23 @@ public class ProfessorFormView extends JPanel
         add(scrollPane, "cell 0 7 7 2,grow");
         
         alunoTable.fetchDataFromDatabase();
+    }
+    
+    public boolean isEditingRow()
+    {
+        return editingRow;
+    }
+    private void setIsEditingRow(boolean status)
+    {
+        this.editingRow = status;
+    }
+    
+    public Integer getSelectedId()
+    {
+        return selectedId;
+    }
+    private void setSelectedId(Integer id)
+    {
+        this.selectedId = id;
     }
 }

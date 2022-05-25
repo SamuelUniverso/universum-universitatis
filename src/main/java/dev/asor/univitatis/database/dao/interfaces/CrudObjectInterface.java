@@ -16,6 +16,8 @@ public interface CrudObjectInterface<T>
 {
     void insert(T object);
     
+    void update(T object);
+    
     T fetchById(Integer id);
     
     Integer getNextId();

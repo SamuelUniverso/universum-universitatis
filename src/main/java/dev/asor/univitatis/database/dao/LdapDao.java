@@ -150,5 +150,9 @@ public class LdapDao extends GenericDao implements CrudObjectInterface<Ldap>
         return null;
     }
 
-
+    @Override
+    public void update(Ldap object)
+    {
+        // TODO Auto-generated method stub
+    }
 }

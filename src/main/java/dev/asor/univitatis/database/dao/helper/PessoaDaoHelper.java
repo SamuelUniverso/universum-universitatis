@@ -25,6 +25,21 @@ public class PessoaDaoHelper extends GenericHelper
         return sql.toString();
     }
     
+    public static String createUpdatePessoaPreparedStatement()
+    {
+        StringBuilder sql = new StringBuilder();
+        
+        sql.append(" UPDATE pessoas ");
+        sql.append("    SET prenome   = ?2 ");
+        sql.append("      , nome      = ?3 ");
+        sql.append("      , sobrenome = ?4 ");
+        sql.append("      , telefone  = ?5 ");
+        sql.append("      , cpf       = ?6 ");
+        sql.append(" WHERE id = ?1");
+        
+        return sql.toString();
+    }
+    
     /**
      * Gera o Statement para selecionar uma Pessoa por Id
      * @method createSelectPessoaByIdPreparedStatement
