@@ -58,13 +58,19 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
             
             statement.executeUpdate();
             
-            getConnector().getConnection().commit();
+            if(!getConnector().getConnection().getAutoCommit()) 
+            {
+                getConnector().getConnection().commit();
+            }
         }
         catch(SQLException e)
         {
             try
             {
-                getConnector().getConnection().rollback();
+                if(!getConnector().getConnection().getAutoCommit()) 
+                {
+                    getConnector().getConnection().rollback();
+                }
             }
             catch(SQLException e1)
             {
