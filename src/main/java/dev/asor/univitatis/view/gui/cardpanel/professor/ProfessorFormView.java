@@ -178,6 +178,7 @@ public class ProfessorFormView extends JPanel
                        JOptionPane.showMessageDialog(null, "Falha ao deletar registro.");
                    }
                }
+               clearInputs();
             }
         });
         add(deleteButtton, "cell 6 5");
