@@ -52,38 +52,6 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         }
     }
     
-    /**
-     * Realiza tentativa de conexao ao banco de dados
-     */
-    private Connection tryConnection()
-    {
-        try
-        {
-            if(this.connection == null || this.connection.isClosed())
-            {
-                try
-                {
-                    PropertiesLoader propertiesLoader = new PropertiesLoader();
-                    Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
-                    
-                    this.connection = DriverManager
-                            .getConnection( properties.getProperty("db.driver") 
-                                          + getClass().getResource(properties.getProperty("db.url")));
-                }
-                catch(SQLException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-       
-       return this.connection; 
-    }
-    
     /*
      * Encerra conexão da instancia 
      * @method closeConnection
@@ -129,6 +97,38 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         
         return this.connection;
     }
+ 
+    /**
+     * Realiza tentativa de conexao ao banco de dados
+     */
+    private Connection tryConnection()
+    {
+        try
+        {
+            if(this.connection == null || this.connection.isClosed())
+            {
+                try
+                {
+                    PropertiesLoader propertiesLoader = new PropertiesLoader();
+                    Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
+                    
+                    this.connection = DriverManager
+                            .getConnection( properties.getProperty("db.driver") 
+                                          + getClass().getResource(properties.getProperty("db.url")));
+                }
+                catch(SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+       
+       return this.connection; 
+    }    
 
     /**
      * Traz instancia do conector do banco
