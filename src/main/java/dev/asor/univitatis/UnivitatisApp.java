@@ -13,7 +13,7 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.utils.ScreenHandler;
 import dev.asor.univitatis.view.config.enums.GuiModeConfig;
-import dev.asor.univitatis.view.gui.cardpanel.MainFrame2;
+import dev.asor.univitatis.view.gui.cardpanel.MainWindow;
 import dev.asor.univitatis.view.gui.login.LoginScreen;
 import dev.asor.univitatis.view.gui.splash.SplashInitializer;
 
@@ -112,7 +112,7 @@ public class UnivitatisApp
 		{
 			PictureHandler picHandler = new PictureHandler();
 
-			MainFrame2 frame = new MainFrame2(width, height);
+			MainWindow frame = new MainWindow(width, height);
 			frame.setIconImage(picHandler.resizeImage(72, 72, imagemLogoUni));
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize((width / 2), (int) (Math.round(height / 1.5)));

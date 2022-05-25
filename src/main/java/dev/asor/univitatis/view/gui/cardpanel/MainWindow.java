@@ -3,25 +3,18 @@ package dev.asor.univitatis.view.gui.cardpanel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.TableModel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import dev.asor.univitatis.io.CSVFileParser;
-import dev.asor.univitatis.model.Contato;
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.view.gui.cardpanel.aluno.AlunoFormView;
 import dev.asor.univitatis.view.gui.cardpanel.professor.ProfessorFormView;
+import dev.asor.univitatis.view.gui.login.LoginScreen;
 import net.miginfocom.swing.MigLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
@@ -33,63 +26,54 @@ import javax.swing.JLayeredPane;
  * @author dev.asor
  * @since february.2022
  */
-public class MainFrame extends JFrame 
+public class MainWindow extends JFrame 
 {
     private static final long serialVersionUID = 1L;
-    private static final String imagemLogoUni = "univates_logo.jpg";
+    private static final String imagemLogoUni = "univates-logo.jpg";
 	
 	private JPanel containerPanel;
 	private JPanel leftMenuSection;
 	
-	private JPanel panelAluno;
-	private JPanel panelProfessor;
-	private JLayeredPane formSection;
+	private JLayeredPane formGroup;
 	
-	public static void main(String args[])
+	private JPanel formAluno;
+	private JPanel formProfessor;
+	
+	public MainWindow(Integer width, Integer height) 
 	{
-	    new MainFrame();
-	}
-
-	public MainFrame() 
-	{
-		configureView();
+		configureView(width, height);
 		
 		addTitleToView();
 		addLeftMenuToView();
-		addFormSectionToView();
 		addFormCardToView();
 	}
 	
 	/**
-	 * Inicializa configuracoes basicas do Painel
-	 * @method configurarView
-	 * @return void
+	 * Inicializa configuracoes basicas do Painel base do Frame
 	 */
-	private void configureView()
+	private void configureView(Integer width, Integer height)
 	{
-		setBounds(100, 100, 663, 565);
+		setBounds(100, 100, 604, 425);
 		containerPanel = new JPanel();
 		containerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(containerPanel);
 	}
 	
 	/**
-	 * Adiciona o titulo na View
-	 * @method addTitle
-	 * @reutrn void
+	 * Adiciona a barra de titulo na View
 	 */
 	private void addTitleToView()
 	{
 	    PictureHandler picHandler = new PictureHandler();
 	    ImageIcon logoIcon = picHandler.resizeIcon(72, 72, imagemLogoUni);
       
-        containerPanel.setLayout(new MigLayout("", "[98px,left][14px,left][511px,left][left]", "[86px][402px]"));
+        containerPanel.setLayout(new MigLayout("", "[98px,left][14px,left][511px,grow,left][left]", "[86px][402px,grow]"));
 	        
 		JPanel titleSection = new JPanel();
 		titleSection.setBackground(UIManager.getColor("Button.light"));
 		titleSection.setLayout(new MigLayout("", "[299px][72px][][][][][][][][][]", "[72px]"));
 		
-		JLabel labelTitulo = new JLabel(" UNIVITATIS - Universum Universitatis");
+		JLabel labelTitulo = new JLabel("   UNIVERSUM UNIVERSITATIS");
 		labelTitulo.setIcon(logoIcon);
 		labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		titleSection.add(labelTitulo, "cell 0 0 11 1,alignx left,growy");
@@ -97,6 +81,9 @@ public class MainFrame extends JFrame
 		containerPanel.add(titleSection, "cell 0 0 3 1,growx,aligny top");
 	}
 	
+	/**
+	 * Adiciona menu esquerdo na View
+	 */
 	public void addLeftMenuToView()
 	{
 	    leftMenuSection = new JPanel();
@@ -109,10 +96,7 @@ public class MainFrame extends JFrame
         {
             public void actionPerformed(ActionEvent e) 
             {
-                formSection.removeAll();
-                formSection.add(panelAluno, "panelAluno");
-                formSection.repaint();
-                formSection.revalidate();
+                 repaintPanel("formAluno", formAluno);
             }
         });
         btnAlunos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -123,10 +107,7 @@ public class MainFrame extends JFrame
         {
             public void actionPerformed(ActionEvent e) 
             {
-                formSection.removeAll();
-                formSection.add(panelProfessor, "panelProfessor");
-                formSection.repaint();
-                formSection.revalidate();
+                repaintPanel("formProfessor", formProfessor);
             }
         });
         btnProfessores.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -158,7 +139,11 @@ public class MainFrame extends JFrame
         {
             public void actionPerformed(ActionEvent e) 
             {
-                System.exit(DO_NOTHING_ON_CLOSE);
+                /**
+                 * Volta para tela de login ao sair
+                 */
+                dispose();
+                new LoginScreen();
             }
         });
         leftMenuSection.add(btnSair, "cell 0 13,growx");
@@ -166,61 +151,36 @@ public class MainFrame extends JFrame
 	
 	public void addFormCardToView()
 	{
-	    formSection = new JLayeredPane();
-        containerPanel.add(formSection, "cell 2 1,alignx left,growy");
-        formSection.setLayout(new CardLayout(0, 0));
+	    formGroup = new JLayeredPane();
+	    containerPanel.add(formGroup, "flowx,cell 2 1,alignx left,growy");
+	    formGroup.setLayout(new CardLayout(0, 0)); 
+	    
+	    /* Instancia os paineis do CardPanel */
+	    formAluno = new AlunoFormView();
+	    formProfessor = new ProfessorFormView();
 	}
 	
-	public void addFormSectionToView()
-	{
-        panelAluno = new AlunoFormView();
-        panelProfessor = new ProfessorFormView();
-	}
-
 	/**
-	 * Grava os dados vindos da JTable num CSV
-	 * @method gravarEmCSV
-	 * @param modelo : TableModel
+	 * Realiza a alternancia entre os paineis do CardPanel
+	 * @param name
+	 * @param panel
 	 */
-	@Deprecated
-	private void gravarCSV(TableModel modelo)
+	private void repaintPanel(String name, JPanel panel)
 	{
-		Map<Integer, List<String>> mapaTabela = new HashMap<>();
-		for(int i = 0; i < modelo.getRowCount(); i++)
-		{
-			ArrayList<String> linha = new ArrayList<String>();
-			linha.add(modelo.getValueAt(i, 0).toString());
-			linha.add(modelo.getValueAt(i, 1).toString());
-			linha.add(modelo.getValueAt(i, 2).toString());
-			linha.add(modelo.getValueAt(i, 3).toString());
-			
-			mapaTabela.put(i, linha);
-		}
-		
-		List<String> conteudoCSV = CSVFileParser.generateCSVListFromMap(mapaTabela);
-		CSVFileParser.writeCSVStringToFile(conteudoCSV);
-		
-		JOptionPane.showMessageDialog(null, "Arquivo gravado com sucesso!");
-	}
-	
-	@Deprecated
-	private List<Contato> carregarDadosCSV()
-	{
-		List<String> contatosArquivo = CSVFileParser.loadCSVStringFromFile();
-
-		List<Contato> contatosTabela = new ArrayList<>();
-		contatosArquivo.forEach(contato -> { 
-			
-			Contato novoContato = new Contato();
-			String[] novo = contato.split(";");
-			
-			novoContato.setNome(novo[1].trim());
-			novoContato.setCpf(novo[2].trim());
-			novoContato.setTelefone(novo[3].trim());
-			
-			contatosTabela.add(novoContato);
-		});
-		
-		return contatosTabela;
+	    if(!panel.isShowing())
+	    {
+	        formGroup.removeAll();
+	        formGroup.add(panel, name);
+	        formGroup.repaint();
+	        formGroup.revalidate();
+	        panel.setVisible(panel.isVisible() ? true : false);
+	    }
+	    else
+	    {
+            formGroup.removeAll();
+            formGroup.repaint();
+            formGroup.revalidate();
+            panel.setVisible(panel.isVisible() ? true : false);
+	    }
 	}
 }
