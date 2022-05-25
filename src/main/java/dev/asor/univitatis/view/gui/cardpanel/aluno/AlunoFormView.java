@@ -13,6 +13,7 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
+import dev.asor.univitatis.utils.Valitations;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -146,6 +147,8 @@ public class AlunoFormView extends JPanel
                    dao.insert(aluno);
                    
                    alunoTable.addElement(aluno);
+                   
+                   clearInputs();
                }
             }
         });
@@ -192,6 +195,26 @@ public class AlunoFormView extends JPanel
     {
         try
         {
+            if(!cpfField.getText().equals(""))
+            {
+                if(!Valitations.validarCPF(cpfField.getText())) 
+                {
+                    JOptionPane.showMessageDialog(null,
+                            "O CPF " + cpfField.getText() + " é inválido."
+                    );
+                    return false;
+                }
+            }
+            if(!telefoneField.getText().equals(""))
+            {
+                if(!Valitations.validarTelefone(telefoneField.getText())) 
+                {
+                    JOptionPane.showMessageDialog(null,
+                            "O Telefone " + telefoneField.getText() + " é inválido."
+                    );
+                    return false;
+                }
+            }
             if(  nomeField.getText().equals("")
               || sobrenomeField.getText().equals("")
               || cpfField.getText().equals("") )
@@ -210,7 +233,7 @@ public class AlunoFormView extends JPanel
         }
         catch(IllegalArgumentException exception) 
         {
-            limparInputs();
+            clearInputs();
             JOptionPane.showMessageDialog(null, exception.getMessage());
             
             return false;
@@ -221,10 +244,10 @@ public class AlunoFormView extends JPanel
     
     /**
      * Esvazia todos os campos de Input do cadastro
-     * @method limparInputs
+     * @method clearInputs
      * @return void
      */
-    private void limparInputs()
+    private void clearInputs()
     {
         prenomeField.setText(null);
         nomeField.setText(null);

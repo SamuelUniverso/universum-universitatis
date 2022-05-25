@@ -14,7 +14,7 @@ import javax.swing.JFormattedTextField;
 /**
  * @author Vinicius
  */
-public class Valida 
+public class Valitations 
 {
 
     private static final int[] pesoCPF =  { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -85,11 +85,12 @@ public class Valida
         return (validarDataDMA(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
     }
 
-    public static void validarTelefone(JFormattedTextField campo) 
+    public static boolean validarTelefone(String telefone) 
     {
-        if (campo.getText().trim().length() < 13) 
-        {
-            //Formatacao.reformatarTelefone(campo);
+        if (telefone.length() < 9) {
+            return false;
         }
+        
+        return true;
     }
 }
