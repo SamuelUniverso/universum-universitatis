@@ -158,6 +158,21 @@ public class AlunoFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
+               int choice = JOptionPane.showInternalConfirmDialog(null, "Deseja remover esse registro?");
+               if(choice == 0) /* yes */
+               {
+                   int id = (Integer) alunoTable.getValueAt(alunoTable.getSelectedRow(), 0);
+                   AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
+                   
+                   if(dao.deleteById(id +1)) /* rowcount begins at 0 */
+                   {
+                       alunoTable.removeElement(alunoTable.getSelectedRow());
+                       JOptionPane.showMessageDialog(null, "Registro aluno deletado com sucesso.");
+                   }
+                   else {
+                       JOptionPane.showMessageDialog(null, "Falha ao deletar registro.");
+                   }
+               }
             }
         });
         add(deleteButtton, "cell 6 5");

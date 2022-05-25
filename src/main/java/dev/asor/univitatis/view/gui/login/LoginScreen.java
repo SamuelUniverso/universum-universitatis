@@ -28,7 +28,7 @@ public class LoginScreen extends JFrame implements ActionListener
 {
     private static final long serialVersionUID = 1L;
 
-    private JPanel panelScreen = null;
+    private JPanel panelScreen;
     
     private JTextField usuarioInput;
     private JTextField senhaInput;

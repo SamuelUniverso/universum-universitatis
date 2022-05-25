@@ -146,6 +146,49 @@ public class AlunoDao extends GenericDao implements CrudObjectInterface<Aluno>
 	   return aluno;
 	}
 	
+	/**
+	 * Deleta um registro da entidade
+	 * Retorno booleano indica sucesso ou falha da operacao
+	 * 
+	 * @method deleteById
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteById(Integer id)
+	{
+	    try
+	    {
+	        if(id == null) {
+	            throw new IllegalArgumentException();
+	        }
+	        
+	        PreparedStatement statement = null;
+	        
+           String sqlAluno = "DELETE FROM alunos WHERE fk_pessoa = ?1";
+           
+           statement = getConnector().getConnection().prepareStatement(sqlAluno);
+           statement.setInt(1, id);
+           statement.executeUpdate();
+           
+           String sqlPessoa = "DELETE FROM pessoas WHERE id = ?1";
+           
+           statement = getConnector().getConnection().prepareStatement(sqlPessoa);
+           statement.setInt(1, id);
+           statement.executeUpdate();
+           
+           if(!getConnector().getConnection().getAutoCommit()) {
+               getConnector().getConnection().commit();
+           }
+        }  
+	    catch(SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+	    
+	    return true;
+	}
+	
     /**
      * Retorna a lista de todos os Alunos
      * @method fetchAll

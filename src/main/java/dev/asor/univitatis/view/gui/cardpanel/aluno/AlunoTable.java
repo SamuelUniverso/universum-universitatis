@@ -68,6 +68,13 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
         objeto[0] = modelo.getRowCount() +1; /* incrementando 'rowcount' da tabela */
         modelo.addRow(objeto);
     }
+    
+    public void removeElement(Integer rowNumber) 
+    {
+        if(modelo != null) {
+            modelo.removeRow(rowNumber);
+        }
+    }
 
     @Override
     public void addDataOnTable(List<Aluno> alunos)
