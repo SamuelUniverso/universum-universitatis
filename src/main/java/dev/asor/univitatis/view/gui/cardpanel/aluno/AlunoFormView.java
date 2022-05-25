@@ -192,31 +192,31 @@ public class AlunoFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
-                Integer id 
-                    = Integer.parseInt(alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 0).toString());
-            
-                String[] nomeCompleto 
-                    = alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 1).toString().split(" ");
-                
-                String prenome   = nomeCompleto[0];
-                String nome      = nomeCompleto[1];
-                String sobrenome = nomeCompleto[2];
-                
-                String cpf 
-                    = alunoTable.getModel()
-                                .getValueAt(alunoTable.getSelectedRow(), 2).toString();
-                
-                String telefone 
-                    = alunoTable.getModel()
-                                .getValueAt(alunoTable.getSelectedRow(), 3).toString().substring(1);
-                
-                String matricula
-                    = alunoTable.getModel()
-                                .getValueAt(alunoTable.getSelectedRow(), 4).toString();
-            
                 if(!isEditingRow()) /* loads table to form */ 
                 {
                     setIsEditingRow(true);
+                    
+                    Integer id
+                        = Integer.parseInt(alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 0).toString());
+                    
+                    String[] nomeCompleto 
+                        = alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 1).toString().split(" ");
+                    
+                    String prenome   = nomeCompleto[0];
+                    String nome      = nomeCompleto[1];
+                    String sobrenome = nomeCompleto[2];
+                    
+                    String cpf 
+                        = alunoTable.getModel()
+                                    .getValueAt(alunoTable.getSelectedRow(), 2).toString();
+                    
+                    String telefone 
+                        = alunoTable.getModel()
+                                    .getValueAt(alunoTable.getSelectedRow(), 3).toString().substring(1);
+                    
+                    String matricula
+                        = alunoTable.getModel()
+                                    .getValueAt(alunoTable.getSelectedRow(), 4).toString();
                     
                     setSelectedId(id);
                     prenomeField.setText(prenome);
@@ -232,17 +232,18 @@ public class AlunoFormView extends JPanel
                {
                    AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
                    
-                   Aluno aluno = new Aluno(new Pessoa(id));
-                   aluno.getPessoa().setPrenome(prenome);
-                   aluno.getPessoa().setNome(nome);
-                   aluno.getPessoa().setSobrenome(sobrenome);;
-                   aluno.getPessoa().setTelefone(telefone);
-                   aluno.getPessoa().setCpf(cpf);
-                   aluno.setMatriculaAluno(matricula);
+                   Aluno aluno = new Aluno(new Pessoa(getSelectedId()));
+                   aluno.getPessoa().setPrenome(prenomeField.getText());
+                   aluno.getPessoa().setNome(nomeField.getText());
+                   aluno.getPessoa().setSobrenome(sobrenomeField.getText());
+                   aluno.getPessoa().setTelefone(telefoneField.getText());
+                   aluno.getPessoa().setCpf(cpfField.getText());
+                   aluno.setMatriculaAluno(matriculaField.getText());
                    
                    dao.update(aluno);
                    
-                   if(isEditingRow()) {
+                   if(isEditingRow()) 
+                   {
                        setIsEditingRow(false);
                        editButton.setText("Editar");
                    }

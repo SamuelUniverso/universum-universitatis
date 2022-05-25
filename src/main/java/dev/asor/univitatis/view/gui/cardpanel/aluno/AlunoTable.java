@@ -1,6 +1,5 @@
 package dev.asor.univitatis.view.gui.cardpanel.aluno;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -10,8 +9,6 @@ import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.view.gui.interfaces.FormTableInterface;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * @author dev.asor

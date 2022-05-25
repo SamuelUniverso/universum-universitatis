@@ -12,7 +12,9 @@ import javax.swing.JTextField;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.ProfessorDao;
 import dev.asor.univitatis.database.dao.ProfessorDao;
+import dev.asor.univitatis.database.dao.ProfessorDao;
 import dev.asor.univitatis.model.Professor;
+import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
 import dev.asor.univitatis.model.Professor;
 import dev.asor.univitatis.utils.Valitations;
@@ -57,7 +59,7 @@ public class ProfessorFormView extends JPanel
     private JButton deleteButtton;
     private JButton editButton;
     
-    private ProfessorTable alunoTable;
+    private ProfessorTable professorTable;
     private JScrollPane scrollPane;
 
     public ProfessorFormView() 
@@ -154,7 +156,7 @@ public class ProfessorFormView extends JPanel
                    ProfessorDao dao = new ProfessorDao(DatabaseConnector.getInstance());
                    dao.insert(professor);
                    
-                   alunoTable.addElement(professor);
+                   professorTable.addElement(professor);
                    
                    clearInputs();
                }
@@ -172,12 +174,12 @@ public class ProfessorFormView extends JPanel
                int choice = JOptionPane.showInternalConfirmDialog(null, "Deseja remover esse registro?");
                if(choice == 0) /* yes */
                {
-                   int id = (Integer) alunoTable.getValueAt(alunoTable.getSelectedRow(), 0);
+                   int id = (Integer) professorTable.getValueAt(professorTable.getSelectedRow(), 0);
                    ProfessorDao dao = new ProfessorDao(DatabaseConnector.getInstance());
                    
                    if(dao.deleteById(id +1)) /* rowcount begins at 0 */
                    {
-                       alunoTable.removeElement(alunoTable.getSelectedRow());
+                       professorTable.removeElement(professorTable.getSelectedRow());
                        JOptionPane.showMessageDialog(null, "Registro aluno deletado com sucesso.");
                    }
                    else {
@@ -194,61 +196,62 @@ public class ProfessorFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
-                Integer id 
-                = Integer.parseInt(alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 0).toString());
-        
-            String[] nomeCompleto 
-                = alunoTable.getModel().getValueAt(alunoTable.getSelectedRow(), 1).toString().split(" ");
-            
-            String prenome   = nomeCompleto[0];
-            String nome      = nomeCompleto[1];
-            String sobrenome = nomeCompleto[2];
-            
-            String cpf 
-                = alunoTable.getModel()
-                            .getValueAt(alunoTable.getSelectedRow(), 2).toString();
-            
-            String telefone 
-                = alunoTable.getModel()
-                            .getValueAt(alunoTable.getSelectedRow(), 3).toString().substring(1);
-            
-            String matricula
-                = alunoTable.getModel()
-                            .getValueAt(alunoTable.getSelectedRow(), 4).toString();
-        
-            if(!isEditingRow()) /* loads table to form */ 
-            {
-                setIsEditingRow(true);
-                
-                setSelectedId(id);
-                prenomeField.setText(prenome);
-                nomeField.setText(nome);
-                sobrenomeField.setText(sobrenome);
-                telefoneField.setText(telefone);
-                cpfField.setText(cpf);
-                matriculaField.setText(matricula);
+                if(!isEditingRow()) /* loads table to form */ 
+                {
+                    setIsEditingRow(true);
+                    
+                    Integer id
+                        = Integer.parseInt(professorTable.getModel().getValueAt(professorTable.getSelectedRow(), 0).toString());
+                    
+                    String[] nomeCompleto 
+                        = professorTable.getModel().getValueAt(professorTable.getSelectedRow(), 1).toString().split(" ");
+                    
+                    String prenome   = nomeCompleto[0];
+                    String nome      = nomeCompleto[1];
+                    String sobrenome = nomeCompleto[2];
+                    
+                    String cpf 
+                        = professorTable.getModel()
+                                    .getValueAt(professorTable.getSelectedRow(), 2).toString();
+                    
+                    String telefone 
+                        = professorTable.getModel()
+                                    .getValueAt(professorTable.getSelectedRow(), 3).toString().substring(1);
+                    
+                    String matricula
+                        = professorTable.getModel()
+                                    .getValueAt(professorTable.getSelectedRow(), 4).toString();
+                    
+                    setSelectedId(id);
+                    prenomeField.setText(prenome);
+                    nomeField.setText(nome);
+                    sobrenomeField.setText(sobrenome);
+                    telefoneField.setText(telefone);
+                    cpfField.setText(cpf);
+                    matriculaField.setText(matricula);
 
-                editButton.setText("Atualizar");
-           }
-           else /* writes change to database */
-           {
-               ProfessorDao dao = new ProfessorDao(DatabaseConnector.getInstance());
-               
-               Professor professor = new Professor(new Pessoa(id));
-               professor.getPessoa().setPrenome(prenome);
-               professor.getPessoa().setNome(nome);
-               professor.getPessoa().setSobrenome(sobrenome);;
-               professor.getPessoa().setTelefone(telefone);
-               professor.getPessoa().setCpf(cpf);
-               professor.setMatriculaFuncionario(matricula);
-               
-               dao.update(professor);
-               
-               if(isEditingRow()) {
-                   setIsEditingRow(false);
-                   editButton.setText("Editar");
+                    editButton.setText("Atualizar");
                }
-           }
+               else /* writes change to database */
+               {
+                   ProfessorDao dao = new ProfessorDao(DatabaseConnector.getInstance());
+                   
+                   Professor professor = new Professor(new Pessoa(getSelectedId()));
+                   professor.getPessoa().setPrenome(prenomeField.getText());
+                   professor.getPessoa().setNome(nomeField.getText());
+                   professor.getPessoa().setSobrenome(sobrenomeField.getText());
+                   professor.getPessoa().setTelefone(telefoneField.getText());
+                   professor.getPessoa().setCpf(cpfField.getText());
+                   professor.setMatriculaFuncionario(matriculaField.getText());;
+                   
+                   dao.update(professor);
+                   
+                   if(isEditingRow()) 
+                   {
+                       setIsEditingRow(false);
+                       editButton.setText("Editar");
+                   }
+               }
             }
         });
         add(editButton, "cell 5 5");
@@ -322,13 +325,13 @@ public class ProfessorFormView extends JPanel
     
     private void createTableList()
     {
-        alunoTable = new ProfessorTable(this); /* to be able to change JFrame from inside JTable */
-        alunoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        professorTable = new ProfessorTable(this); /* to be able to change JFrame from inside JTable */
+        professorTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        scrollPane = new JScrollPane(alunoTable);
+        scrollPane = new JScrollPane(professorTable);
         add(scrollPane, "cell 0 7 7 2,grow");
         
-        alunoTable.fetchDataFromDatabase();
+        professorTable.fetchDataFromDatabase();
     }
     
     public boolean isEditingRow()

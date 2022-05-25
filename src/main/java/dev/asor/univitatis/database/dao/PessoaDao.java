@@ -76,7 +76,7 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
             PreparedStatement statement = getConnector().getConnection()
                                                         .prepareStatement(sql);
             
-            statement.setInt   (1, getNextId(pessoa.getEntity()));
+            statement.setInt   (1, pessoa.getId() +1);
             statement.setString(2, pessoa.getPrenome());
             statement.setString(3, pessoa.getNome());
             statement.setString(4, pessoa.getSobrenome());
@@ -84,6 +84,11 @@ public class PessoaDao extends GenericDao implements CrudObjectInterface<Pessoa>
             statement.setString(6, pessoa.getCpf());
             
             statement.executeUpdate();
+            
+            if(!getConnector().getConnection().getAutoCommit()) 
+            {
+                getConnector().getConnection().commit();
+            }
         }
         catch(SQLException e)
         {
