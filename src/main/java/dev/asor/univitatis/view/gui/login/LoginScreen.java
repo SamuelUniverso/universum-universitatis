@@ -6,6 +6,7 @@ import javax.swing.JPasswordField;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import dev.asor.univitatis.UnivitatisApp;
@@ -86,6 +87,13 @@ public class LoginScreen extends JFrame implements ActionListener
         {
             dispose();
             UnivitatisApp.afterLogin(); /* call on the Main GUI */
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Autenticação falhou!\r\nTente novamente."
+            );
         }
     }
     
