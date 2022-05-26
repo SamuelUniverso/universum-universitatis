@@ -4,6 +4,7 @@ public enum GuiModeConfig
 {
       LIGHT_MODE      ('L')
     , DARK_MODE       ('D')
+    , DRACULA         ('R')
     , SYSTEM_NATIVE   ('S')
     , CROSS_PLATAFORM ('J')
     ;

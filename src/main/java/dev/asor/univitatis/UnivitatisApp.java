@@ -8,6 +8,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
 import dev.asor.univitatis.utils.PictureHandler;
@@ -33,7 +34,7 @@ public class UnivitatisApp
     
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.LIGHT_MODE);
+	    starProgram(true, GuiModeConfig.DRACULA);
 	}
 
 	/**
@@ -86,6 +87,10 @@ public class UnivitatisApp
 			{
 				UIManager.setLookAndFeel(new FlatLightFlatIJTheme());
 			}
+			else if(guiMode == GuiModeConfig.DRACULA)
+            {
+                UIManager.setLookAndFeel(new FlatDraculaIJTheme());
+            }
 			else if(guiMode == GuiModeConfig.CROSS_PLATAFORM)
 			{
 			    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
