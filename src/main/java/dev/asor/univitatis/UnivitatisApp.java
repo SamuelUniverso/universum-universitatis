@@ -34,13 +34,13 @@ public class UnivitatisApp
     
 	public static void main(String[] args) 
 	{
-	    starProgram(true, GuiModeConfig.DRACULA);
+	    starProgram(true, true, GuiModeConfig.SYSTEM_NATIVE);
 	}
 
 	/**
      * Monta janela principal e exibe na tela
 	 */
-	private static void starProgram(boolean showSplash, GuiModeConfig guiMode)
+	private static void starProgram(boolean showSplash, boolean useLogin, GuiModeConfig guiMode)
 	{
 	    ScreenHandler screen = new ScreenHandler();
 
@@ -57,7 +57,12 @@ public class UnivitatisApp
 	    /**
 	     * Invocando tela de login
 	     */
-	    new LoginScreen();
+	    if(useLogin) {
+	        new LoginScreen();
+	    }
+	    else {
+	        UnivitatisApp.afterLogin();
+	    }
 	}
 	
 	public static void afterLogin()

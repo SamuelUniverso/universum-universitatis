@@ -89,7 +89,7 @@ public class MainWindow extends JFrame
 	    leftMenuSection = new JPanel();
         leftMenuSection.setBackground(UIManager.getColor("Button.light"));
         containerPanel.add(leftMenuSection, "cell 0 1 2 1,alignx left,growy");
-        leftMenuSection.setLayout(new MigLayout("", "[]", "[][][][][][][][][][][][][][]"));
+        leftMenuSection.setLayout(new MigLayout("", "[]", "[][][][][][][][][][][][][][][]"));
         
         JButton btnAlunos = new JButton("Alunos");
         btnAlunos.addActionListener(new ActionListener() 
@@ -146,7 +146,10 @@ public class MainWindow extends JFrame
                 new LoginScreen();
             }
         });
-        leftMenuSection.add(btnSair, "cell 0 13,growx");
+        
+        JButton btnUsuarios = new JButton("Usuários");
+        leftMenuSection.add(btnUsuarios, "cell 0 11,growx");
+        leftMenuSection.add(btnSair, "cell 0 14,growx");
 	}
 	
 	public void addFormCardToView()

@@ -32,6 +32,11 @@ public class AlunoFormView extends JPanel
 {
     private static final long serialVersionUID = 1L;
     
+    private static final String EDIT    = "Editar";
+    private static final String EXCLUDE = "Excluir";
+    private static final String SAVE    = "Salvar";
+    private static final String UPDATE  = "Atualizar";
+    
     private Integer selectedId;
     private boolean editingRow;
     
@@ -127,10 +132,32 @@ public class AlunoFormView extends JPanel
         matriculaField.setColumns(10);
     }
     
+    /**
+     * Esvazia todos os campos de Input do cadastro
+     * @method clearInputs
+     * @return void
+     */
+    private void clearInputs()
+    {
+        prenomeField.setText(null);
+        nomeField.setText(null);
+        sobrenomeField.setText(null);
+        cpfField.setText(null);
+        telefoneField.setText(null);
+        matriculaField.setText(null);
+    }    
+    
     private void createActionButtons()
     {
+        createSaveButton();
+        createDeleteButton();
+        createEditbutton();
+    }
+    
+    private void createSaveButton()
+    {
         /* save */
-        saveButton = new JButton("Salvar");
+        saveButton = new JButton(SAVE);
         saveButton.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
@@ -149,20 +176,23 @@ public class AlunoFormView extends JPanel
                     aluno.getPessoa().setTelefone(telefoneField.getText());
                     aluno.setMatriculaAluno(matriculaField.getText());
                     
-                   AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
-                   dao.insert(aluno);
+                    AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
+                    dao.insert(aluno);
                    
-                   alunoTable.addElement(aluno);
+                    alunoTable.addElement(aluno);
                    
-                   clearInputs();
-               }
+                    clearInputs();
+                }
             }
         });
         saveButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         add(saveButton, "flowx,cell 5 5,alignx right");
-        
+    }
+    
+    private void createDeleteButton()
+    {
         /* delete */
-        deleteButtton = new JButton("Excluir");
+        deleteButtton = new JButton(EXCLUDE);
         deleteButtton.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
@@ -178,17 +208,22 @@ public class AlunoFormView extends JPanel
                        alunoTable.removeElement(alunoTable.getSelectedRow());
                        JOptionPane.showMessageDialog(null, "Registro aluno deletado com sucesso.");
                    }
-                   else {
+                   else 
+                   {
                        JOptionPane.showMessageDialog(null, "Falha ao deletar registro.");
                    }
                }
+               
                clearInputs();
             }
         });
-        add(deleteButtton, "cell 6 5");
-        
+        add(deleteButtton, "cell 6 5,growy");
+    }
+    
+    private void createEditbutton()
+    {
         /* edit */
-        editButton = new JButton("Editar");
+        editButton = new JButton(EDIT);
         editButton.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
@@ -227,7 +262,7 @@ public class AlunoFormView extends JPanel
                     cpfField.setText(cpf);
                     matriculaField.setText(matricula);
 
-                    editButton.setText("Atualizar");
+                    editButton.setText(UPDATE);
                }
                else if(validateForm()) /* writes change to database */
                {
@@ -249,41 +284,45 @@ public class AlunoFormView extends JPanel
                    if(isEditingRow()) 
                    {
                        setIsEditingRow(false);
-                       editButton.setText("Editar");
+                       editButton.setText(EDIT);
                    }
                }
             }
         });
-        add(editButton, "cell 5 5");
+        add(editButton, "cell 5 5,growy");
     }
     
     private boolean validateForm()
     {
         try
         {
-            if(!cpfField.getText().equals(""))
+            if(!cpfField.getText().equals("")) 
             {
                 if(!Valitations.validarCPF(cpfField.getText())) 
                 {
-                    JOptionPane.showMessageDialog(null,
-                            "O CPF " + cpfField.getText() + " é inválido."
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "O CPF " + cpfField.getText() + " é inválido."
                     );
+                    
                     return false;
                 }
             }
-            if(!telefoneField.getText().equals(""))
+            if(!telefoneField.getText().equals("")) 
             {
                 if(!Valitations.validarTelefone(telefoneField.getText())) 
                 {
-                    JOptionPane.showMessageDialog(null,
-                            "O Telefone " + telefoneField.getText() + " é inválido."
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "O Telefone " + telefoneField.getText() + " é inválido."
                     );
+                    
                     return false;
                 }
             }
             if(  nomeField.getText().equals("")
               || sobrenomeField.getText().equals("")
-              || cpfField.getText().equals("") )
+              || cpfField.getText().equals("") ) 
             {
                 nomeField.setBackground(Color.GRAY);
                 nomeField.setForeground(Color.WHITE);
@@ -297,7 +336,7 @@ public class AlunoFormView extends JPanel
                 throw new IllegalArgumentException("Formulário incompleto! \r\n Confira os dados e tente novamente.");
             }
         }
-        catch(IllegalArgumentException exception) 
+        catch(IllegalArgumentException exception)
         {
             clearInputs();
             JOptionPane.showMessageDialog(null, exception.getMessage());
@@ -308,22 +347,7 @@ public class AlunoFormView extends JPanel
         return true;
     }
     
-    /**
-     * Esvazia todos os campos de Input do cadastro
-     * @method clearInputs
-     * @return void
-     */
-    private void clearInputs()
-    {
-        prenomeField.setText(null);
-        nomeField.setText(null);
-        sobrenomeField.setText(null);
-        cpfField.setText(null);
-        telefoneField.setText(null);
-        matriculaField.setText(null);
-    }
-    
-    private void createTableList()
+    private void createTableList() 
     {
         alunoTable = new AlunoTable(); /* to be able to change JFrame from inside JTable */
         alunoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
