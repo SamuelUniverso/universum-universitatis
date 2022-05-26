@@ -5,7 +5,7 @@ import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.database.dao.ProfessorDao;
 
 /**
- * @class DaoFactory 
+ * @class DaoFactory
  * @author dev.asor
  * @since april.2022
  */

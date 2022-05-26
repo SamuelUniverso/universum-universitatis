@@ -47,11 +47,11 @@ public class CSVFileParser
 	 * @param csvList : List<String>
 	 * @return void
 	 */
-	public static void writeCSVStringToFile(List<String> csvList)
+	public static void writeCSVStringToFile(List<String> csvList, String filepath)
 	{
 		try
 		{
-			Arquivo arquivo = new Arquivo("contatos.csv");
+			Arquivo arquivo = new Arquivo(filepath); // 'folder/output.csv'
 			arquivo.abrirEscrita();
 			
 			csvList.forEach(csv -> {
