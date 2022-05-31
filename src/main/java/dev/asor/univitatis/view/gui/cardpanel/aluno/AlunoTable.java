@@ -62,7 +62,7 @@ public class AlunoTable extends JTable implements FormTableInterface<Aluno>
                 + " "  + aluno.getPessoa().getNome() 
                 + " " + aluno.getPessoa().getSobrenome() 
             , aluno.getPessoa().getCpf()
-            , "+" + aluno.getPessoa().getTelefone()
+            , aluno.getPessoa().getTelefone()
             , aluno.getMatriculaAluno() 
         };  
         objeto[0] = modelo.getRowCount() +1; /* incrementando 'rowcount' da tabela */
