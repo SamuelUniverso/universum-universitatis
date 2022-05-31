@@ -46,6 +46,7 @@ public class AlunoFormView extends JPanel
     
     private Integer selectedId;
     private boolean editingRow;
+    private boolean failedEditAttempt;
     
     private JLabel titleLabel;
     
@@ -321,6 +322,11 @@ public class AlunoFormView extends JPanel
                        editButton.setText(EDIT);
                    }
                }
+               else if(isFailedEditAttempt())
+               {
+                   setIsEditingRow(false);
+                   editButton.setText(EDIT);  
+               }
             }
         });
         add(editButton, "cell 5 5,growy");
@@ -343,7 +349,9 @@ public class AlunoFormView extends JPanel
                     JOptionPane.showMessageDialog(null,
                         "O CPF " + cpfField.getText() + " é inválido."
                     );
-
+                    
+                    setFailedEditAttempt(true);
+                    
                     return false;
                 }
             }
@@ -358,7 +366,9 @@ public class AlunoFormView extends JPanel
                     JOptionPane.showMessageDialog(null,
                         "O Telefone " + telefoneField.getText() + " é inválido."
                     );
-
+                    
+                    setFailedEditAttempt(true);
+                    
                     return false;
                 }
             }
@@ -382,6 +392,8 @@ public class AlunoFormView extends JPanel
         {
             clearInputs();
             JOptionPane.showMessageDialog(null, exception.getMessage());
+            
+            setFailedEditAttempt(true);
             
             return false;
         }
@@ -409,6 +421,15 @@ public class AlunoFormView extends JPanel
         this.editingRow = status;
     }
     
+    public boolean isFailedEditAttempt()
+    {
+        return failedEditAttempt;
+    }
+    private void setFailedEditAttempt(boolean failedEditAttempt)
+    {
+        this.failedEditAttempt = failedEditAttempt;
+    }
+
     public Integer getSelectedId()
     {
         return selectedId;
