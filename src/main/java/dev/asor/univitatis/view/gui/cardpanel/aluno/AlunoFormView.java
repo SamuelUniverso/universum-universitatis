@@ -8,20 +8,27 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.AlunoDao;
 import dev.asor.univitatis.model.Aluno;
 import dev.asor.univitatis.model.Pessoa;
+import dev.asor.univitatis.utils.InputMaskHandler;
 import dev.asor.univitatis.utils.Valitations;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 /**
@@ -42,6 +49,9 @@ public class AlunoFormView extends JPanel
     
     private JLabel titleLabel;
     
+    private MaskFormatter cpfMask = null;
+    private MaskFormatter phoneMask = null;
+    
     private JLabel prenomeLabel;
     private JLabel nomeLabel;
     private JLabel sobrenomeLabel;
@@ -49,11 +59,11 @@ public class AlunoFormView extends JPanel
     private JLabel telefoneLabel;
     private JLabel matriculaLabel;
     
-    private JTextField nomeField;
-    private JTextField cpfField;
-    private JTextField telefoneField;
     private JTextField prenomeField;
+    private JTextField nomeField;
     private JTextField sobrenomeField;
+    private JFormattedTextField cpfField;
+    private JFormattedTextField telefoneField;
     private JTextField matriculaField;
     
     private JButton saveButton;
@@ -68,6 +78,7 @@ public class AlunoFormView extends JPanel
         setLayout(new MigLayout("wrap", "[77px,grow][86px,grow][46px][23px][86px][117.00px][38.00]", "[20px][][][][][][][grow][]"));
         
         createForm();          /* formulario */
+        createFormatters();    /* formatadores */
         createActionButtons(); /* botoes de acao */
         createTableList();     /* inserir dados na tabela */
     }
@@ -109,7 +120,7 @@ public class AlunoFormView extends JPanel
         cpfLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         add(cpfLabel, "cell 4 3,alignx right");
         /* cpf - field */
-        cpfField = new JTextField();
+        cpfField = new JFormattedTextField(cpfMask);
         cpfField.setColumns(14);
         add(cpfField, "cell 5 3,growx");
         
@@ -118,7 +129,7 @@ public class AlunoFormView extends JPanel
         telefoneLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         add(telefoneLabel, "cell 0 4,alignx right");
         /* telefone - field */
-        telefoneField = new JTextField();
+        telefoneField = new JFormattedTextField(phoneMask);
         telefoneField.setColumns(10);
         add(telefoneField, "cell 1 4 2 1,growx");
         
@@ -131,6 +142,29 @@ public class AlunoFormView extends JPanel
         add(matriculaField, "cell 1 5,growx");
         matriculaField.setColumns(10);
     }
+    
+    
+    /**
+     * Instancia os formatadores para o fomulario
+     */
+    public void createFormatters()
+    {
+        try
+        {
+            cpfMask = new MaskFormatter("###.###.###-##");
+            cpfMask.setValueContainsLiteralCharacters(false);
+            cpfMask.setValidCharacters("1234567890");
+            cpfMask.install(cpfField);
+            
+            phoneMask = new MaskFormatter("(##) #####-####");
+            phoneMask.setValidCharacters("1234567890");
+            phoneMask.install(telefoneField);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+    }    
     
     /**
      * Esvazia todos os campos de Input do cadastro
@@ -292,31 +326,39 @@ public class AlunoFormView extends JPanel
         add(editButton, "cell 5 5,growy");
     }
     
-    private boolean validateForm()
+    /**
+     * Validacao dos campos do formulario
+     */
+    private boolean validateForm() 
     {
         try
         {
             if(!cpfField.getText().equals("")) 
             {
-                if(!Valitations.validarCPF(cpfField.getText())) 
+                InputMaskHandler maskHandler = new InputMaskHandler(); 
+                String unmaskedCpf = maskHandler.removeMaskFromFormattedText(cpfMask, cpfField);
+                
+                if(!Valitations.validarCPF(unmaskedCpf)) 
                 {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         "O CPF " + cpfField.getText() + " é inválido."
                     );
-                    
+
                     return false;
                 }
             }
+
             if(!telefoneField.getText().equals("")) 
             {
-                if(!Valitations.validarTelefone(telefoneField.getText())) 
+                InputMaskHandler maskHandler = new InputMaskHandler(); 
+                String unmaskedPhone = maskHandler.removeMaskFromFormattedText(phoneMask, telefoneField);
+                
+                if(!Valitations.validarTelefone(unmaskedPhone)) 
                 {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         "O Telefone " + telefoneField.getText() + " é inválido."
                     );
-                    
+
                     return false;
                 }
             }
