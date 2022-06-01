@@ -52,6 +52,7 @@ public class AlunoFormView extends JPanel
     
     private MaskFormatter cpfMask = null;
     private MaskFormatter phoneMask = null;
+    private MaskFormatter matriculaMask = null;
     
     private JLabel prenomeLabel;
     private JLabel nomeLabel;
@@ -65,7 +66,7 @@ public class AlunoFormView extends JPanel
     private JTextField sobrenomeField;
     private JFormattedTextField cpfField;
     private JFormattedTextField telefoneField;
-    private JTextField matriculaField;
+    private JFormattedTextField matriculaField;
     
     private JButton saveButton;
     private JButton deleteButtton;
@@ -139,7 +140,7 @@ public class AlunoFormView extends JPanel
         matriculaLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         add(matriculaLabel, "cell 0 5,alignx right");
         /* matricula - field */
-        matriculaField = new JTextField();
+        matriculaField = new JFormattedTextField();
         add(matriculaField, "cell 1 5,growx");
         matriculaField.setColumns(10);
     }
@@ -160,6 +161,10 @@ public class AlunoFormView extends JPanel
             phoneMask = new MaskFormatter("(##) #####-####");
             phoneMask.setValidCharacters("1234567890");
             phoneMask.install(telefoneField);
+            
+            matriculaMask = new MaskFormatter("###-###-###");
+            matriculaMask.setValidCharacters("1234567890");
+            matriculaMask.install(matriculaField);
         }
         catch (ParseException e)
         {
@@ -197,6 +202,14 @@ public class AlunoFormView extends JPanel
         {
             public void actionPerformed(ActionEvent e) 
             {
+                InputMaskHandler cpfMaskHandler = new InputMaskHandler(); 
+                InputMaskHandler phoneMaskHandler = new InputMaskHandler(); 
+                InputMaskHandler matriculaMaskHandler = new InputMaskHandler(); 
+
+                String unmaskedCpf = cpfMaskHandler.removeMaskFromFormattedText(cpfMask, cpfField);
+                String unmaskedPhone = phoneMaskHandler.removeMaskFromFormattedText(phoneMask, telefoneField);
+                String unmaskedMatricula = matriculaMaskHandler.removeMaskFromFormattedText(matriculaMask, matriculaField);
+                
                 if(validateForm())
                 {
                     nomeField.setBackground(Color.WHITE);
@@ -207,9 +220,9 @@ public class AlunoFormView extends JPanel
                     aluno.getPessoa().setPrenome(prenomeField.getText());
                     aluno.getPessoa().setNome(nomeField.getText());
                     aluno.getPessoa().setSobrenome(sobrenomeField.getText());
-                    aluno.getPessoa().setCpf(cpfField.getText());
-                    aluno.getPessoa().setTelefone(telefoneField.getText());
-                    aluno.setMatriculaAluno(matriculaField.getText());
+                    aluno.getPessoa().setCpf(unmaskedCpf);
+                    aluno.getPessoa().setTelefone(unmaskedPhone);
+                    aluno.setMatriculaAluno(unmaskedMatricula);
                     
                     AlunoDao dao = new AlunoDao(DatabaseConnector.getInstance());
                     dao.insert(aluno);
@@ -339,11 +352,14 @@ public class AlunoFormView extends JPanel
     {
         try
         {
+            InputMaskHandler cpfMaskHandler = new InputMaskHandler(); 
+            String unmaskedCpf = cpfMaskHandler.removeMaskFromFormattedText(cpfMask, cpfField);
+            
+            InputMaskHandler phoneMaskHandler = new InputMaskHandler(); 
+            String unmaskedPhone = phoneMaskHandler.removeMaskFromFormattedText(phoneMask, telefoneField);
+            
             if(!cpfField.getText().equals("")) 
             {
-                InputMaskHandler maskHandler = new InputMaskHandler(); 
-                String unmaskedCpf = maskHandler.removeMaskFromFormattedText(cpfMask, cpfField);
-                
                 if(!Valitations.validarCPF(unmaskedCpf)) 
                 {
                     JOptionPane.showMessageDialog(null,
@@ -358,9 +374,6 @@ public class AlunoFormView extends JPanel
 
             if(!telefoneField.getText().equals("")) 
             {
-                InputMaskHandler maskHandler = new InputMaskHandler(); 
-                String unmaskedPhone = maskHandler.removeMaskFromFormattedText(phoneMask, telefoneField);
-                
                 if(!Valitations.validarTelefone(unmaskedPhone)) 
                 {
                     JOptionPane.showMessageDialog(null,
