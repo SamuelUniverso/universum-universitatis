@@ -4,9 +4,9 @@ public class DatabaseInitializerHelper
 {
     public static String getDataBaseCreationStatement()
     {
-        String dbCreation = 
+        String completeDbCreation = 
         """
-            BEGIN TRANSACTION;
+            BEGIN;
     
             CREATE TABLE IF NOT EXISTS "pessoas" (
                 "id"    INTEGER NOT NULL UNIQUE,
@@ -93,9 +93,8 @@ public class DatabaseInitializerHelper
             );
             
             COMMIT;
-            END TRANSACTION;
         """;
 
-        return dbCreation;
+        return completeDbCreation;
     }
 }

@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import dev.asor.univitatis.database.connector.interfaces.DatabaseConnectorInterace;
-import dev.asor.univitatis.messages.exceptions.connector.errors.DatabaseConnectorMessages;
 import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
 import dev.asor.univitatis.messages.exceptions.dao.errors.GenericErrors;
 import dev.asor.univitatis.utils.PropertiesLoader;
@@ -68,7 +68,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         }
         catch(SQLException e)
         {
-            e.printStackTrace();
+            Logger.getLogger(DatabaseConnector.class.getName());
             throw new GenericDaoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
         }
     }
@@ -111,8 +111,9 @@ public class DatabaseConnector implements DatabaseConnectorInterace
                 {
                     PropertiesLoader propertiesLoader = new PropertiesLoader();
                     Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
-                    
-                    this.connection = DriverManager
+
+                    this.connection 
+                        = DriverManager
                             .getConnection( properties.getProperty("db.driver") 
                                           + getClass().getResource(properties.getProperty("db.url")));
                 }

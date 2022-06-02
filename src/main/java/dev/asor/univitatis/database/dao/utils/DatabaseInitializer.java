@@ -2,9 +2,9 @@ package dev.asor.univitatis.database.dao.utils;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Logger;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
@@ -23,14 +23,17 @@ public class DatabaseInitializer
         {
             DatabaseConnector db = DatabaseConnector.getInstance();
             Connection conn = db.getConnection();
-            PreparedStatement stmt
-                = conn.prepareStatement(DatabaseInitializerHelper.getDataBaseCreationStatement());
+            Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate();
+            stmt.executeQuery(DatabaseInitializerHelper.getDataBaseCreationStatement());
+
+            stmt.close();
+            db.closeConnection();
         }
         catch (SQLException e)
         {
             Logger.getLogger(DatabaseInitializer.class.getName());
+            e.printStackTrace();
         }
     }
 
