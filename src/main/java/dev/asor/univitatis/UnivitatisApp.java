@@ -11,6 +11,7 @@ import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 
+import dev.asor.univitatis.database.dao.utils.DatabaseInitializer;
 import dev.asor.univitatis.utils.PictureHandler;
 import dev.asor.univitatis.utils.ScreenHandler;
 import dev.asor.univitatis.view.config.enums.GuiModeConfig;
@@ -42,6 +43,9 @@ public class UnivitatisApp
 	 */
 	private static void starProgram(boolean showSplash, boolean useLogin, GuiModeConfig guiMode)
 	{
+	    DatabaseInitializer db = new DatabaseInitializer();
+	    db.checkDatabase();
+	    
 	    ScreenHandler screen = new ScreenHandler();
 
 	    UnivitatisApp.guiMode = guiMode;
