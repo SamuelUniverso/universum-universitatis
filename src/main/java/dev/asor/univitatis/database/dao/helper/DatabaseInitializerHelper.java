@@ -6,8 +6,6 @@ public class DatabaseInitializerHelper
     {
         String completeDbCreation = 
         """
-            BEGIN;
-    
             CREATE TABLE IF NOT EXISTS "pessoas" (
                 "id"    INTEGER NOT NULL UNIQUE,
                 "prenome"   TEXT,
@@ -91,8 +89,6 @@ public class DatabaseInitializerHelper
                 FOREIGN KEY("fk_turma") REFERENCES "turmas"("id"),
                 FOREIGN KEY("fk_contrato") REFERENCES "contratos"("id")
             );
-            
-            COMMIT;
         """;
 
         return completeDbCreation;

@@ -24,31 +24,23 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     private Connection connection = null;
     private Boolean isAutoCommit  = false;
     
+    private Properties configurations;
+    
     private DatabaseConnector()
     {
-        PropertiesLoader propertiesLoader = new PropertiesLoader();
-        Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
         try
         {
-            Class.forName(properties.getProperty("db.class"));
-            
-            if(connection == null) {
-                tryConnection();
+            Class.forName(loadConfigurations().getProperty("db.class"));
+
+            if(!isConnection()) {
+                attemptDatabaseConnection();
             }
-            
-            connection.setAutoCommit(isAutoCommit);
+
+            getConnection().setAutoCommit(isAutoCommit);
         } 
-        catch (SQLException e)
+        catch (SQLException | ClassNotFoundException e)
         {
             e.printStackTrace();
-        }
-        catch(ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        finally /* msg connection successful */
-        {
-            //System.out.println(DatabaseConnectorMessages.SUCCESS_CONNECTION_DATABASE.getMessage());  
         }
     }
     
@@ -76,61 +68,104 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     @Override
     public Connection getConnection()
     {
-        if(this.connection == null)
+        if(!isConnection())
         {
-            tryConnection();
+            attemptDatabaseConnection();
         } 
-        else
-        {  
+
+        return getDatabaseDriver();
+    }
+ 
+    /**
+     * Faz tentativa de conexao com o banco de dados
+     */
+    public Connection attemptDatabaseConnection()
+    {
+        if(!isConnection())
+        {
             try
             {
-                if(this.connection.isClosed())
-                {
-                    tryConnection();
-                }
-            } 
-            catch (SQLException e)
+                setDatabaseDriver(DriverManager.getConnection(getDriverResourcePath()));
+            }
+            catch(SQLException e)
             {
                 e.printStackTrace();
             }
         }
         
+        return getDatabaseDriver();
+    }
+    
+    /**
+     * Traz o caminho de recurso do arquivo SQLite
+     */
+    public String getDriverResourcePath()
+    {
+        StringBuilder path = new StringBuilder();
+        path.append(loadConfigurations().getProperty("db.driver"));
+        path.append(getClass().getResource(configurations.getProperty("db.url")));
+
+        return path.toString();
+    }
+    
+    /**
+     * Retorna o driver conector da base de dados
+     */
+    public Connection getDatabaseDriver()
+    {
+        if(!isConnection()) {
+            attemptDatabaseConnection();
+        }
+
         return this.connection;
     }
- 
-    /**
-     * Realiza tentativa de conexao ao banco de dados
-     */
-    private Connection tryConnection()
+    private void setDatabaseDriver(Connection connection)
     {
-        try
-        {
-            if(this.connection == null || this.connection.isClosed())
-            {
-                try
-                {
-                    PropertiesLoader propertiesLoader = new PropertiesLoader();
-                    Properties properties = propertiesLoader.loadProperties("dbconfig.properties");
+        this.connection = connection;
+    }
+    
+    /**
+     * Verifica se conexao com o banco de dados esta ativa
+     */
+    public boolean isConnection()
+    {
+        try {
 
-                    this.connection 
-                        = DriverManager
-                            .getConnection( properties.getProperty("db.driver") 
-                                          + getClass().getResource(properties.getProperty("db.url")));
-                }
-                catch(SQLException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
+            return (this.connection == null || this.connection.isClosed()) ? false : true;
+
+        } 
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-       
-       return this.connection; 
-    }    
 
+        return false;
+    }
+    
+    /**
+     * Carrega configuracoes do ambiente
+     */
+    private Properties loadConfigurations()
+    {
+        if(this.configurations != null) {
+            return this.configurations;
+        }
+
+        try
+        {
+            PropertiesLoader propertiesLoader = new PropertiesLoader();
+            this.configurations = propertiesLoader.loadProperties("dbconfig.properties");
+
+            return this.configurations;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    
     /**
      * Traz instancia do conector do banco
      * @notice Singleton
@@ -145,5 +180,5 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         }
         
         return INSTANCE;
-    }
+    }    
 }

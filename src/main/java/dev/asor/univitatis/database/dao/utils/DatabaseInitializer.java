@@ -23,17 +23,22 @@ public class DatabaseInitializer
         {
             DatabaseConnector db = DatabaseConnector.getInstance();
             Connection conn = db.getConnection();
+
+            conn.setAutoCommit(false);
+            conn.beginRequest();
+
             Statement stmt = conn.createStatement();
+            stmt.execute(DatabaseInitializerHelper.getDataBaseCreationStatement());
 
-            stmt.executeQuery(DatabaseInitializerHelper.getDataBaseCreationStatement());
-
+            conn.commit();
             stmt.close();
+
             db.closeConnection();
         }
         catch (SQLException e)
         {
-            Logger.getLogger(DatabaseInitializer.class.getName());
             e.printStackTrace();
+            Logger.getLogger(DatabaseInitializer.class.getName());
         }
     }
 
