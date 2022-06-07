@@ -28,7 +28,7 @@ public class DatabaseInitializer
             conn.beginRequest();
 
             Statement stmt = conn.createStatement();
-            stmt.execute(DatabaseInitializerHelper.getDataBaseCreationStatement());
+            stmt.executeUpdate(DatabaseInitializerHelper.getDataBaseCreationStatement());
 
             conn.commit();
             stmt.close();

@@ -1,10 +1,14 @@
 package dev.asor.univitatis.database.connector;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Logger;
+
+import org.apache.commons.io.FileUtils;
 
 import dev.asor.univitatis.database.connector.interfaces.DatabaseConnectorInterace;
 import dev.asor.univitatis.messages.exceptions.dao.GenericDaoException;
@@ -60,6 +64,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         }
         catch(SQLException e)
         {
+            e.printStackTrace();
             Logger.getLogger(DatabaseConnector.class.getName());
             throw new GenericDaoException(GenericErrors.ERROR_CLOSE_CONNECTION.getMessage());
         }
@@ -78,6 +83,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
  
     /**
      * Faz tentativa de conexao com o banco de dados
+     * @return Connection
      */
     public Connection attemptDatabaseConnection()
     {
@@ -97,11 +103,46 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     }
     
     /**
+     * Cria novo arquivo SQLite
+     * @return void
+     */
+    public void createEmptyDatabaseFile()
+    {
+        try
+        {
+            DatabaseConnector connector = DatabaseConnector.getInstance();
+            String path = connector.getDriverResourceFullPath();
+
+            FileUtils.touch(new File(path));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Mostra o diretorio completo ate o arquivo da base SQLite
+     * @return String
+     */
+    public String getDriverResourceFullPath()
+    {
+        StringBuilder path = new StringBuilder();
+        
+        path.append(getClass().getResource("/database/").getPath());
+        path.append(configurations.getProperty("db.name"));
+        
+        return path.toString();
+    }
+    
+    /**
      * Traz o caminho de recurso do arquivo SQLite
+     * @return String
      */
     public String getDriverResourcePath()
     {
         StringBuilder path = new StringBuilder();
+
         path.append(loadConfigurations().getProperty("db.driver"));
         path.append(getClass().getResource(configurations.getProperty("db.url")));
 
@@ -110,6 +151,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     
     /**
      * Retorna o driver conector da base de dados
+     * @return Connection
      */
     public Connection getDatabaseDriver()
     {
@@ -119,6 +161,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
 
         return this.connection;
     }
+    
     private void setDatabaseDriver(Connection connection)
     {
         this.connection = connection;
@@ -126,13 +169,13 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     
     /**
      * Verifica se conexao com o banco de dados esta ativa
+     * @return boolean
      */
     public boolean isConnection()
     {
-        try {
-
+        try 
+        {
             return (this.connection == null || this.connection.isClosed()) ? false : true;
-
         } 
         catch (SQLException e)
         {
@@ -144,6 +187,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
     
     /**
      * Carrega configuracoes do ambiente
+     * @return Properties
      */
     private Properties loadConfigurations()
     {
