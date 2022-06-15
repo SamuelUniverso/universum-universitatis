@@ -26,11 +26,18 @@ public class DatabaseConnector implements DatabaseConnectorInterace
 {
     private static DatabaseConnector INSTANCE = null;
     private Connection connection = null;
-    private Boolean isAutoCommit  = false;
     
-    private Properties configurations;
+    private static Properties configurations;
     
-    private DatabaseConnector()
+    private DatabaseConnector() {
+        openConnection(true);
+    }
+    
+    private DatabaseConnector(boolean isAutoCommit) {
+        openConnection(isAutoCommit);
+    }
+
+    private void openConnection(boolean isAutoCommit)
     {
         try
         {
@@ -91,7 +98,7 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         {
             try
             {
-                setDatabaseDriver(DriverManager.getConnection(getDriverResourcePath()));
+                setDatabaseDriver(DriverManager.getConnection(getDriverResourceFilePath()));
             }
             catch(SQLException e)
             {
@@ -125,11 +132,11 @@ public class DatabaseConnector implements DatabaseConnectorInterace
      * Mostra o diretorio completo ate o arquivo da base SQLite
      * @return String
      */
-    public String getDriverResourceFullPath()
+    public static String getDriverResourceFullPath()
     {
         StringBuilder path = new StringBuilder();
         
-        path.append(getClass().getResource("/database/").getPath());
+        path.append(ClassLoader.class.getResource("/database/").getPath());
         path.append(configurations.getProperty("db.name"));
         
         return path.toString();
@@ -139,12 +146,22 @@ public class DatabaseConnector implements DatabaseConnectorInterace
      * Traz o caminho de recurso do arquivo SQLite
      * @return String
      */
-    public String getDriverResourcePath()
+    public static String getDriverResourceFilePath()
     {
         StringBuilder path = new StringBuilder();
 
         path.append(loadConfigurations().getProperty("db.driver"));
-        path.append(getClass().getResource(configurations.getProperty("db.url")));
+        path.append(ClassLoader.class.getResource(configurations.getProperty("db.url")));
+
+        return path.toString();
+    }
+    
+    public static String getDriverResourceFolder()
+    {
+        StringBuilder path = new StringBuilder();
+
+        path.append(loadConfigurations().getProperty("db.driver"));
+        path.append(ClassLoader.class.getResource(configurations.getProperty("db.url")));
 
         return path.toString();
     }
@@ -162,8 +179,12 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         return this.connection;
     }
     
-    private void setDatabaseDriver(Connection connection)
+    private void setDatabaseDriver(Connection connection) throws SQLException
     {
+        if(connection == null) {
+            throw new SQLException("Conexão SQL inválida");
+        }
+        
         this.connection = connection;
     }
     
@@ -189,18 +210,18 @@ public class DatabaseConnector implements DatabaseConnectorInterace
      * Carrega configuracoes do ambiente
      * @return Properties
      */
-    private Properties loadConfigurations()
+    private static Properties loadConfigurations()
     {
-        if(this.configurations != null) {
-            return this.configurations;
+        if(configurations != null) {
+            return configurations;
         }
 
         try
         {
             PropertiesLoader propertiesLoader = new PropertiesLoader();
-            this.configurations = propertiesLoader.loadProperties("dbconfig.properties");
+            configurations = propertiesLoader.loadProperties("dbconfig.properties");
 
-            return this.configurations;
+            return configurations;
         }
         catch(Exception e)
         {
@@ -225,4 +246,24 @@ public class DatabaseConnector implements DatabaseConnectorInterace
         
         return INSTANCE;
     }    
+    
+    public static DatabaseConnector getAutoCommitInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new DatabaseConnector(true);
+        }
+        
+        return INSTANCE;
+    }
+
+    public static DatabaseConnector getManualInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new DatabaseConnector(false);
+        }
+        
+        return INSTANCE;
+    } 
 }

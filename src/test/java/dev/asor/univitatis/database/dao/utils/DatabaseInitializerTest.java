@@ -3,7 +3,6 @@ package dev.asor.univitatis.database.dao.utils;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 
@@ -13,22 +12,28 @@ public class DatabaseInitializerTest
     @Test
     public void instantiateEntities()
     {
-        DatabaseInitializer db = new DatabaseInitializer();
+        createEmptyDatabaseFile();
+
+        //DatabaseInitializer db = new DatabaseInitializer();
+        //db.instantiateEntities();
         //if(!checkDatabase()) 
         //{
-            createEmptyDatabaseFile();
-            db.instantiateEntities();
-       //}
+        //   db.instantiateEntities();
+        //}
     }
 
     private void createEmptyDatabaseFile()
     {
         try
         {
-            DatabaseConnector connector = DatabaseConnector.getInstance();
-            String path = connector.getDriverResourceFullPath();
+            String path = DatabaseConnector.getDriverResourceFolder();
             
-           FileUtils.touch(new File(path));
+            File file = new File(path);
+            
+            file.canWrite();
+            file.canRead();
+            
+            file.createNewFile();
         }
         catch (IOException e)
         {

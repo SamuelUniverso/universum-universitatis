@@ -21,17 +21,18 @@ public class DatabaseInitializer
     {
         try
         {
-            DatabaseConnector db = DatabaseConnector.getInstance();
+            DatabaseConnector db = DatabaseConnector.getAutoCommitInstance();
             Connection conn = db.getConnection();
 
-            conn.setAutoCommit(false);
+            //conn.setAutoCommit(true);
             conn.beginRequest();
 
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(DatabaseInitializerHelper.getDataBaseCreationStatement());
 
-            conn.commit();
-            stmt.close();
+            conn.endRequest();
+//            conn.commit();
+//            stmt.close();
 
             db.closeConnection();
         }
