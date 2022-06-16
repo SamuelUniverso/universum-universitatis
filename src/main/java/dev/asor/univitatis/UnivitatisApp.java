@@ -44,9 +44,9 @@ public class UnivitatisApp
 	private static void starProgram(boolean showSplash, boolean useLogin, GuiModeConfig guiMode)
 	{
 	    DatabaseInitializer db = new DatabaseInitializer();
-	    if(!db.checkDatabase()) {
+	    //if(!db.checkDatabase()) {
 	        db.instantiateEntities();
-	    }
+	    //}
 	    
 	    ScreenHandler screen = new ScreenHandler();
 
