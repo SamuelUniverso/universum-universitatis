@@ -89,6 +89,17 @@ public class DatabaseInitializerHelper
                 FOREIGN KEY("fk_turma") REFERENCES "turmas"("id"),
                 FOREIGN KEY("fk_contrato") REFERENCES "contratos"("id")
             );
+            
+            INSERT INTO ldap (id, usuario, senha, fk_pessoa) 
+                VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', null); -- md5 hash for 'admin'
+
+            INSERT INTO "pessoas"(id, prenome, nome, sobrenome, telefone, cpf) 
+                VALUES (1, 'Nobilis', 'Discipullum', 'Honorarium', '5551987654321', '22177716683');
+            INSERT INTO "alunos"(fk_pessoa, codigo_matricula) VALUES (1, '221-777-166');
+
+            INSERT INTO "pessoas"(id, prenome, nome, sobrenome, telefone, cpf) 
+                VALUES (2, 'Magnus', 'Doctorem', 'Lectionarum', '5551123456789', '77722116683');
+            INSERT INTO "professores"(fk_pessoa, codigo_matricula) VALUES (2, '166-777-221');
         """;
 
         return completeDbCreation;

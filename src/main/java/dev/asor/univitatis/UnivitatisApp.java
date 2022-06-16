@@ -35,7 +35,7 @@ public class UnivitatisApp
     
 	public static void main(String[] args) 
 	{
-	    starProgram(true, true, GuiModeConfig.DARK_MODE);
+	    starProgram(true, true, GuiModeConfig.LIGHT_MODE);
 	}
 
 	/**
@@ -44,7 +44,9 @@ public class UnivitatisApp
 	private static void starProgram(boolean showSplash, boolean useLogin, GuiModeConfig guiMode)
 	{
 	    DatabaseInitializer db = new DatabaseInitializer();
-	    db.checkDatabase();
+	    if(!db.checkDatabase()) {
+	        db.instantiateEntities();
+	    }
 	    
 	    ScreenHandler screen = new ScreenHandler();
 

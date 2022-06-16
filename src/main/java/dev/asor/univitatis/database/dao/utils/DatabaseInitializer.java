@@ -1,11 +1,15 @@
 package dev.asor.univitatis.database.dao.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
+
+import org.apache.commons.io.FileUtils;
 
 import dev.asor.univitatis.database.connector.DatabaseConnector;
 import dev.asor.univitatis.database.dao.enums.EntityEnum;
@@ -19,6 +23,8 @@ public class DatabaseInitializer
 {
     public void instantiateEntities()
     {
+        createEmptyDatabaseFile();
+
         try
         {
             DatabaseConnector db = DatabaseConnector.getInstance();
@@ -78,5 +84,20 @@ public class DatabaseInitializer
         }
         
         return false;
+    }
+    
+    private void createEmptyDatabaseFile()
+    {
+        try
+        {
+            DatabaseConnector connector = DatabaseConnector.getInstance();
+            String path = connector.getDriverResourceFullPath();
+            
+           FileUtils.touch(new File(path));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
